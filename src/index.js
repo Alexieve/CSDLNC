@@ -4,8 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
 const app = express()   
-const {conn, sql} = require('./middleware/database')
 // Require Routes
+
 const authRoutes = require('./routes/authRoutes')
 const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 
