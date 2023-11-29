@@ -12,6 +12,8 @@ router.get('/register', preventLoginAgain, authController.register_get)
 router.post('/register', authController.register_post)
 router.get('/logout', requireAuth, authController.logout_get)
 router.get('/', requireAuth, authController.home_get)
+router.get('/blank', authController.blank_get)
+router.get('/tables', authController.tables_get)
 
 
 module.exports = router;

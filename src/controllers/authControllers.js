@@ -14,7 +14,7 @@ module.exports.login_get = (req, res) => {
 }
 
 module.exports.login_post = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const SDT = req.body.SDT
     const MATKHAU = req.body.MATKHAU
     const LOAITK = parseInt(req.body.LOAITK) // Convert LOAITK to an integer
@@ -47,7 +47,7 @@ module.exports.register_get = (req, res) => {
 }
 
 module.exports.register_post = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const HOTEN = req.body.HOTEN
     const SDT = req.body.SDT
     const EMAIL = req.body.EMAIL
@@ -78,4 +78,12 @@ module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});
     res.locals.user = null;
     res.redirect('/login')
+}
+
+module.exports.blank_get = (req, res) => {
+    res.render('blank');
+}
+
+module.exports.tables_get = (req, res) => {
+    res.render('tables');
 }
