@@ -1,30 +1,60 @@
-const { BlobServiceClient, StorageSharedKeyCredential } = require('@azure/storage-blob');
+const sql = require('mssql')
+const config = {
+  user: 'sa',
+  password: '123',
+  server: 'ATLAZ/SQLEXPRESS',
+  database: 'CSDLNC',
+  options: {
+    encrypt: true, // Nếu sử dụng kết nối bảo mật, hãy đặt giá trị này thành true
+    trustServerCertificate: true,
+  },
+};
 
-
-
-// Storage connection
-const storageAccount = 'happinovel2021';
-const accountKey = 'HgAgETD+yESSmViHECBYSTrT47erBuEOLvpIR9VvqBLGgLM3kwS5s4LkEFA4Sdoo3coeFLEHUzP4+AStK3hMrw==';
-const sharedKeyCredential = new StorageSharedKeyCredential(storageAccount, accountKey);
-const blobServiceClient = new BlobServiceClient(
-  `https://${storageAccount}.blob.core.windows.net`, sharedKeyCredential
-);
-
-// Container
-const avatarContainer = blobServiceClient.getContainerClient('avatar');
-const bookContainer = blobServiceClient.getContainerClient('book');
-const bookcoverContainer = blobServiceClient.getContainerClient('bookcover');
-const commentContainer = blobServiceClient.getContainerClient('comment');
-const notifyContainer = blobServiceClient.getContainerClient('notify');
-const profilecoverContainer = blobServiceClient.getContainerClient('profilecover');
-const ratingContainer = blobServiceClient.getContainerClient('rating');
+const conn = new sql.ConnectionPool(config).connect().then(pool => {
+  return pool;
+}).catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
 module.exports = {
-    avatarContainer, 
-    bookContainer, 
-    bookcoverContainer, 
-    commentContainer, 
-    notifyContainer, 
-    profilecoverContainer, 
-    ratingContainer,
+  conn: conn,
+  sql: sql,
 }
+
+// async function queryDatabase() {
+//     try {
+//         // Tạo đối tượng kết nối và kết nối đến cơ sở dữ liệu
+//         const pool = await sql.connect(config);
+//         const script = `SELECT * FROM DIEUTRI`
+//         const result = await pool.request().query(script);
+
+//         const data = result.recordset;
+//         await sql.close();
+//         return data;
+//     } catch (err) {
+//         console.error('Lỗi truy vấn:', err);
+//         throw err; 
+//     }
+// }
+
+// async function queryDatabase() {
+//     try {
+//         // Tạo đối tượng kết nối và kết nối đến cơ sở dữ liệu
+//         // const pool = await sql.connect(config);
+//         const pool = await conn;
+//         const script = `SELECT * FROM DIEUTRI WHERE MADIEUTRI = 1`
+//         const result = await pool.request().query(script);
+
+//         const data = result.recordset;
+//         // await sql.close();
+//         return data;
+//     } catch (err) {
+//         console.error('Lỗi truy vấn:', err);
+//         throw err; 
+//     }
+// }
+
+
+// queryDatabase().then((data) => {
+//     console.log('Data:', data);
+// }).catch((err) => {
+//     console.error('Error:', err);
+// });

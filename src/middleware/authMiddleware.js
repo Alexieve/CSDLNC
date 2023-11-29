@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const Account = require('../models/Account');
-const {avatarContainer, profilecoverContainer} = require("./database")
+const Account = require('../models/KhachHang');
+const {conn, sql} = require('../middleware/database')
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
@@ -24,7 +24,7 @@ const requireAuth = (req, res, next) => {
 
 // prevent login again
 const preventLoginAgain = (req, res, next) => {
-    const token = req.cookies.jwt;
+    const token = req.cookies.jwt; 
 
     if (token) {
         jwt.verify(token, 'information of user', (err, decodedToken) => {
@@ -43,7 +43,6 @@ const preventLoginAgain = (req, res, next) => {
     }
 }
 
-// check current user
 const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
 
@@ -55,13 +54,7 @@ const checkUser = (req, res, next) => {
                 next();
             }
             else {
-
-                // console.log('Current User: ' + decodedToken.id);
-                let user = await Account.findById(decodedToken.id);
-
-                user.avatarURL = avatarContainer.getBlobClient(user.avatarURL).url
-                user.coverURL = profilecoverContainer.getBlobClient(user.coverURL).url
-                res.locals.user = user;
+                res.locals.user = decodedToken.user;
                 next();
             }
         })
@@ -81,10 +74,8 @@ const requirePermission = (requiredPermission) => {
                     console.log(err.message);
                     res.redirect('/login');
                 } else {
-                    const user = await Account.findById(decodedToken.id);
-                    if (user && user.permission >= requiredPermission) {
-                        user.avatarURL = avatarContainer.getBlobClient(user.avatarURL).url
-                        user.coverURL = profilecoverContainer.getBlobClient(user.coverURL).url
+                    const user = decodedToken.user;
+                    if (user && user.LOAINV >= requiredPermission) {
                         res.locals.user = user;
                         next();
                     } else {
