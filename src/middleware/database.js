@@ -2,10 +2,11 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: '123',
-  server: 'ATLAZ/SQLEXPRESS',
+  server: 'ATLAZ',
   database: 'CSDLNC',
   options: {
-    encrypt: true, // Nếu sử dụng kết nối bảo mật, hãy đặt giá trị này thành true
+    instanceName: 'SQLEXPRESS',
+    encrypt: true, 
     trustServerCertificate: true,
   },
 };

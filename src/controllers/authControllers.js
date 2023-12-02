@@ -1,5 +1,4 @@
 const {conn, sql} = require('../middleware/database')
-const KhachHang = require('../models/KhachHang')
 const jwt = require('jsonwebtoken')
 
 const maxAge = 3 * 24 * 60 * 60;

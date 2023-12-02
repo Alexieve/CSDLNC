@@ -2,9 +2,30 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
-    <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
-    </button> -->
+    </button>
+
+    <!-- Button -->
+    <a href="/createHSBN" class="btn btn-primary">
+        + Tạo hồ sơ bệnh nhân
+    </a>
+
+    <a href="/createHSBN" class="btn btn-primary ml-2">
+        + Đặt lịch hẹn
+    </a>
+
+    <% if (user.LOAITK > 1) { %>
+    <a href="/createHSBN" class="btn btn-primary ml-2">
+        + Lập kế hoạch điều trị
+    </a>
+    <% } %>
+
+    <% if (user.LOAITK > 2) { %>
+    <a href="/createHSBN" class="btn btn-primary ml-2">
+        + Lập hoá đơn thanh toán
+    </a>
+    <% } %>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -23,7 +44,7 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Thông tin cá nhân
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/hsbn">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Hồ sơ bênh nhân
                 </a>

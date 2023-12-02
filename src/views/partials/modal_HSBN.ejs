@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="hsbnModal" tabindex="-1" role="dialog" aria-labelledby="hsbnModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hsbnModalLabel">Thông tin bệnh nhân</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="modalHOTENBN">Họ Tên Bệnh Nhân:</label>
+                            <input type="text" class="form-control" id="modalHOTENBN">
+                        </div>
+                        <div class="form-group">
+                            <label for="modalNGAYSINH">Ngày Sinh:</label>
+                            <input type="date" class="form-control" id="modalNGAYSINH">
+                        </div>
+                        <div class="form-group">
+                            <label for="modalGIOITINH">Giới Tính:</label>
+                            <select class="form-control" id="modalGIOITINH">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalSDTBN">Số Điện Thoại:</label>
+                            <input type="tel" class="form-control" id="modalSDTBN">
+                        </div>
+                        <div class="form-group">
+                            <label for="modalDIACHIBN">Địa chỉ:</label>
+                            <input type="text" class="form-control" id="modalDIACHIBN">
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTTSUCKHOE">Tình Trạng Sức Khoẻ:</label>
+                            <textarea class="form-control" id="modalTTSUCKHOE" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTTDIUNG">Tình Trạng Dị Ứng:</label>
+                            <textarea class="form-control" id="modalTTDIUNG" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
