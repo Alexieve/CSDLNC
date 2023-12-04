@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Đặt lịch hẹn</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="./css/form_LH.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/navbar") -%>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Đặt Lịch Hẹn</h1>
+                    <div class="container mt-5">
+                      <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-md-6">
+                          <form id="regForm" class="box8">
+                            <h3 class="text-center">Thông Tin Lịch Hẹn</h1>
+                            <div class="tab">
+                              <div class="row">
+                                <div class="col-sm-12 form-group">
+                                  <label for="MAHSBN">Chọn Hồ Sơ Khám</label>
+                                  <input list="listHSBN" class="form-control" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required oninput="filterListMAHSBN()" autocomplete="off">
+                                  <datalist id="listHSBN">
+                                    <div id="listHSBNjson" data-list="<%=listHSBN%>"></div>
+                                  </datalist>
+                                  
+                                  <input type="hidden" name="HOTENBN" id="HOTENBN">
+                                  <input type="hidden" name="SDTBN" id="SDTBN">
+                                </div>
+  
+                                <div class="col-sm-12 form-group">
+                                  <label for="MACN">Chọn Chi Nhánh Khám</label>
+                                  <input list="listCN" class="form-control" name="MACN" id="MACN" placeholder="Chọn chi nhánh khám" required autocomplete="off">
+                                  <datalist id="listCN">
+                                    <% for( let i = 0; i < listMACN.length; i++ ) { %>
+                                      <option value="<%=listMACN[i].MACN%>">
+                                        [<%=listMACN[i].MACN%>] - <%=listMACN[i].TENCN%> - <%=listMACN[i].DIACHICN%> - <%=listMACN[i].SDTCN%>
+                                      </option>
+                                    <% } %>
+                                  </datalist>
+                                  
+
+                                </div>
+                              </div>                             
+                            </div>
+
+                            <div class="tab">
+                              <div class="row">
+                                <div class="col-sm-6 form-group">
+                                  <label for="NGAYHEN">Ngày Hẹn</label>
+                                  <input type="date" name="NGAYHEN" class="form-control" id="NGAYHEN" placeholder="" onkeydown="return false" required>
+                                </div>
+                        
+                                <div class="col-sm-6 form-group">
+                                  <label for="GIOHEN">Giờ Hẹn</label>
+                                  <input type="time" list="listGIOHEN" name="GIOHEN" class="form-control" id="GIOHEN" placeholder=""  onkeydown="return false" required>
+                                  <datalist id="listGIOHEN">
+                                    <% for( let index = 8; index < 20; index++ ) { %>
+                                      <% if (index < 10) {%>
+                                        <% let chooseTime = "0" + index + ":00" %>
+                                        <option value="<%=chooseTime%>:00"></option>
+                        
+                                      <% } else {%>
+                                      <option value="<%=index%>:00"></option>
+                                      <% } %>
+                                    <% } %>
+                                  </datalist>
+                                </div>
+                        
+                                <div class="col-sm-12 form-group">
+                                  <label for="MANS">Nha Sĩ</label>
+                                  <input list="listMANS" class="form-control" name="MANS" id="MANS" placeholder="Chọn nha sĩ (không bắt buộc)" oninput="filterListMANS()" autocomplete="off">
+                                  <datalist id="listMANS">
+                                    <div id="listMANSjson" data-list="<%=listMANS%>"></div>
+                                  </datalist>
+
+                                  <input type="hidden" name="HOTENNS" id="HOTENNS">
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Create a tab to show all information again -->
+                            <div class="tab">
+                              <div class="row">
+                                <div class="col-sm-12 form-group">
+                                  <p>Hồ sơ khám: <b><span id="confirmMAHSBN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>Họ tên bệnh nhân: <b><span id="confirmHOTENBN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>SĐT bệnh nhân: <b><span id="confirmSDTBN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>Chi nhánh khám: <b><span id="confirmTENCN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>SĐT chi nhánh: <b><span id="confirmSDTCN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>Địa chỉ chi nhánh: <b><span id="confirmDIACHICN"></span></b></p>
+                                </div>
+                                
+                                <div class="col-sm-12 form-group">
+                                  <p>Mã nha sĩ: <b><span id="confirmMANS"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <p>Họ tên nha sĩ: <b><span id="confirmHOTENNS"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-6 form-group">
+                                  <p>Ngày hẹn: <b><span id="confirmNGAYHEN"></span></b></p>
+                                </div>
+
+                                <div class="col-sm-6 form-group">
+                                  <p>Giờ hẹn: <b><span id="confirmGIOHEN"></span></b></p>
+                                </div>
+
+                              </div>
+                            </div>
+                                                            
+                            <div class="text-center" id="all-steps">
+                              <span class="step"></span>
+                              <span class="step"></span>
+                              <span class="step"></span>
+                            </div>
+                            <div class="float-right" id="nextprevious">
+                                <button class="btn btn-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Quay lại</button>
+                                <button class="ml-2 btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Tiếp theo</button> 
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer") -%>
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scrollToTopBtn") -%>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="./vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./js/sb-admin-2.min.js"></script>
+
+    <script src="./js/createLH.js"></script>
+</body>
+
+</html>

@@ -9,43 +9,46 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="/hsbn" method="POST" id="modal_HSBN">
+
+                        <input type="hidden" id="modalMAHSBN" name="MAHSBN" value="">
+
                         <div class="form-group">
                             <label for="modalHOTENBN">Họ Tên Bệnh Nhân:</label>
-                            <input type="text" class="form-control" id="modalHOTENBN">
+                            <input type="text" class="form-control" id="modalHOTENBN" name="HOTENBN">
                         </div>
                         <div class="form-group">
                             <label for="modalNGAYSINH">Ngày Sinh:</label>
-                            <input type="date" class="form-control" id="modalNGAYSINH">
+                            <input type="date" class="form-control" id="modalNGAYSINH" name="NGAYSINH">
                         </div>
                         <div class="form-group">
                             <label for="modalGIOITINH">Giới Tính:</label>
-                            <select class="form-control" id="modalGIOITINH">
+                            <select class="form-control" id="modalGIOITINH" name="GIOITINH">
                                 <option value="Nam">Nam</option>
                                 <option value="Nữ">Nữ</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="modalSDTBN">Số Điện Thoại:</label>
-                            <input type="tel" class="form-control" id="modalSDTBN">
+                            <input type="tel" class="form-control" id="modalSDTBN" name="SDTBN">
                         </div>
                         <div class="form-group">
                             <label for="modalDIACHIBN">Địa chỉ:</label>
-                            <input type="text" class="form-control" id="modalDIACHIBN">
+                            <input type="text" class="form-control" id="modalDIACHIBN" name="DIACHIBN">
                         </div>
                         <div class="form-group">
                             <label for="modalTTSUCKHOE">Tình Trạng Sức Khoẻ:</label>
-                            <textarea class="form-control" id="modalTTSUCKHOE" rows="3"></textarea>
+                            <textarea class="form-control" id="modalTTSUCKHOE" rows="3" name="TTSUCKHOE"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="modalTTDIUNG">Tình Trạng Dị Ứng:</label>
-                            <textarea class="form-control" id="modalTTDIUNG" rows="3"></textarea>
+                            <textarea class="form-control" id="modalTTDIUNG" rows="3" name="TTDIUNG"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary">Lưu</button>
                 </div>
             </div>
         </div>

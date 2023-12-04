@@ -1,0 +1,51 @@
+label {
+    font-weight: 600;
+    color: #000000;
+}
+.box8{
+  box-shadow: 0px 0px 5px 1px #999;
+  border-radius: 5px;
+  padding: 20px;
+  background: #ffffff;
+}
+.mx-t3{
+  margin-top: -3rem;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 0px auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  border-radius: 10px
+}
+
+
+input.invalid {
+  background-color: #ffdddd
+}
+
+.tab {
+  display: none
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5
+}
+
+.step.active {
+  opacity: 1
+}
+
+.step.finish {
+  background-color: #4CAF50
+}

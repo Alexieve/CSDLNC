@@ -1,6 +1,6 @@
 // Display table when fully loaded
 window.addEventListener('load', function () {
-    document.querySelector('.card-body').removeAttribute('hidden');
+    document.getElementById('dataTable').removeAttribute('hidden');
 });
 
 // Display modal
@@ -16,12 +16,13 @@ $(document).ready(function () {
         });
         hsbn.push($(this).data('ttsuckhoe'));
         hsbn.push($(this).data('ttdiung'));
+        console.log(hsbn);
 
         // Display the clicked row's data in a modal
+        $('#modalMAHSBN').val(hsbn[0]);
         $('#modalHOTENBN').val(hsbn[1]);
         var ngaySinh = hsbn[2];
         var ngaySinhParts = ngaySinh.split('/');
-        console.log(ngaySinhParts);
         var ngaySinhDate = new Date(ngaySinhParts[2], ngaySinhParts[1] - 1, ngaySinhParts[0]);
         ngaySinhDate.setDate(ngaySinhDate.getDate() + 1);
         $('#modalNGAYSINH').val(ngaySinhDate.toISOString().split('T')[0]);
