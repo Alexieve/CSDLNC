@@ -131,15 +131,11 @@ module.exports.createLH_get = async (req, res) => {
 
     const groupedData = listMANS.reduce((accumulator, currentValue) => {
         const id = currentValue.MACN;
-      
-        // Check if there is an array for the current id in the accumulator
         const existingGroup = accumulator.find(group => group[0].MACN === id);
       
         if (existingGroup) {
-          // If the group already exists, push the current object to that group
           existingGroup.push(currentValue);
         } else {
-          // If not, create a new group with the current object
           accumulator.push([currentValue]);
         }
       
@@ -152,35 +148,36 @@ module.exports.createLH_get = async (req, res) => {
 module.exports.createLH_post = async (req, res) => {
     console.log(req.body);
     let MANS = parseInt(req.body.MANS)
-    const MAHSBN = parseInt(req.body.MAHSBN)
-    const NGAYHEN = req.body.NGAYHEN
-    const GIOHEN = req.body.GIOHEN
-    
-    if (isNaN(MAHSBN)) {
-        res.status(400).json({error: 'Vui lòng chọn hồ sơ bệnh nhân phù hợp!'});
-        return;
-    }
-    else if (isNaN(MANS)) {
+    let HOTENNS = null
+    if (isNaN(MANS)) {
         if (req.body.MANS != '') {
             res.status(400).json({error: 'Vui lòng chọn nha sĩ phù hợp!'});
             return;
         }
         else MANS = null
     }
+    else HOTENNS = req.body.HOTENNS
 
-    console.log(MANS, MAHSBN, NGAYHEN, GIOHEN);
-
+    const MACN = parseInt(req.body.MACN)
+    const MAHSBN = parseInt(req.body.MAHSBN)
+    const HOTENBN = req.body.HOTENBN
+    const SDTBN = req.body.SDTBN
+    const NGAYHEN = req.body.NGAYHEN
+    const GIOHEN = req.body.GIOHEN +":00"
+    console.log(MACN, MANS, HOTENNS, MAHSBN, HOTENBN, SDTBN, NGAYHEN, GIOHEN)
+    
     try {
-        // const pool = await conn;
-        // await pool.request()
-        // .input('MAHSBN', sql.Int, MAHSBN)
-        // .input('MACN', sql.Int, MACN)
-        // .input('MANS', sql.Int, MANS)
-        // .input('NGAYKHAM', sql.VarChar, NGAYKHAM)
-        // .input('TINHTRANG', sql.NVarChar, TINHTRANG)
-        // .input('CHANDOAN', sql.NVarChar, CHANDOAN)
-        // .input('GHICHU', sql.NVarChar, GHICHU)
-        // .execute('SP_CREATE_LH');
+        const pool = await conn;
+        await pool.request()
+        .input('MACN', sql.Int, MACN)
+        .input('MANS', sql.Int, MANS)
+        .input('MAHSBN', sql.Int, MAHSBN)
+        .input('HOTENBN', sql.NVarChar, HOTENBN)
+        .input('SDTBN', sql.NVarChar, SDTBN)
+        .input('HOTENNS', sql.NVarChar, HOTENNS)
+        .input('NGAYHEN', sql.Date, NGAYHEN)
+        .input('GIOHENSTR', sql.VarChar, GIOHEN)
+        .execute('SP_BOOK_APPOINMENT');
         res.status(200).json({message: 'Success'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);

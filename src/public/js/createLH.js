@@ -47,7 +47,19 @@ function validateForm() {
             selectedHSBN = listHSBN.find(hsbn => hsbn.MAHSBN === indexTmp)
             if (selectedHSBN == undefined) {
             // if (hsbn = listHSBN.find(hsbn => hsbn.MAHSBN === indexTmp) == undefined) {
-                alert("Vui lòng chọn hồ sơ bệnh nhân phù hợp!")
+                $.toast({
+                    text: "Vui lòng chọn hồ sơ bệnh nhân phù hợp!", // Text that is to be shown in the toast
+                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
+                    icon: 'error', // Type of toast icon
+                    showHideTransition: 'slide', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left',  // Text alignment i.e. left, right or center
+                    loader: true,  // Whether to show loader or not. True by default
+                    loaderBg: '#9EC600',  // Background color of the toast loader
+                });
                 return false;
             }
         }
@@ -56,7 +68,19 @@ function validateForm() {
             // selectedCHINHANH = listMACN.find(macn => macn.MACN === indexTmp)
             // if (selectedCHINHANH == undefined) {
             if (listMANS[indexTmp - 1] == undefined) {
-                alert("Vui lòng chọn chi nhánh phù hợp!")
+                $.toast({
+                    text: "Vui lòng chọn chi nhánh phù hợp!", // Text that is to be shown in the toast
+                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
+                    icon: 'error', // Type of toast icon
+                    showHideTransition: 'slide', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left',  // Text alignment i.e. left, right or center
+                    loader: true,  // Whether to show loader or not. True by default
+                    loaderBg: '#9EC600',  // Background color of the toast loader
+                });
                 return false;
             }
             else {
@@ -75,7 +99,19 @@ function validateForm() {
             let macn = document.getElementById('MACN').value
             selectedNHASI = listMANS[macn - 1].find(mans => mans.MANS === indexTmp)
             if (selectedNHASI == undefined) {
-                alert("Vui lòng chọn nha sĩ phù hợp!")
+                $.toast({
+                    text: "Vui lòng chọn nha sĩ phù hợp!", // Text that is to be shown in the toast
+                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
+                    icon: 'error', // Type of toast icon
+                    showHideTransition: 'slide', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left',  // Text alignment i.e. left, right or center
+                    loader: true,  // Whether to show loader or not. True by default
+                    loaderBg: '#9EC600',  // Background color of the toast loader
+                });
                 return false;
             }
         }
@@ -100,7 +136,6 @@ var listHSBN = JSON.parse(document.getElementById('listHSBNjson').dataset.list)
 var selectedHSBN = null;
 function filterListMAHSBN() {
     var listHSBNoption = listHSBN.map(hsbn => `${hsbn.MAHSBN} - ${hsbn.HOTENBN} - ${new Date(hsbn.NGAYSINH).toLocaleDateString('vi-VN')} - ${hsbn.GIOITINH} - ${hsbn.SDTBN}`);
-    // console.log(listHSBN)
     const input = document.getElementById('MAHSBN');
     const datalist = document.getElementById('listHSBN');
     // Clear existing options
@@ -130,7 +165,6 @@ var selectedNHASI = null;
 var selectedCHINHANH = null;
 function filterListMANS() {
     var indexMACN = document.getElementById('MACN').value;
-    console.log(indexMACN);
     var listMANSoption = listMANS[indexMACN - 1].map(mans => `${mans.MANS} - ${mans.HOTEN}`);
     const input = document.getElementById('MANS');
     const datalist = document.getElementById('listMANS');
@@ -162,14 +196,36 @@ function submitForm() {
         type: "POST",
         url: "/createLH",
         data: data,
-        success: function (data) {
-            console.log(data);
-            alert("Đặt lịch thành công!")
+        success: function (msg) {
+            console.log(msg);
+            $.toast({
+                heading: 'Đặt lịch thành công', // Optional heading to be shown on the toast
+                icon: 'success', // Type of toast icon
+                showHideTransition: 'slide', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: true,  // Whether to show loader or not. True by default
+                loaderBg: '#9EC600',  // Background color of the toast loader
+            });
             location.reload();
         },
-        error: function (data) {
-            console.log(data);
-            alert("Đặt lịch thất bại!")
+        error: function (error) {
+            console.log(error);
+            $.toast({
+                heading: `${error.responseJSON.error}`, // Optional heading to be shown on the toast
+                icon: 'error', // Type of toast icon
+                showHideTransition: 'slide', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: true,  // Whether to show loader or not. True by default
+                loaderBg: '#9EC600',  // Background color of the toast loader
+            });
             currentTab--;
             showTab(currentTab);
             document.getElementById("all-steps").style.display = "block";
@@ -204,21 +260,11 @@ document.getElementById("NGAYHEN").setAttribute("max", maxDate.toISOString().spl
 
 
 function setConfirmTab() {
-    // console.log(selectedHSBN)
-    // console.log(selectedCHINHANH)
-    // console.log(selectedNHASI)
-
     // Set hidden value with jquery
-    // $("#confirmMAHSBN").val(document.getElementById("MAHSBN").value)
     $("#HOTENBN").val(selectedHSBN.HOTENBN)
     $("#SDTBN").val(selectedHSBN.SDTBN)
-    // $("#confirmMACN").val(document.getElementById("MACN").value)
-    // $("#SDTCN").val(selectedCHINHANH.SDTCN)
-    $("#DIACHICN").val(selectedCHINHANH.DIACHICN)
-    // $("#confirmMANS").val(document.getElementById("MANS").value)
     $("#HOTENNS").val(selectedNHASI.HOTEN)
-    // $("#confirmNGAYHEN").val(document.getElementById("NGAYHEN").value)
-    // $("#confirmGIOHEN").val(document.getElementById("GIOHEN").value)
+
 
     // Set text for confirm tab
     $("#confirmMAHSBN").text(selectedHSBN.MAHSBN)
