@@ -1,3 +1,32 @@
+// datalist
+var selectedHSBN = null;
+var selectedCHINHANH = null;
+var selectedNHASI = null;
+
+var listHSBN = JSON.parse(document.getElementById('listHSBNjson').dataset.list)
+$('#MAHSBN').flexdatalist({
+    minLength: 1,
+    textProperty: '{MAHSBN} - {HOTENBN} - {SDTBN}',
+    valueProperty: 'MAHSBN',
+    selectionRequired: true,
+    visibleProperties: ["MAHSBN","HOTENBN", "SDTBN"],
+    searchIn: 'MAHSBN',
+    data: listHSBN
+});
+var listCN = JSON.parse(document.getElementById('listCNjson').dataset.list)
+$('#MACN').flexdatalist({
+    minLength: 1,
+    textProperty: '{MACN} - {TENCN}',
+    valueProperty: 'MACN',
+    selectionRequired: true,
+    visibleProperties: ["MACN","TENCN", "DIACHICN", "SDTCN"],
+    searchIn: 'MACN',
+    data: listCN
+});
+var listMANS = JSON.parse(document.getElementById('listMANSjson').dataset.list)
+
+
+
 // MULTI STEP FORM
 var currentTab = 0;
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -41,79 +70,67 @@ function validateForm() {
     x = document.getElementsByClassName("tab");
     y = x[currentTab].getElementsByTagName("input");
     for (i = 0; i < y.length; i++) {
+        let inputValue = y[i].value;
         if (y[i].id == "MAHSBN") {
-            let indexTmp = parseInt(y[i].value)
-            // if (listHSBN[indexTmp - 1] == undefined) {
-            selectedHSBN = listHSBN.find(hsbn => hsbn.MAHSBN === indexTmp)
-            if (selectedHSBN == undefined) {
-            // if (hsbn = listHSBN.find(hsbn => hsbn.MAHSBN === indexTmp) == undefined) {
-                $.toast({
-                    text: "Vui lòng chọn hồ sơ bệnh nhân phù hợp!", // Text that is to be shown in the toast
-                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'slide', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: true,  // Whether to show loader or not. True by default
-                    loaderBg: '#9EC600',  // Background color of the toast loader
-                });
-                return false;
+            if (inputValue != "") {
+                let index = parseInt(inputValue)
+                selectedHSBN = listHSBN.find(hsbn => hsbn.MAHSBN == index)
+                // console.log(selectedHSBN)
+                continue;
             }
+            $.toast({
+                text: "Vui lòng chọn hồ sơ bệnh nhân phù hợp!", // Text that is to be shown in the toast
+                heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
+                icon: 'error', // Type of toast icon
+                showHideTransition: 'slide', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: true,  // Whether to show loader or not. True by default
+                loaderBg: '#9EC600',  // Background color of the toast loader
+            });
+            return false;
         }
         if (y[i].id == "MACN") {
-            let indexTmp = parseInt(y[i].value)
-            // selectedCHINHANH = listMACN.find(macn => macn.MACN === indexTmp)
-            // if (selectedCHINHANH == undefined) {
-            if (listMANS[indexTmp - 1] == undefined) {
-                $.toast({
-                    text: "Vui lòng chọn chi nhánh phù hợp!", // Text that is to be shown in the toast
-                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'slide', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: true,  // Whether to show loader or not. True by default
-                    loaderBg: '#9EC600',  // Background color of the toast loader
+            if (inputValue != "") {
+                let index = parseInt(inputValue)
+                selectedCHINHANH = listCN.find(cn => cn.MACN === index)
+                // console.log(listMANS[index - 1])
+                $('#MANS').flexdatalist({
+                    minLength: 1,
+                    textProperty: '{MANS} - {HOTEN}',
+                    valueProperty: 'MANS',
+                    selectionRequired: true,
+                    visibleProperties: ["MANS","HOTEN"],
+                    searchIn: 'MANS',
+                    data: listMANS[index - 1]
                 });
-                return false;
+                continue;
             }
-            else {
-                let strCN = $(`#listCN option[value="${indexTmp}"]`).text();
-                let partsCN = strCN.split('-').map(part => part.trim());
-                partsCN[0] = partsCN[0].replace('[', '').replace(']', '')
-                selectedCHINHANH = {MACN: parseInt(partsCN[0]), TENCN: partsCN[1], DIACHICN: partsCN[2], SDTCN: partsCN[3]}
-            }
+            $.toast({
+                text: "Vui lòng chọn chi nhánh phù hợp!", // Text that is to be shown in the toast
+                heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
+                icon: 'error', // Type of toast icon
+                showHideTransition: 'slide', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: true,  // Whether to show loader or not. True by default
+                loaderBg: '#9EC600',  // Background color of the toast loader
+            });
+            return false;
         }
         if (y[i].id == "MANS") {
-            if (y[i].value == "") {
+            if (inputValue == "") {
                 selectedNHASI = {MANS: 'Hệ thống tự chọn', HOTEN: 'Hệ thống tự chọn'}
                 continue;
             }
-            let indexTmp = parseInt(y[i].value)
-            let macn = document.getElementById('MACN').value
-            selectedNHASI = listMANS[macn - 1].find(mans => mans.MANS === indexTmp)
-            if (selectedNHASI == undefined) {
-                $.toast({
-                    text: "Vui lòng chọn nha sĩ phù hợp!", // Text that is to be shown in the toast
-                    heading: 'Thiếu Thông Tin', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'slide', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: true,  // Whether to show loader or not. True by default
-                    loaderBg: '#9EC600',  // Background color of the toast loader
-                });
-                return false;
-            }
+            let index = parseInt(inputValue)
+            selectedNHASI = listMANS[selectedCHINHANH.MACN - 1].find(mans => mans.MANS == index)
         }
         if ((y[i].id == "NGAYHEN" || y[i].id == "GIOHEN") && y[i].value == "") {
             y[i].className += " invalid";
@@ -130,64 +147,6 @@ function fixStepIndicator(n) {
     x[n].className += " active";
 }
 
-
-// datalist for HSBN
-var listHSBN = JSON.parse(document.getElementById('listHSBNjson').dataset.list)
-var selectedHSBN = null;
-function filterListMAHSBN() {
-    var listHSBNoption = listHSBN.map(hsbn => `${hsbn.MAHSBN} - ${hsbn.HOTENBN} - ${new Date(hsbn.NGAYSINH).toLocaleDateString('vi-VN')} - ${hsbn.GIOITINH} - ${hsbn.SDTBN}`);
-    const input = document.getElementById('MAHSBN');
-    const datalist = document.getElementById('listHSBN');
-    // Clear existing options
-    datalist.innerHTML = '';
-
-    // Filter and add options based on user input
-    const inputValue = input.value.toLowerCase();
-    const filteredHSBN = listHSBNoption.filter(hsbn => hsbn.toLowerCase().includes(inputValue));
-
-    // Limit the number of displayed options (e.g., first 5 options)
-    const limitedListHSBN = filteredHSBN.slice(0, 5);
-
-    // Add options to datalist
-    limitedListHSBN.forEach(hsbn => {
-        const parts = hsbn.split('-').map(part => part.trim());
-        const option = document.createElement('option');
-        option.value = parts[0];
-        option.innerHTML = hsbn;
-        datalist.appendChild(option);
-    });
-}
-
-
-// datalist for NHASI
-var listMANS = JSON.parse(document.getElementById('listMANSjson').dataset.list)
-var selectedNHASI = null;
-var selectedCHINHANH = null;
-function filterListMANS() {
-    var indexMACN = document.getElementById('MACN').value;
-    var listMANSoption = listMANS[indexMACN - 1].map(mans => `${mans.MANS} - ${mans.HOTEN}`);
-    const input = document.getElementById('MANS');
-    const datalist = document.getElementById('listMANS');
-    // Clear existing options
-    datalist.innerHTML = '';
-
-    // Filter and add options based on user input
-    const inputValue = input.value.toLowerCase();
-    const filteredMANS = listMANSoption.filter(mans => mans.toLowerCase().includes(inputValue));
-
-    // Limit the number of displayed options (e.g., first 5 options)
-    const limitedListMANS = filteredMANS.slice(0, 5);
-
-    // Add options to datalist
-    limitedListMANS.forEach(mans => {
-        const parts = mans.split('-').map(part => part.trim());
-        const option = document.createElement('option');
-        option.value = parts[0];
-        option.innerHTML = mans;
-        datalist.appendChild(option);
-    });
-}
-
 //POST FORM
 var form = $('#regForm');
 function submitForm() {
@@ -197,7 +156,7 @@ function submitForm() {
         url: "/createLH",
         data: data,
         success: function (msg) {
-            console.log(msg);
+            // console.log(msg);
             $.toast({
                 heading: 'Đặt lịch thành công', // Optional heading to be shown on the toast
                 icon: 'success', // Type of toast icon
@@ -213,7 +172,7 @@ function submitForm() {
             location.reload();
         },
         error: function (error) {
-            console.log(error);
+            // console.log(error);
             $.toast({
                 heading: `${error.responseJSON.error}`, // Optional heading to be shown on the toast
                 icon: 'error', // Type of toast icon
@@ -233,22 +192,7 @@ function submitForm() {
         }
     });
 }
-// form.submit(function (e) {
-//     e.preventDefault();
-//     var data = form.serialize();
-//     $.ajax({
-//         type: "POST",
-//         url: "/createLH",
-//         data: data,
-//         success: function (data) {
-//             console.log(data);
-//             document.getElementById("nextprevious").style.display = "none";
-//         },
-//         error: function (data) {
-//             console.log(data);
-//         }
-//     });
-// })
+
 
 var minDate = new Date();
 var maxDate = new Date();
@@ -260,7 +204,7 @@ document.getElementById("NGAYHEN").setAttribute("max", maxDate.toISOString().spl
 
 
 function setConfirmTab() {
-    // Set hidden value with jquery
+//     // Set hidden value with jquery
     $("#HOTENBN").val(selectedHSBN.HOTENBN)
     $("#SDTBN").val(selectedHSBN.SDTBN)
     $("#HOTENNS").val(selectedNHASI.HOTEN)

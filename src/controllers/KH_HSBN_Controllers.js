@@ -81,7 +81,7 @@ module.exports.createHSBN_post = async (req, res) => {
         .input('TTSUCKHOE', sql.VarChar, TTSUCKHOE)
         .input('TTDIUNG', sql.VarChar, TTDIUNG)
         .execute('SP_CREATE_HSBN');
-        res.status(200).redirect('/hsbn'); 
+        res.status(200).json({message: 'Success'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
@@ -142,20 +142,14 @@ module.exports.createLH_get = async (req, res) => {
         return accumulator;
       }, []);
 
-    res.render('createLH', {listHSBN: JSON.stringify(listHSBN), listMACN: listMACN, listMANS: JSON.stringify(groupedData)});
+    res.render('createLH', {listHSBN: JSON.stringify(listHSBN), listMACN: JSON.stringify(listMACN), listMANS: JSON.stringify(groupedData)});
 }
 
 module.exports.createLH_post = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     let MANS = parseInt(req.body.MANS)
     let HOTENNS = null
-    if (isNaN(MANS)) {
-        if (req.body.MANS != '') {
-            res.status(400).json({error: 'Vui lòng chọn nha sĩ phù hợp!'});
-            return;
-        }
-        else MANS = null
-    }
+    if (isNaN(MANS)) MANS = null
     else HOTENNS = req.body.HOTENNS
 
     const MACN = parseInt(req.body.MACN)
@@ -164,7 +158,7 @@ module.exports.createLH_post = async (req, res) => {
     const SDTBN = req.body.SDTBN
     const NGAYHEN = req.body.NGAYHEN
     const GIOHEN = req.body.GIOHEN +":00"
-    console.log(MACN, MANS, HOTENNS, MAHSBN, HOTENBN, SDTBN, NGAYHEN, GIOHEN)
+    // console.log(MACN, MANS, HOTENNS, MAHSBN, HOTENBN, SDTBN, NGAYHEN, GIOHEN)
     
     try {
         const pool = await conn;

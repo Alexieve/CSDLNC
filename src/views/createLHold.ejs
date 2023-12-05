@@ -20,7 +20,6 @@
     <!-- Custom styles for this template-->
     <link href="./css/form_LH.css" rel="stylesheet">
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
     <link href="./css/jquery.toast.min.css" rel="stylesheet">
 
 </head>
@@ -54,7 +53,7 @@
                               <div class="row">
                                 <div class="col-sm-12 form-group">
                                   <label for="MAHSBN">Chọn Hồ Sơ Khám</label>
-                                  <input type="text" class="form-control flexdatalist" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required>
+                                  <input list="listHSBN" class="form-control" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required oninput="filterListMAHSBN()" autocomplete="off">
                                   <datalist id="listHSBN">
                                     <div id="listHSBNjson" data-list="<%=listHSBN%>"></div>
                                   </datalist>
@@ -65,9 +64,13 @@
   
                                 <div class="col-sm-12 form-group">
                                   <label for="MACN">Chọn Chi Nhánh Khám</label>
-                                  <input type="text" class="form-control flexdatalist" name="MACN" id="MACN" placeholder="Chọn chi nhánh khám" required>
+                                  <input list="listCN" class="form-control" name="MACN" id="MACN" placeholder="Chọn chi nhánh khám" required autocomplete="off">
                                   <datalist id="listCN">
-                                    <div id="listCNjson" data-list="<%=listMACN%>"></div>
+                                    <% for( let i = 0; i < listMACN.length; i++ ) { %>
+                                      <option value="<%=listMACN[i].MACN%>">
+                                        [<%=listMACN[i].MACN%>] - <%=listMACN[i].TENCN%> - <%=listMACN[i].DIACHICN%> - <%=listMACN[i].SDTCN%>
+                                      </option>
+                                    <% } %>
                                   </datalist>
                                   
 
@@ -100,7 +103,7 @@
                         
                                 <div class="col-sm-12 form-group">
                                   <label for="MANS">Nha Sĩ</label>
-                                  <input type="text" class="form-control flexdatalist" name="MANS" id="MANS" placeholder="Chọn nha sĩ (không bắt buộc)" required>
+                                  <input list="listMANS" class="form-control" name="MANS" id="MANS" placeholder="Chọn nha sĩ (không bắt buộc)" oninput="filterListMANS()" autocomplete="off">
                                   <datalist id="listMANS">
                                     <div id="listMANSjson" data-list="<%=listMANS%>"></div>
                                   </datalist>
@@ -196,7 +199,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="./js/sb-admin-2.min.js"></script>
-    <script src="./js/jquery.flexdatalist.min.js"></script>
     <script src="./js/jquery.toast.min.js"></script>
 
     <script src="./js/createLH.js"></script>

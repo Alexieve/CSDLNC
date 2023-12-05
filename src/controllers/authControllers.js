@@ -32,7 +32,7 @@ module.exports.login_post = async (req, res) => {
         const token = createToken(user)
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
         res.locals.user = user;
-        res.status(200).redirect('/'); // Redirect to /home page
+        res.status(200).json({msg: 'Login success'}); // Redirect to /home page
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
@@ -60,9 +60,9 @@ module.exports.register_post = async (req, res) => {
         .input('EMAIL', sql.VarChar, EMAIL)
         .input('MATKHAU', sql.VarChar, MATKHAU)
         .execute('SP_REGISTER_KHACHHANG');
-        res.status(200).redirect('/login'); // Redirect to /register page
+        res.status(200).json({msg: 'Đăng ký thành công!'}); // Redirect to /register page
     } catch (err) {
-        console.error('SQL Server Error:', err.message);
+        // console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
     } finally {
         sql.close();

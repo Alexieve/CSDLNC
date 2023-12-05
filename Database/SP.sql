@@ -99,7 +99,16 @@ BEGIN
 		INSERT INTO KHACHHANG VALUES(@HOTEN, @SDT, @EMAIL, @MATKHAU)
 	END TRY
 	BEGIN CATCH
-		RAISERROR('Số điện thoại đã được đăng ký', 16, 1)
+		DECLARE @ErrorMessage NVARCHAR(MAX) = ERROR_MESSAGE();
+		IF CHARINDEX('UQ__KHACHHAN__161CF724BA5D8E92', @ErrorMessage) > 0
+		BEGIN
+			RAISERROR('Email này đã được đăng ký!', 16, 1)
+		END
+		ELSE IF CHARINDEX('UQ__KHACHHAN__CA1930A58665C3EE', @ErrorMessage) > 0
+		BEGIN
+			RAISERROR('Số điện thoại này đã được đăng ký!', 16, 1)
+		END
+		RETURN
 	END CATCH
 END
 GO
@@ -227,7 +236,6 @@ BEGIN
 		END TRY
 		BEGIN CATCH
 			DECLARE @ErrorMessage NVARCHAR(MAX) = ERROR_MESSAGE();
-			PRINT @ErrorMessage
 			IF CHARINDEX('UQ__LICHHEN__7D8DD724B224CA39', @ErrorMessage) > 0
 			BEGIN
 				RAISERROR('Nha sĩ đã có lịch hẹn khác vào thời điểm này!', 16, 1)
@@ -269,7 +277,3 @@ BEGIN
 	END
 END
 GO
-
-SELECT *
-FROM LICHHEN
-ORDER BY MALH DESC
