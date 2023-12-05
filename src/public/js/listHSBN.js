@@ -1,6 +1,12 @@
+$(document).ready(function() {
+    $('#dataTable').DataTable({
+        
+    });
+});  
+
 // Display table when fully loaded
 window.addEventListener('load', function () {
-    document.getElementById('dataTable').removeAttribute('hidden');
+    document.getElementById('hidden-tab').removeAttribute('hidden');
 });
 
 // Display modal
