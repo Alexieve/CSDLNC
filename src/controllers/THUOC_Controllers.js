@@ -27,6 +27,7 @@ module.exports.createThuoc_post = async (req, res) => {
     const HSD = req.body.HSD
     const NSX = req.body.NSX
     const DONGIA = req.body.DONGIA
+    const SL = req.body.SL
     try {
         const pool = await conn;
         await pool.request()
@@ -38,8 +39,9 @@ module.exports.createThuoc_post = async (req, res) => {
         .input('HSD', sql.Date, HSD)
         .input('NSX', sql.NVarChar, NSX)
         .input('DONGIA', sql.Int, DONGIA)
+        .input('SL', sql.Int, SL)
         .execute('SP_POST_CREATE_THUOC');
-        res.status(200).redirect('/thuoc'); 
+        res.status(200).json({success: 'Thêm thuốc thành công'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
@@ -49,7 +51,6 @@ module.exports.createThuoc_post = async (req, res) => {
 }
 
 module.exports.updateThuoc_post = async (req, res) => {
-    console.log(req.body)
     const MATHUOC = req.body.modalMATHUOC
     const TENTHUOC = req.body.modalTENTHUOC
     const CONGDUNG = req.body.modalCONGDUNG
@@ -59,6 +60,7 @@ module.exports.updateThuoc_post = async (req, res) => {
     const HSD = req.body.modalHSD
     const NSX = req.body.modalNSX
     const DONGIA = req.body.modalDONGIA
+    const SL = req.body.modalSL
     try {
         const pool = await conn;
         await pool.request()
@@ -71,8 +73,9 @@ module.exports.updateThuoc_post = async (req, res) => {
         .input('HSD', sql.Date, HSD)
         .input('NSX', sql.NVarChar, NSX)
         .input('DONGIA', sql.Int, DONGIA)
+        .input('SL', sql.Int, SL)
         .execute('SP_POST_UPDATE_THUOC');
-        res.status(200).redirect('/thuoc'); 
+        res.status(200).json({success: 'Cập nhật thuốc thành công'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
