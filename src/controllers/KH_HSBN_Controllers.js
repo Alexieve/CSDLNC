@@ -17,11 +17,12 @@ module.exports.HoSoBenhNhan_get = async (req, res) => {
     } finally {
         sql.close();
     }
-    res.render('listHSBN', {HSBN: result});
+    // console.log(result);
+    res.render('listHSBN', {HSBN: JSON.stringify(result)});
 }
 
 module.exports.HoSoBenhNhan_post = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const MAHSBN = parseInt(req.body.MAHSBN)
     const HOTENBN = req.body.HOTENBN
     const NGAYSINH = req.body.NGAYSINH

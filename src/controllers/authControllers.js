@@ -122,7 +122,7 @@ module.exports.home_get = async (req, res) => {
         sql.close();
     }
     
-    console.log(reportCard.recordset[0])
+    // console.log(reportCard.recordset[0])
     res.render('home', {reportCard: reportCard.recordset[0]});
 }
 

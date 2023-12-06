@@ -132,9 +132,12 @@ function validateForm() {
             let index = parseInt(inputValue)
             selectedNHASI = listMANS[selectedCHINHANH.MACN - 1].find(mans => mans.MANS == index)
         }
-        if ((y[i].id == "NGAYHEN" || y[i].id == "GIOHEN") && y[i].value == "") {
-            y[i].className += " invalid";
-            valid = false;
+        if (y[i].id == "NGAYHEN" || y[i].id == "GIOHEN") {
+            if (inputValue == "") {
+                y[i].className += " invalid";
+                valid = false;
+            }
+            else  y[i].classList.remove("invalid")
         }
     }
     if (valid) { document.getElementsByClassName("step")[currentTab].className += " finish"; }
@@ -145,6 +148,27 @@ function fixStepIndicator(n) {
     var i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) { x[i].className = x[i].className.replace(" active", ""); }
     x[n].className += " active";
+}
+
+function setConfirmTab() {
+    // Set hidden value with jquery
+    $("#HOTENBN").val(selectedHSBN.HOTENBN)
+    $("#SDTBN").val(selectedHSBN.SDTBN)
+    $("#HOTENNS").val(selectedNHASI.HOTEN)
+
+
+    // Set text for confirm tab
+    $("#confirmMAHSBN").text(selectedHSBN.MAHSBN)
+    $("#confirmHOTENBN").text(selectedHSBN.HOTENBN)
+    $("#confirmSDTBN").text(selectedHSBN.SDTBN)
+    $("#confirmTENCN").text(selectedCHINHANH.TENCN)
+    $("#confirmSDTCN").text(selectedCHINHANH.SDTCN)
+    $("#confirmDIACHICN").text(selectedCHINHANH.DIACHICN)
+    $("#confirmMANS").text(selectedNHASI.MANS)
+    $("#confirmHOTENNS").text(selectedNHASI.HOTEN)
+    $("#confirmNGAYHEN").text(document.getElementById("NGAYHEN").value)
+    $("#confirmGIOHEN").text(document.getElementById("GIOHEN").value)
+
 }
 
 //POST FORM
@@ -203,23 +227,3 @@ document.getElementById("NGAYHEN").setAttribute("max", maxDate.toISOString().spl
 
 
 
-function setConfirmTab() {
-//     // Set hidden value with jquery
-    $("#HOTENBN").val(selectedHSBN.HOTENBN)
-    $("#SDTBN").val(selectedHSBN.SDTBN)
-    $("#HOTENNS").val(selectedNHASI.HOTEN)
-
-
-    // Set text for confirm tab
-    $("#confirmMAHSBN").text(selectedHSBN.MAHSBN)
-    $("#confirmHOTENBN").text(selectedHSBN.HOTENBN)
-    $("#confirmSDTBN").text(selectedHSBN.SDTBN)
-    $("#confirmTENCN").text(selectedCHINHANH.TENCN)
-    $("#confirmSDTCN").text(selectedCHINHANH.SDTCN)
-    $("#confirmDIACHICN").text(selectedCHINHANH.DIACHICN)
-    $("#confirmMANS").text(selectedNHASI.MANS)
-    $("#confirmHOTENNS").text(selectedNHASI.HOTEN)
-    $("#confirmNGAYHEN").text(document.getElementById("NGAYHEN").value)
-    $("#confirmGIOHEN").text(document.getElementById("GIOHEN").value)
-
-}
