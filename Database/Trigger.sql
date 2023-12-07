@@ -1,4 +1,5 @@
 ﻿-- Mọi lịch hẹn phải được đặt trước ít nhất 1 ngày trước thời gian lịch hẹn định.
+use CSDLNC
 CREATE OR ALTER TRIGGER CHECK_NGAYHEN_LICHHEN
 ON LICHHEN
 AFTER INSERT
@@ -49,7 +50,7 @@ BEGIN
 	IF EXISTS (
 		SELECT 1
 		FROM INSERTED I
-		WHERE I.GIOKETTHUC - I.GIOBATDAU > 8
+		WHERE DATEDIFF(HOUR,I.GIOKETTHUC, I.GIOBATDAU) > 8
 	)
 	BEGIN
 		RAISERROR(N'Số giờ làm việc trong tuần không được vượt quá 8 giờ.', 16, 1)

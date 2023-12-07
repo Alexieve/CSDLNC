@@ -2,7 +2,7 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: '123',
-  server: 'ATLAZ',
+  server: 'ATLAZ/SQLEXPRESS',
   database: 'CSDLNC',
   options: {
     instanceName: 'SQLEXPRESS',
@@ -12,6 +12,7 @@ const config = {
 };
 
 const conn = new sql.ConnectionPool(config).connect().then(pool => {
+  console.log('Database Connected!');
   return pool;
 }).catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
