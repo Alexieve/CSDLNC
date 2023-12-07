@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Đặt lịch hẹn</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="./css/form_LH.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
+    <link href="./css/jquery.toast.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/navbar") -%>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Tạo hồ sơ khám</h1>
+                    <div class="container mt-5">
+                      <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-md-12">
+                          <form id="regForm" class="box8">
+                            <h3 class="text-center"></h1>
+                            <div class="tab">
+                              <div class="row">
+
+                                <div class="col-sm-4 form-group">
+                                  <label for="MAHSBN">Hồ sơ bệnh nhân</label>
+                                  <input type="text" class="form-control flexdatalist" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required>
+                                  <datalist id="listHSBN">
+                                    <div id="listHSBNjson" data-list="<%=listHSBN%>"></div>
+                                  </datalist>
+                                </div>
+  
+                                <div class="col-sm-4 form-group">
+                                  <label for="MADIEUTRI">Loại điều trị</label>
+                                  <select id="MADIEUTRI" name="MADIEUTRI" class="form-control browser-default custom-select">
+                                    <% for (let i = 0; i < DieuTri.length; i++)  {%>
+                                      <option value="<%= DieuTri[i].MADIEUTRI %>"><%= DieuTri[i].MOTA %></option>
+                                    <% } %>
+                                  </select>
+                                </div>
+                                  
+                                <div class="col-sm-4 form-group">
+                                  <label for="MOTAKH">Mô tả kế hoạch</label>
+                                  <input type="MOTAKH" name="MOTAKH" class="form-control" id="MOTAKH" placeholder="Nhập mô tả kế hoạch" required>
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                  <label for="NGAYDIEUTRI">Ngày điều trị</label>
+                                  <input type="Date" name="NGAYDIEUTRI" class="form-control" id="NGAYDIEUTRI" placeholder="" required>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                  <label for="MANS">Chọn nha sĩ khám chính</label>
+                                  <input type="text" class="form-control flexdatalist" name="MANS" id="MANS" placeholder="Chọn nha sĩ khám chính" required>
+                                  <datalist id="ListNhaSi">
+                                    <div id="NhaSijson" data-list="<%=NhaSi%>"></div>
+                                  </datalist>
+                                </div> 
+
+                                <div class="col-sm-4 form-group">
+                                  <label for="MANSKP">Chọn nha sĩ khám phụ</label>
+                                  <input type="text" class="form-control flexdatalist" name="MANSKP" id="MANSKP" placeholder="Chọn nha sĩ khám phụ">
+                                  <datalist id="ListNhaSi">
+                                    <div id="NhaSijson" data-list="<%=NhaSi%>"></div>
+                                  </datalist>
+                                </div> 
+
+                                <div class="col-sm-4 form-group">
+                                  <label for="GHICHU">Ghi chú</label>
+                                  <textarea class="form-control" name="GHICHU" id="GHICHU" placeholder="Nhập ghi chú"></textarea>
+                                </div>
+
+                              </div>                             
+                            </div>
+
+                            <div class="tab">
+                              <div class="row" id="dynamicFieldsContainer">
+                                <div class="col-sm-4 form-group">
+                                  <label for="RANG">Răng điều trị</label>
+                                  <select id="RANG" name="RANG[]" class="form-control browser-default custom-select">
+                                    <% for (let i = 0; i < Rang.length; i++)  {%>
+                                      <option value="<%= Rang[i].MARANG %>"><%= Rang[i].TENRANG %></option>
+                                    <% } %>
+                                  </select>
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                  <label for="BEMATRANG">Bề mặt điều trị</label>
+                                  <select id="BEMATRANG" name="BEMATRANG[]" class="form-control browser-default custom-select">
+                                    <% for (let i = 0; i < BeMatRang.length; i++)  {%>
+                                      <option value="<%= BeMatRang[i].MABEMATRANG %>"><%= BeMatRang[i].TENBEMATRANG %></option>
+                                    <% } %>
+                                  </select>
+                                </div>
+
+                                <div class="col-sm-4">
+                                  <br>
+                                  <i class="fa fa-plus" aria-hidden="true" id="addDynamicFields"></i>
+                                </div>
+                              </div>
+                            </div>
+                                                            
+                            <div class="text-center" id="all-steps">
+                              <span class="step"></span>
+                              <span class="step"></span>
+                            </div>
+                            <div class="float-right" id="nextprevious">
+                                <button class="btn btn-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Quay lại</button>
+                                <button class="ml-2 btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Tiếp theo</button> 
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer") -%>
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scrollToTopBtn") -%>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="./vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./js/sb-admin-2.min.js"></script>
+    <script src="/js/jquery.flexdatalist.min.js"></script>
+    <script src="/js/jquery.toast.min.js"></script>
+
+    <script src="./js/createKHDT.js"></script>
+</body>
+
+</html>
