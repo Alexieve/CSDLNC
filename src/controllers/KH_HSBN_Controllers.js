@@ -70,8 +70,9 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
         .execute('SP_GET_DATATABLE_HSBN')
     
         var recordsTotal = result.recordsets[0][0].recordsTotal;
-        var recordsFiltered = result.recordsets[1][0].recordsFiltered;
+        var recordsFiltered = result.recordsets[1][0].recordsTotal;
         var data = result.recordsets[2];
+        // console.log(result.recordsets[1])
 
         res.json({
             draw: draw,
