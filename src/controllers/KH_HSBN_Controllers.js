@@ -57,15 +57,18 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
     var filterQuery = MAKH ? `WHERE MAKH = ${MAKH} ` : 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
 
-    console.log(filterQuery);
+    // console.log(filterQuery);
     // Truy vấn
     try {
         const pool = await conn;
-        const result = await pool.request().query(`
-        SELECT COUNT(*) AS recordsTotal FROM HOSOBN;
-        SELECT COUNT(*) AS recordsFiltered FROM HOSOBN ${filterQuery};
-        SELECT * FROM HOSOBN ${filterQuery} ORDER BY ${colName} ${colSortOrder} 
-        OFFSET ${start} ROWS FETCH NEXT ${length} ROWS ONLY;`);
+        const result = await pool.request()
+        .input('FILTERQUERY', sql.NVarChar, filterQuery)
+        .input('COLNAME', sql.NVarChar, colName)
+        .input('COLSORTORDER', sql.NVarChar, colSortOrder)
+        .input('OFFSET_START', sql.NVarChar, start)
+        .input('LENGTH', sql.NVarChar, length)
+        .execute('SP_GET_DATATABLE_HSBN')
+    
         var recordsTotal = result.recordsets[0][0].recordsTotal;
         var recordsFiltered = result.recordsets[1][0].recordsFiltered;
         var data = result.recordsets[2];
