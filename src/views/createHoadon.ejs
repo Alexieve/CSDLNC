@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Tạo hóa đơn thanh toán</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="./css/form_LH.css" rel="stylesheet">
+  <link href="./css/form_Hoadon.css" rel="stylesheet">
+  <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="./css/jquery.toast.min.css">
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <%- include("./partials/sidebar") -%>
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+          <%- include("./partials/navbar") -%>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+              <!-- Page Heading -->
+              <h1 class="h3 mb-4 text-gray-800">Tạo Hóa Đơn Thanh Toán</h1>
+              <div class="container mt-5">
+                <div class="row d-flex justify-content-center align-items-center">
+                  <div class="col-md-6">
+                    <form id="regForm" class="box8">
+                      <h3 class="text-center">Thông Tin Hóa Đơn</h1>
+                        <div class="tab">
+                          <div class="row mb-3">
+                            <div class="col-sm-12 form-group d-flex flex-column align-items-center">
+                              <label for="LOAITT">Chọn Loại Thanh Toán</label>
+                              <select class="selectpicker" name="LOAITT" data-style="btn-primary" id="LOAITT"
+                                title="Chọn Loại Thanh Toán">
+                                <option value="Tiền mặt">Tiền Mặt</option>
+                                <option value="Ví điện tử">Ví Điện Tử</option>
+                                <option value="Chuyển khoản">Chuyển Khoản</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab">
+                          <div class="row mb-3">
+                            <div class="col-sm-12 form-group">
+                              <label for="MAKH">Mã Khách Hàng</label>
+                              <input type="number" class="form-control" name="MAKH" id="MAKH"
+                                placeholder="Nhập mã khách hàng">
+                              <datalist id="listKH">
+                                <div id="listKHjson" data-list="<%=listKH%>"></div>
+                              </datalist>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                              <label for="NGUOITT">Người Thanh Toán</label>
+                              <input type="text" class="form-control" name="NGUOITT" id="NGUOITT"
+                                placeholder="Nhập tên người thanh toán">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab">
+                          <div class="row mb-3">
+                            <div class="col-sm-12 form-group">
+                              <label for="MAKHDIEUTRI">Mã Kế Hoạch Điều Trị Cần Thanh Toán</label>
+                              <input type="text" class="form-control flexdatalist" multiple='multiple'
+                                name="MAKHDIEUTRI" id="MAKHDIEUTRI" placeholder="Nhập mã kế hoạch điều trị">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab">
+                          <div class="row mb-3">
+                            <div class="col-sm-12 form-group">
+                              <label for="TONGTIENCANTT">Tổng Tiền Cần Thanh Toán</label>
+                              <input type="number" class="form-control" name="TONGTIENCANTT" id="TONGTIENCANTT"
+                                readonly>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                              <label for="SOTIENNHAN">Số Tiền Nhận</label>
+                              <input type="number" class="form-control" name="SOTIENNHAN" id="SOTIENNHAN"
+                                placeholder="Nhập mã số tiền nhận">
+                            </div>
+                            <div class="col-sm-12 form-group">
+                              <label for="SOTIENTHOI">Số Tiền Thối</label>
+                              <input type="number" class="form-control" name="SOTIENTHOI" id="SOTIENTHOI" readonly>
+                            </div>
+                            <input type="number" class="form-control" name="NVTHANHTOAN" id="NVTHANHTOAN" hidden>
+                            <input type="date" class="form-control" name="NGAYTT" id="NGAYTT" hidden>
+                          </div>
+                        </div>
+                        <!-- Create a tab to show all information again -->
+                        <div class="tab">
+                          <div class="row">
+                            <div class="col-sm-12 form-group">
+                              <p>Mã khách hàng: <b><span id="confirmMAKH"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Ngày thanh toán: <b><span id="confirmNGAYTT"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Người thanh toán: <b><span id="confirmNGUOITT"></span></b></p>
+                            </div>
+                            
+                            <div class="col-sm-12 form-group">
+                              <p>Các kế hoạch điều trị thanh toán: <b><span id="confirmMAKHDIEUTRI"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Tổng tiền cần thanh toán: <b><span id="confirmTONGTIENCANTT"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Số tiền nhận: <b><span id="confirmSOTIENNHAN"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Số tiền thối: <b><span id="confirmSOTIENTHOI"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Loại thanh toán: <b><span id="confirmLOAITT"></span></b></p>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                              <p>Nhân viên thanh toán: <b><span id="confirmNVTHANHTOAN"><%= NVTHANHTOAN %></span></b></p>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="text-center mb-3" id="all-steps">
+                          <span class="step"></span>
+                          <span class="step"></span>
+                          <span class="step"></span>
+                          <span class="step"></span>
+                          <span class="step"></span>
+                        </div>
+                        <div class="float-right" id="nextprevious">
+                          <button class="btn btn-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Quay
+                            lại</button>
+                          <button class="ml-2 btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Tiếp
+                            theo</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <%- include("./partials/footer") -%>
+
+
+      </div>
+      <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <%- include("./partials/scrollToTopBtn") -%>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="./vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./js/sb-admin-2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <script src="./js/jquery.toast.min.js"></script>
+    <script src="./js/jquery.flexdatalist.min.js"></script>
+
+    <script src="./js/createHoadon.js"></script>
+
+
+</body>
+
+</html>
