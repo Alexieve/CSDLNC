@@ -42,7 +42,7 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
         } 
         else if (column.data === 'NGAYSINH') {
             const formattedSearchValue = column.searchValue.split('/').reverse().join('-');
-            return `CONVERT(NVARCHAR, ${column.data}, 120) LIKE '%${formattedSearchValue}%'`;
+            return `CONVERT(VARCHAR, ${column.data}, 120) LIKE '%${formattedSearchValue}%'`;
         } 
         else {
             return `${column.data} LIKE N'%${column.searchValue}%'`;
