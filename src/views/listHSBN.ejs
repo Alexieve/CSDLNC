@@ -17,10 +17,13 @@
 
     <!-- Custom styles for this template -->
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/listHSBN.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.8/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/datatables.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -56,7 +59,7 @@
                             <% } %>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" data-list="<%=HSBN%>">
+                            <div class="table-responsive">
                                 <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -74,6 +77,19 @@
                                     <tbody style="cursor: pointer;">
                                         
                                     </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -112,11 +128,12 @@
 
     <!-- Page level plugins -->
     <!-- <script src="./vendor/datatables/jquery.dataTables.min.js"></script> -->
-    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/datatables.min.js"></script>
     <!-- <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
 
     <!-- Display the tables and modal -->
+    <!-- DataTables Buttons CSS và JS -->
     <script src="./js/listHSBN.js"></script>
 
 </body>

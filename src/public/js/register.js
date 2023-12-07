@@ -8,8 +8,8 @@ var form = $("#reg_form");
                 data: formValues,
                 success: function(data){
                     $.toast({
-                        heading: `${data.responseJSON.error}`, // Optional heading to be shown on the toast
-                        icon: 'error', // Type of toast icon
+                        heading: 'Đăng ký thành công', // Optional heading to be shown on the toast
+                        icon: 'success', // Type of toast icon
                         showHideTransition: 'slide', // fade, slide or plain
                         allowToastClose: true, // Boolean value true or false
                         hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden

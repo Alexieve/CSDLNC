@@ -3,29 +3,34 @@ var selectedHSBN = null;
 var selectedCHINHANH = null;
 var selectedNHASI = null;
 
-var listHSBN = JSON.parse(document.getElementById('listHSBNjson').dataset.list)
+
 $('#MAHSBN').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MAHSBN} - {HOTENBN} - {SDTBN}',
-    valueProperty: 'MAHSBN',
+    valueProperty: ["MAHSBN","HOTENBN", "SDTBN"],
     selectionRequired: true,
     visibleProperties: ["MAHSBN","HOTENBN", "SDTBN"],
-    searchIn: 'MAHSBN',
-    data: listHSBN
+    searchDelay: 300,
+    cache: false,
+    searchIn: ["MAHSBN","HOTENBN", "SDTBN"],
+    url: '/createLH/search/patients',
+    relatives: '#relative'
 });
-var listCN = JSON.parse(document.getElementById('listCNjson').dataset.list)
+
 $('#MACN').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MACN} - {TENCN}',
-    valueProperty: 'MACN',
+    valueProperty: ["MACN","TENCN", "DIACHICN", "SDTCN"],
     selectionRequired: true,
     visibleProperties: ["MACN","TENCN", "DIACHICN", "SDTCN"],
-    searchIn: 'MACN',
-    data: listCN
+    searchDelay: 300,
+    cache: false,
+    searchIn: ["MACN","TENCN", "DIACHICN", "SDTCN"],
+    url: '/createLH/search/chinhanh',
+    relatives: '#relative'
 });
-var listMANS = JSON.parse(document.getElementById('listMANSjson').dataset.list)
-
-
 
 // MULTI STEP FORM
 var currentTab = 0;
@@ -73,9 +78,7 @@ function validateForm() {
         let inputValue = y[i].value;
         if (y[i].id == "MAHSBN") {
             if (inputValue != "") {
-                let index = parseInt(inputValue)
-                selectedHSBN = listHSBN.find(hsbn => hsbn.MAHSBN == index)
-                // console.log(selectedHSBN)
+                selectedHSBN = JSON.parse(inputValue)
                 continue;
             }
             $.toast({
@@ -94,19 +97,24 @@ function validateForm() {
             return false;
         }
         if (y[i].id == "MACN") {
-            if (inputValue != "") {
-                let index = parseInt(inputValue)
-                selectedCHINHANH = listCN.find(cn => cn.MACN === index)
-                // console.log(listMANS[index - 1])
-                $('#MANS').flexdatalist({
-                    minLength: 1,
-                    textProperty: '{MANS} - {HOTEN}',
-                    valueProperty: 'MANS',
-                    selectionRequired: true,
-                    visibleProperties: ["MANS","HOTEN"],
-                    searchIn: 'MANS',
-                    data: listMANS[index - 1]
-                });
+            if (inputValue != "" ) {
+                const tmp = JSON.parse(inputValue)
+                if (selectedCHINHANH == null || selectedCHINHANH.MACN != tmp.MACN) {
+                    selectedCHINHANH = JSON.parse(inputValue)
+                    $('#MANS').flexdatalist({
+                        searchContain: true,
+                        minLength: 1,
+                        textProperty: '{MANS} - {HOTEN}',
+                        valueProperty:  ["MANS","HOTEN"],
+                        selectionRequired: true,
+                        visibleProperties: ["MANS","HOTEN"],
+                        searchDelay: 300,
+                        cache: false,
+                        searchIn: ["MANS","HOTEN"],
+                        url: `/createLH/search/nhasi/${selectedCHINHANH.MACN}`,
+                        relatives: '#relative'
+                    });
+                }
                 continue;
             }
             $.toast({
@@ -129,8 +137,7 @@ function validateForm() {
                 selectedNHASI = {MANS: 'Hệ thống tự chọn', HOTEN: 'Hệ thống tự chọn'}
                 continue;
             }
-            let index = parseInt(inputValue)
-            selectedNHASI = listMANS[selectedCHINHANH.MACN - 1].find(mans => mans.MANS == index)
+            selectedNHASI = JSON.parse(inputValue)
         }
         if (y[i].id == "NGAYHEN" || y[i].id == "GIOHEN") {
             if (inputValue == "") {

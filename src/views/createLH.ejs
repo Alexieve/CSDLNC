@@ -54,10 +54,7 @@
                               <div class="row">
                                 <div class="col-sm-12 form-group">
                                   <label for="MAHSBN">Chọn Hồ Sơ Khám</label>
-                                  <input type="text" class="form-control flexdatalist" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required>
-                                  <datalist id="listHSBN">
-                                    <div id="listHSBNjson" data-list="<%=listHSBN%>"></div>
-                                  </datalist>
+                                  <input type="text" class="form-control" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required>
                                   
                                   <input type="hidden" name="HOTENBN" id="HOTENBN">
                                   <input type="hidden" name="SDTBN" id="SDTBN">
@@ -65,11 +62,7 @@
   
                                 <div class="col-sm-12 form-group">
                                   <label for="MACN">Chọn Chi Nhánh Khám</label>
-                                  <input type="text" class="form-control flexdatalist" name="MACN" id="MACN" placeholder="Chọn chi nhánh khám" required>
-                                  <datalist id="listCN">
-                                    <div id="listCNjson" data-list="<%=listMACN%>"></div>
-                                  </datalist>
-                                  
+                                  <input type="text" class="form-control flexdatalist" name="MACN" id="MACN" placeholder="Chọn chi nhánh khám" required>                        
 
                                 </div>
                               </div>                             
@@ -101,9 +94,6 @@
                                 <div class="col-sm-12 form-group">
                                   <label for="MANS">Nha Sĩ</label>
                                   <input type="text" class="form-control flexdatalist" name="MANS" id="MANS" placeholder="Chọn nha sĩ (không bắt buộc)" required>
-                                  <datalist id="listMANS">
-                                    <div id="listMANSjson" data-list="<%=listMANS%>"></div>
-                                  </datalist>
 
                                   <input type="hidden" name="HOTENNS" id="HOTENNS">
                                 </div>
