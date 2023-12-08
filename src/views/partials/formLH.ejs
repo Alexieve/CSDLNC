@@ -1,0 +1,58 @@
+<div class="container mt-3">
+    <form action="/createLH" method="POST" id="form_LH">
+      <div class="row box8">
+
+        <div class="col-sm-12 form-group">
+          <label for="MAHSBN">Đặt Lịch Hẹn</label>
+          <input list="listHSBN" class="form-control" name="MAHSBN" id="MAHSBN" placeholder="Chọn hồ sơ bệnh nhân" required>
+          <datalist id="listHSBN">
+            <% for( let i = 0; i < listHSBN.length; i++ ) { %>
+              <option value="<%=listHSBN[i].MAHSBN%>">
+                [<%=listHSBN[i].MAHSBN%>] - <%=listHSBN[i].HOTENBN%> - <%= new Date(listHSBN[i].NGAYSINH).toLocaleDateString('en-GB') %> - <%=listHSBN[i].GIOITINH%> - <%=listHSBN[i].SDTBN%>
+              </option>
+            <% } %>
+          </datalist>
+        </div>
+
+        <div class="col-sm-3 form-group">
+          <label for="NGAYHEN">Ngày Hẹn</label>
+          <input type="date" name="NGAYHEN" class="form-control" id="NGAYHEN" placeholder="" required>
+        </div>
+
+        <div class="col-sm-3 form-group">
+          <label for="GIOHEN">Giờ Hẹn</label>
+          <input type="time" list="listGIOHEN" name="GIOHEN" class="form-control" id="GIOHEN" placeholder="" required>
+          <datalist id="listGIOHEN">
+            <% for( let index = 8; index < 20; index++ ) { %>
+              <% if (index < 10) {%>
+                <% let chooseTime = "0" + index + ":00" %>
+                <option value="<%=chooseTime%>:00"></option>
+
+              <% } else {%>
+              <option value="<%=index%>:00"></option>
+              <% } %>
+            <% } %>
+          </datalist>
+        </div>
+
+        <div class="col-sm-6 form-group">
+          <label for="MANS">Nha Sĩ</label>
+          <input list="listMANS" class="form-control" name="MANS" id="MANS" placeholder="Chọn nha sĩ" autocomplete="off">
+          <datalist id="listMANS">
+            <% for( let i = 0; i < listMANS.length; i++ ) { %>
+              <option value="<%=listMANS[i].MAHSBN%>">
+                [<%=listMANS[i].MANS%>] - <%=listMANS[i].HOTEN%>
+              </option>
+            <% } %>
+          </datalist>
+        </div>
+  
+        <div class="col-sm-12 form-group mb-0">
+          <button type="submit" class="btn btn-primary float-right">Đặt lịch hẹn</button>
+        </div>
+
+        <input type="hidden" name="MAHSTK" value="">
+  
+      </div>
+    </form>
+</div>

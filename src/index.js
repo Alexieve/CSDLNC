@@ -8,6 +8,8 @@ const app = express()
 
 const authRoutes = require('./routes/authRoutes')
 const KH_HSBN_Routes = require('./routes/KH_HSBN_Routes')
+const THUOC_Routes = require('./routes/THUOC_Routes')
+const HOADON_Routes = require('./routes/HOADON_Routes')
 const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 const KHDTRoutes = require('./routes/KHDTRoutes')
 // Use and Set Module
@@ -24,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true}))
 app.get('*', checkUser)
 app.use(authRoutes)
 app.use(KH_HSBN_Routes)
-app.use(KHDTRoutes)
 // Listen
 const port = 3000
 app.listen(port, function(){

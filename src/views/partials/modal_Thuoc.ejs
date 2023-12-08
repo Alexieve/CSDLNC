@@ -1,0 +1,76 @@
+<!-- Modal -->
+<div class="modal fade" id="thuocModal" tabindex="-1" role="dialog" aria-labelledby="thuocModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="thuocModalLabel">Thông tin thuốc</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="form_UpdateThuoc">
+          <div class="row box8">
+            <input type="number" class="form-control" name="modalMATHUOC" id="modalMATHUOC" hidden>
+
+            <div class="col-sm-4 form-group">
+              <label for="modalTENTHUOC">Tên Thuốc</label>
+              <input type="text" class="form-control" name="modalTENTHUOC" id="modalTENTHUOC"
+                placeholder="Nhập tên thuốc">
+            </div>
+
+            <div class="col-sm-4 form-group">
+              <label for="modalHSD">Hạn Sử Dụng</label>
+              <input type="date" class="form-control" name="modalHSD" id="modalHSD" placeholder="Nhập hạn sử dụng">
+            </div>
+
+            <div class="col-sm-4 form-group">
+              <label for="modalDONGIA">Đơn Giá</label>
+              <input type="number" class="form-control" name="modalDONGIA" id="modalDONGIA" placeholder="Nhập đơn giá">
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalSL">Số Lượng</label>
+              <input type="text" class="form-control" name="modalSL" id="modalSL" placeholder="Nhập nhà sản xuất">
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalNSX">Nhà Sản Xuất</label>
+              <input type="text" class="form-control" name="modalNSX" id="modalNSX" placeholder="Nhập nhà sản xuất">
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalCONGDUNG">Công Dụng</label>
+              <textarea type="text" class="form-control" name="modalCONGDUNG" id="modalCONGDUNG"
+                placeholder="Nhập công dụng"></textarea>
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalCHONGCHIDINH">Chống Chỉ Định</label>
+              <textarea type="text" class="form-control" name="modalCHONGCHIDINH" id="modalCHONGCHIDINH"
+                placeholder="Nhập chống chỉ định"></textarea>
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalTACDUNGPHU">Tác Dụng Phụ</label>
+              <textarea type="text" class="form-control" name="modalTACDUNGPHU" id="modalTACDUNGPHU"
+                placeholder="Nhập tác dụng phụ"></textarea>
+            </div>
+
+            <div class="col-sm-6 form-group">
+              <label for="modalHDSD">Hướng Dẫn Sử Dụng</label>
+              <textarea type="text" class="form-control" name="modalHDSD" id="modalHDSD"
+                placeholder="Nhập hướng dẫn sử dụng"></textarea>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <div class="btn btn-primary" onclick="submitForm()">Lưu</div>
+      </div>
+    </div>
+  </div>
+</div>

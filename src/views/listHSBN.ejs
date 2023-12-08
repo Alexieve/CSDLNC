@@ -16,9 +16,13 @@
 
     <!-- Custom styles for this template -->
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/listHSBN.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/datatables.min.css" rel="stylesheet">
+
 
 </head>
 <body id="page-top">
@@ -52,7 +56,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Danh sách hồ sơ bệnh nhân của bạn</h6>
                             <% } %>
                         </div>
-                        <div class="card-body" hidden>
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -69,19 +73,21 @@
                                     </thead>
                             
                                     <tbody style="cursor: pointer;">
-                                        <% for (let i = 10001; i < 11001; i++)  {%>
-                                        <tr data-toggle="modal" data-target="#hsbnModal" data-mahsbn="<%= HSBN[i].MAHSBN %>" data-ttsuckhoe="<%= HSBN[i].TTSUCKHOE %>" data-ttdiung="<%= HSBN[i].TTDIUNG %>">
-                                            <td><%= HSBN[i].MAHSBN %></td>
-                                            <td><%= HSBN[i].HOTENBN %></td>
-                                            <td><%= new Date(HSBN[i].NGAYSINH).toLocaleDateString('en-GB') %></td>
-                                            <td><%= HSBN[i].GIOITINH %></td>
-                                            <td><%= HSBN[i].SDTBN %></td>
-                                            <td><%= HSBN[i].DIACHIBN %></td>
-                                            <td><%= HSBN[i].TONGTIENDIEUTRI %></td>
-                                            <td><%= HSBN[i].DATHANHTOAN %></td>
-                                        </tr>
-                                        <% } %>
+                                        
                                     </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -120,10 +126,13 @@
     <script src="./js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="./vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="./vendor/datatables/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/datatables.min.js"></script>
+    <!-- <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+
 
     <!-- Display the tables and modal -->
+    <!-- DataTables Buttons CSS và JS -->
     <script src="./js/listHSBN.js"></script>
 
     <!-- Page level custom scripts -->
