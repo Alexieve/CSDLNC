@@ -104,29 +104,42 @@
                             </div>
 
                             <div class="tab">
-                              <div class="row" id="dynamicFieldsContainer">
+                              <div id="education_fields">
+
+                              </div>
+                              <div class="row">
                                 <div class="col-sm-4 form-group">
                                   <label for="RANG">Răng điều trị</label>
                                   <select id="RANG" name="RANG[]" class="form-control browser-default custom-select">
-                                    <% for (let i = 0; i < Rang.length; i++)  {%>
-                                      <option value="<%= Rang[i].MARANG %>"><%= Rang[i].TENRANG %></option>
-                                    <% } %>
+                                    <option value="1">Răng cửa 1 (Răng số 1)</option>
+                                    <option value="2">Răng cửa 2 (Răng số 2)</option>
+                                    <option value="3">Răng nanh (Răng số 3)</option>
+                                    <option value="4">Răng hàm nhỏ 1 (Răng số 4)</option>
+                                    <option value="5">Răng hàm nhỏ 2 (Răng số 5)</option>
+                                    <option value="6">Răng hàm lớn (Răng số 6)</option>
+                                    <option value="7">Răng hàm lớn (Răng số 7)</option>
+                                    <option value="8">Răng hàm lớn (Răng số 8)</option>
                                   </select>
                                 </div>
 
                                 <div class="col-sm-4 form-group">
                                   <label for="BEMATRANG">Bề mặt điều trị</label>
                                   <select id="BEMATRANG" name="BEMATRANG[]" class="form-control browser-default custom-select">
-                                    <% for (let i = 0; i < BeMatRang.length; i++)  {%>
-                                      <option value="<%= BeMatRang[i].MABEMATRANG %>"><%= BeMatRang[i].TENBEMATRANG %></option>
-                                    <% } %>
+                                    <option value="1">Mặt trong (Lingual - L)</option>
+                                    <option value="2">Mặt ngoài (Facial - F)</option>
+                                    <option value="3">Mặt xa (Distal - D)</option>
+                                    <option value="4">Mặt gần (Mesial - M)</option>
+                                    <option value="5">Mặt đỉnh (Top - T)</option>
+                                    <option value="6">Mặt chân răng (Root - R)</option>
                                   </select>
-                                </div>
+                              </div>
 
-                                <div class="col-sm-4">
-                                  <br>
-                                  <i class="fa fa-plus" aria-hidden="true" id="addDynamicFields"></i>
-                                </div>
+                              <div class="input-group-btn">
+                                <button class="btn btn-success" type="button" onclick="education_fields();"> <span class="fa fa-plus" style="text-align: center" aria-hidden="true"></span>  </button>
+                              </div>
+
+                              <div class="clear"></div>
+  
                               </div>
                             </div>
                                                             

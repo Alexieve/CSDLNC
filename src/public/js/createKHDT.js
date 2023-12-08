@@ -61,7 +61,7 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
-    document.getElementById("regForm").submit();
+    submitForm();
     return false;
   }
   // Otherwise, display the correct tab:
@@ -99,149 +99,63 @@ function fixStepIndicator(n) {
   //... and adds the "active" class to the current step:
   x[n].className += " active";
 }
-// Function to create RANG and BEMATRANG fields
-// function createDynamicFields() {
-//     // Create elements for RANG
-//     const rangDiv = document.createElement('div');
-//     rangDiv.classList.add('col-sm-4', 'form-group');
-  
-//     const rangLabel = document.createElement('label');
-//     rangLabel.setAttribute('for', 'RANG');
-//     rangLabel.textContent = 'Loại điều trị';
-  
-//     const rangSelect = document.createElement('select');
-//     rangSelect.setAttribute('id', 'RANG');
-//     rangSelect.setAttribute('name', 'RANG');
-//     rangSelect.classList.add('form-control', 'browser-default', 'custom-select');
-  
-//     // Replace 'RangOptions' with the array containing options for RANG
-//     const RangOptions = [
-//       { MARANG: '1', TENRANG: 'Răng cửa 1 (Răng số 1)' },
-//       { MARANG: '2', TENRANG: 'Răng cửa 2 (Răng số 2)' },
-//       { MARANG: '3', TENRANG: 'Răng nanh (Răng số 3)' },
-//       { MARANG: '4', TENRANG: 'Răng hàm nhỏ 1 (Răng số 4)' },
-//       { MARANG: '5', TENRANG: 'Răng hàm nhỏ 2 (Răng số 5)' },
-//       { MARANG: '6', TENRANG: 'Răng hàm lớn (Răng số 6)' },
-//       { MARANG: '7', TENRANG: 'Răng hàm lớn (Răng số 7)' },
-//       { MARANG: '8', TENRANG: 'Răng hàm lớn (Răng số 8)' }
-//       // Add more options as needed
-//     ];
-  
-//     RangOptions.forEach((option) => {
-//       const opt = document.createElement('option');
-//       opt.value = option.MARANG;
-//       opt.textContent = option.TENRANG;
-//       rangSelect.appendChild(opt);
-//     });
-  
-//     rangDiv.appendChild(rangLabel);
-//     rangDiv.appendChild(rangSelect);
-  
-//     // Create elements for BEMATRANG (similar to RANG)
-//     const bematRangDiv = document.createElement('div');
-//     bematRangDiv.classList.add('col-sm-4', 'form-group');
-  
-//     const bematRangLabel = document.createElement('label');
-//     bematRangLabel.setAttribute('for', 'BEMATRANG');
-//     bematRangLabel.textContent = 'Loại điều trị';
-  
-//     const bematRangSelect = document.createElement('select');
-//     bematRangSelect.setAttribute('id', 'BEMATRANG');
-//     bematRangSelect.setAttribute('name', 'BEMATRANG');
-//     bematRangSelect.classList.add('form-control', 'browser-default', 'custom-select');
-  
-//     // Replace 'BematRangOptions' with the array containing options for BEMATRANG
-//     const BematRangOptions = [
-//       { MABEMATRANG: '1', TENBEMATRANG: 'Mặt trong (Lingual - L):' },
-//       { MABEMATRANG: '2', TENBEMATRANG: 'Mặt ngoài (Facial - F)' },
-//       { MABEMATRANG: '3', TENBEMATRANG: 'Mặt xa (Distal - D)' },
-//       { MABEMATRANG: '4', TENBEMATRANG: 'Mặt gần (Mesial - M)' },
-//       { MABEMATRANG: '5', TENBEMATRANG: 'Mặt đỉnh (Top - T)' },
-//       { MABEMATRANG: '6', TENBEMATRANG: 'Mặt chân răng (Root - R)' },
-//       // Add more options as needed
-//     ];
-  
-//     BematRangOptions.forEach((option) => {
-//       const opt = document.createElement('option');
-//       opt.value = option.MABEMATRANG;
-//       opt.textContent = option.TENBEMATRANG;
-//       bematRangSelect.appendChild(opt);
-//     });
-  
-//     bematRangDiv.appendChild(bematRangLabel);
-//     bematRangDiv.appendChild(bematRangSelect);
-  
-//     // Append the dynamic fields to the row
-//     const row = document.querySelector('.tab .row');
-//     row.appendChild(rangDiv);
-//     row.appendChild(bematRangDiv);
-//     const removeButton = document.createElement('button');
-//     removeButton.textContent = 'Remove'; // Change the text or icon as needed
-//     removeButton.addEventListener('click', function() {
-//       row.removeChild(rangDiv);
-//       row.removeChild(bematRangDiv);
-//       row.removeChild(removeButton);
-//     });
-  
-//     row.appendChild(removeButton);   
-//   }
-  
-//   // Event listener for the plus button
-//   document.getElementById('addDynamicFields').addEventListener('click', function() {
-//     // Call the function to create dynamic fields when the icon is clicked
-//     createDynamicFields();
-//   });
-function addField() {
-  var dynamicFieldsContainer = document.getElementById("dynamicFieldsContainer");
-  
-  // Tạo một div mới để chứa các trường đầu vào động
-  var newInputContainer = document.createElement("div");
-  newInputContainer.classList.add("col-sm-4", "form-group");
-  
-  // Tạo một trường select mới cho RANG
-  var newRangSelect = document.createElement("select");
-  newRangSelect.classList.add("form-control", "browser-default", "custom-select");
-  newRangSelect.setAttribute("name", "RANG[]");
-  
-  // Thêm các option vào trường select RANG
-  for (let i = 0; i < Rang.length; i++) {
-    var newOption = document.createElement("option");
-    newOption.setAttribute("value", Rang[i].MARANG);
-    newOption.innerText = Rang[i].TENRANG;
-    newRangSelect.appendChild(newOption);
-  }
-  
-  // Thêm trường select RANG vào div mới
-  newInputContainer.appendChild(newRangSelect);
-  
-  // Tạo một trường select mới cho BEMATRANG
-  var newBeMatRangSelect = document.createElement("select");
-  newBeMatRangSelect.classList.add("form-control", "browser-default", "custom-select");
-  newBeMatRangSelect.setAttribute("name", "BEMATRANG[]");
-  
-  // Thêm các option vào trường select BEMATRANG
-  for (let i = 0; i < BeMatRang.length; i++) {
-    var newOption = document.createElement("option");
-    newOption.setAttribute("value", BeMatRang[i].MABEMATRANG);
-    newOption.innerText = BeMatRang[i].TENBEMATRANG;
-    newBeMatRangSelect.appendChild(newOption);
-  }
-  
-  // Thêm trường select BEMATRANG vào div mới
-  newInputContainer.appendChild(newBeMatRangSelect);
-  
-  // Tạo nút "Xóa" và gắn sự kiện xóa trường
-  var removeButton = document.createElement("button");
-  removeButton.classList.add("btn", "btn-danger", "btn-sm", "removeField");
-  removeButton.innerText = "Xóa";
-  removeButton.addEventListener("click", function() {
-    dynamicFieldsContainer.removeChild(newInputContainer);
-  });
-  newInputContainer.appendChild(removeButton);
-  
-  // Thêm div mới vào container chứa các trường đầu vào động
-  dynamicFieldsContainer.appendChild(newInputContainer);
+var room = 1;
+function education_fields() {
+ 
+    room++;
+    var objTo = document.getElementById('education_fields')
+    var divtest = document.createElement("div");
+	  divtest.setAttribute("class", "form-group removeclass"+room);
+	  var rdiv = 'removeclass'+room;
+    divtest.innerHTML = '<div class="row"><div class="col-sm-4 form-group"><label for="RANG">Răng điều trị</label><select id="RANG" name="RANG[]" class="form-control browser-default custom-select"><option value="1">Răng cửa 1 (Răng số 1)</option><option value="2">Răng cửa 2 (Răng số 2)</option><option value="3">Răng nanh (Răng số 3)</option><option value="4">Răng hàm nhỏ 1 (Răng số 4)</option><option value="5">Răng hàm nhỏ 2 (Răng số 5)</option><option value="6">Răng hàm lớn (Răng số 6)</option><option value="7">Răng hàm lớn (Răng số 7)</option><option value="8">Răng hàm lớn (Răng số 8)</option></select></div><div class="col-sm-4 form-group"><label for="BEMATRANG">Bề mặt điều trị</label><select id="BEMATRANG" name="BEMATRANG[]" class="form-control browser-default custom-select"><option value="1">Mặt trong (Lingual - L)</option><option value="2">Mặt ngoài (Facial - F)</option><option value="3">Mặt xa (Distal - D)</option><option value="4">Mặt gần (Mesial - M)</option><option value="5">Mặt đỉnh (Top - T)</option><option value="6">Mặt chân răng (Root - R)</option></select></div><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="fa fa-times" aria-hidden="true"></span></button></div></div></div><div class="clear"></div>';
+    
+    objTo.appendChild(divtest)
 }
-
-// Gắn sự kiện thêm trường khi nhấp vào nút "Thêm"
-document.querySelector(".addField").addEventListener("click", addField);
+   function remove_education_fields(rid) {
+	   $('.removeclass'+rid).remove();
+   }
+   var form = $('#regForm');
+   function submitForm() {
+       var data = form.serialize();
+       $.ajax({
+           type: "POST",
+           url: "/createKHDT",
+           data: data,
+           success: function (msg) {
+               // console.log(msg);
+               $.toast({
+                   heading: 'Tạo kế hoạch điều trị thành công', // Optional heading to be shown on the toast
+                   icon: 'success', // Type of toast icon
+                   showHideTransition: 'slide', // fade, slide or plain
+                   allowToastClose: true, // Boolean value true or false
+                   hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                   stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                   position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                   textAlign: 'left',  // Text alignment i.e. left, right or center
+                   loader: true,  // Whether to show loader or not. True by default
+                   loaderBg: '#9EC600',  // Background color of the toast loader
+               });
+               location.reload();
+           },
+           error: function (error) {
+               // console.log(error);
+               $.toast({
+                   heading: `${error.responseJSON.error}`, // Optional heading to be shown on the toast
+                   icon: 'error', // Type of toast icon
+                   showHideTransition: 'slide', // fade, slide or plain
+                   allowToastClose: true, // Boolean value true or false
+                   hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                   stack: false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                   position: 'top-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                   textAlign: 'left',  // Text alignment i.e. left, right or center
+                   loader: true,  // Whether to show loader or not. True by default
+                   loaderBg: '#9EC600',  // Background color of the toast loader
+               });
+               currentTab = 1;
+               showTab(currentTab);
+               document.getElementById("all-steps").style.display = "block";
+               document.getElementById("nextprevious").style.display = "block";
+           }
+       });
+   }
+   

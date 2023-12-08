@@ -54,39 +54,26 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Danh sách kế hoạch điều trị của bạn</h6>
                             <% } %>
                         </div>
-                        <div class="card-body" hidden>
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Mã kế hoạch điều trị</th>
                                             <th>Mã hồ sơ bệnh nhân</th>
-                                            <th>Mã điều trị</th>
-                                            <th>Mô tả kế hoạch</th>
+                                            <th>Họ tên bệnh nhân</th>
+                                            <th>Mô tả điều trị</th>
                                             <th>Ngày điều trị</th>
                                             <th>Khám chính</th>
+                                            <th>Tên nha sĩ 1</th>
                                             <th>Trợ khám</th>
-                                            <th>Ghi chú</th>
-                                            <th>Trạng thái</th>
-                                            <th>Mã hóa đơn thanh toán</th>
+                                            <th>Tên nha sĩ 2</th>
+                                            <th>Trạng thái kế hoạch</th>
+                                            <th>Trạng thái thanh toán</th>
                                         </tr>
                                     </thead>
                             
                                     <tbody style="cursor: pointer;">
-                                        <% for (let i = 0; i < 100; i++)  {%>
-                                        <tr data-toggle="modal" data-target="#KHDTModal">
-                                            <td><%= KHDT[i].MAKHDIEUTRI %></td>
-                                            <td><%= KHDT[i].MAHSBN %></td>
-                                            <td><%= KHDT[i].MADIEUTRI %></td>
-                                            <td><%= KHDT[i].MOTAKH %></td>
-                                            <td><%= new Date(KHDT[i].NGAYDIEUTRI).toLocaleDateString('en-GB') %></td>
-                                            <td><%= KHDT[i].KHAMCHINH %></td>
-                                            <td><%= KHDT[i].KHAMPHU %></td>
-                                            <td><%= KHDT[i].GHICHU %></td>
-                                            <td><%= KHDT[i].TRANGTHAI %></td>
-                                            <td><%= KHDT[i].MAHDTT %></td>
-                                        </tr>
-                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
@@ -125,14 +112,17 @@
     <script src="./js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="./vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="./vendor/datatables/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/datatables.min.js"></script>
+    <!-- <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+
+
+    <!-- Display the tables and modal -->
+    <!-- DataTables Buttons CSS và JS -->
+    <script src="./js/listKHDT.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="./js/demo/datatables-demo.js"></script>
-    
-    <!-- Display the tables and modal -->
-    <script src="./js/listKHDT.js"></script>
 
 </body>
 

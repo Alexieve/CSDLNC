@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 app.get('*', checkUser)
 app.use(authRoutes)
 app.use(KH_HSBN_Routes)
+app.use(KHDTRoutes)
 // Listen
 const port = 3000
 app.listen(port, function(){
