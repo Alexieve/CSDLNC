@@ -27,6 +27,8 @@ app.get('*', checkUser)
 app.use(authRoutes)
 app.use(KH_HSBN_Routes)
 app.use(KHDTRoutes)
+app.use(THUOC_Routes)
+app.use(HOADON_Routes)
 // Listen
 const port = 3000
 app.listen(port, function(){

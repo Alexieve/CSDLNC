@@ -1,10 +1,11 @@
 const sql = require('mssql')
 const config = {
   user: 'sa',
-  password: 'noitoi471',
-  server: 'DESKTOP-C7QTEP4',
+  password: '123',
+  server: 'NGUYENKHA',
   database: 'CSDLNC',
   options: {
+    instanceName: 'SQLEXPRESS',
     encrypt: true, 
     trustServerCertificate: true,
   },

@@ -166,6 +166,10 @@ function validateForm() {
                     data: { value: MAKH },
                     dataType: 'json',
                     success: function (data) {
+                        data.forEach(item => {
+                            var date = new Date(item.NGAYDIEUTRI);
+                            item.NGAYDIEUTRI = date.toLocaleDateString('vi-VN')
+                        })
                       // Populate data into input2
                       $('#MAKHDIEUTRI').flexdatalist({
                         data: data,
@@ -317,7 +321,7 @@ function setConfirmTab() {
         $('#NGAYTT').val(formattedDate)
 
         $('#confirmMAKH').text($('#MAKH').val());
-        $('#confirmNGAYTT').text(new Date().toLocaleTimeString());
+        $('#confirmNGAYTT').text(formattedDate);
         $('#confirmNGUOITT').text($('#NGUOITT').val());
         $('#confirmMAKHDIEUTRI').text($('#MAKHDIEUTRI').val());
         $('#confirmTONGTIENCANTT').text($('#TONGTIENCANTT').val());
