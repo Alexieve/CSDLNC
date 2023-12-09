@@ -12,6 +12,7 @@ const THUOC_Routes = require('./routes/THUOC_Routes')
 const HOADON_Routes = require('./routes/HOADON_Routes')
 const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 const KHDTRoutes = require('./routes/KHDTRoutes')
+const NV_LichHen_Routes = require('./routes/NV_LichHen_Routes')
 // Use and Set Module
 app.use(express.static(path.join(__dirname, './public')))
 app.set('views', path.join(__dirname, './views'))
@@ -29,6 +30,7 @@ app.use(KH_HSBN_Routes)
 app.use(KHDTRoutes)
 app.use(THUOC_Routes)
 app.use(HOADON_Routes)
+app.use(NV_LichHen_Routes)
 // Listen
 const port = 3000
 app.listen(port, function(){
