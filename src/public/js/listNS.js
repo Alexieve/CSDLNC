@@ -71,7 +71,13 @@ $(document).ready(function() {
         // Adjust the following code based on your modal structure
         $('#modalMANS').val(nhasi.MANS);
         $('#modalHOTEN').val(nhasi.HOTEN);
+        $('#modalNGAYSINH').val(nhasi.NGAYSINH);
+        $('#modal.GIOITINH').val(nhasi.GIOITINH);
+        $('#modalDIACHI').val(nhasi.DIACHI);
+        $('#modalSDT').val(nhasi.SDT);
+        $('#modalEMAIL').val(nhasi.EMAIL);
+        $('#modalMACN').val(nhasi.CN);
         // Add more lines to set other modal fields
-        $('#nhasiModal').modal('show');
+        $('#listNSModal').modal('show');
     });
 });

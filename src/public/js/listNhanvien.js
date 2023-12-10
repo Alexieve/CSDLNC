@@ -72,12 +72,15 @@ $(document).ready(function () {
     $('tbody').on('click', 'tr', function () {
         var nhanvien = table.row(this).data();
         console.log('Dòng được click:', nhanvien);
-
-        // Display the clicked row's data in a modal
-        // Adjust the following code based on your modal structure
         $('#modalMANV').val(nhanvien.MANV);
         $('#modalHOTEN').val(nhanvien.HOTEN);
+        $('#modalNGAYSINH').val(nhanvien.NGAYSINH);
+        $('#modalGIOITINH').val(nhanvien.GIOITINH);
+        $('#modalDIACHI').val(nhanvien.DIACHI);
+        $('#modalSDT').val(nhanvien.SDT);
+        $('#modalEMAIL').val(nhanvien.EMAIL);
+        $('#modalLOAINV').val(nhanvien.LOAINV);
         // Add more lines to set other modal fields
-        $('#nhanvienModal').modal('show');
+        $('#listNVModal').modal('show');
     });
 });
