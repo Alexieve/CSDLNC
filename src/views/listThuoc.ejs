@@ -19,9 +19,11 @@
 
     <!-- Custom styles for this template -->
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/listHSBN.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/jquery.toast.min.css">
     <link rel="stylesheet" href="./css/jquery.toast.min.css">
 
 </head>
@@ -48,9 +50,9 @@
                             <h1 class="h3 mb-4 text-gray-800">Danh sách thuốc</h1>
 
                             <div class="card shadow mb-4">
-                                <div class="card-body" hidden>
+                                <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-bordered" id="dataTable" width="100%"
+                                        <table class="table table-hover table-bordered" id="dataTable_Thuoc" width="100%"
                                             cellspacing="0">
                                             <colthuoc>
                                                 <col width="4%" />
@@ -77,41 +79,28 @@
                                                     <th>Nhà Sản Xuất</th>
                                                     <th>Đơn Giá</th>
                                                     <th>Số lượng</th>
-                                                    <th>Hành Động</th>
+                                                    <th>Hành động</th>
+                                                    <!-- <th>Hành Động</th> -->
                                                 </tr>
                                             </thead>
 
-                                            <tbody style="cursor: pointer;">
-                                                <% for (let i=0; i < Thuoc.length; i++) {%>
-                                                    <tr>
-                                                        <td><%= Thuoc[i].MATHUOC %></td>
-                                                        <td><%= Thuoc[i].TENTHUOC %></td>
-                                                        <td><%= Thuoc[i].CONGDUNG %></td>
-                                                        <td><%= Thuoc[i].CHONGCHIDINH %></td>
-                                                        <td><%= Thuoc[i].TACDUNGPHU %></td>
-                                                        <td><%= Thuoc[i].HDSD %></td>
-                                                        <td><%= new Date(Thuoc[i].HSD).toLocaleDateString('en-GB') %></td>
-                                                        <td><%= Thuoc[i].NSX %></td>
-                                                        <td><%= Thuoc[i].DONGIA %></td>
-                                                        <td><%= Thuoc[i].SL %></td>
-                                                        <td class="dropdown">
-                                                            <button class="dropdown-toggle btn btn-light border "
-                                                                type="button" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                Actions
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item view-trigger"><i
-                                                                        class="fa fa-eye text-primary"></i> Xem thông
-                                                                    tin chi tiết</a>
-                                                                <a class="dropdown-item edit-trigger"><i
-                                                                        class="fa fa-edit text-primary"></i> Cập
-                                                                    Nhật</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <% } %>
-                                            </tbody>
+                                            <tbody></tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

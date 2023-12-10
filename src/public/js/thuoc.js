@@ -1,9 +1,3 @@
-
-// Display table when fully loaded
-window.addEventListener('load', function () {
-    document.querySelector('.card-body').removeAttribute('hidden');
-});
-
 // Display modal hiển thị thông tin
 $(document).ready(function () {
     // Handle click event on elements with the 'edit-trigger' class
@@ -154,3 +148,94 @@ function submitForm() {
         });
     }
 }
+
+$(document).ready(function () {
+    var dataTable = $('#dataTable_Thuoc').DataTable({
+        'processing': true,
+        'serverSide': true,
+        'serverMethod': 'get',
+        'ajax' : {
+            'url' : '/list_Thuoc_dataTable'
+        },
+        'aaSorting' : [],
+        'columns' : [
+            { data : 'MATHUOC'},
+            { data : 'TENTHUOC'},
+            { data : 'CONGDUNG'},
+            { data : 'CHONGCHIDINH'},
+            { data : 'TACDUNGPHU'},
+            { data : 'HDSD'},
+            { data : 'HSD', 
+            "render": function(data, type, row) {
+                var date = new Date(data);
+                return date.toLocaleDateString('vi-VN'); // Example format
+            }},
+            { data : 'NSX'},
+            { data : 'DONGIA'},
+            { data : 'SL'},
+            { data : null}
+        ],
+        "deferRender": true,
+        "search": {
+            "return": true,
+            "smart": true,
+        },
+        "initComplete": function () {
+            var searchTable = this.api();
+            var searchValues = [];
+
+            searchTable.columns().every(function (index) {
+                var column = this;
+                var isLastColumn = searchTable.columns().indexes().indexOf(index) === (searchTable.columns().indexes().length - 1);
+                if(!isLastColumn) {
+                    var input = $('<input type="text" placeholder="Tìm kiếm..." />')
+                    .appendTo($(column.footer()).empty())
+                    .on('keydown', function (e) {
+                            var value = this.value.trim();
+                            searchValues[index] = value;
+                    });
+                    input.blur(function () {
+                        var value = this.value.trim();
+                        searchValues[index] = value;
+                        search();
+                    });
+                }
+            });
+            function search() {
+                searchTable.columns().every(function (index) {
+                    var column = this;
+                    var value = searchValues[index] || '';
+                    
+                    if (column.search() !== value) {
+                        searchTable.column(index).search(value);
+                    }
+                });
+                searchTable.draw();
+            }
+        },
+        'drawCallback': function (settings) {
+            var api = this.api();
+            var rows = api.rows({ page: 'current' }).nodes();
+    
+            // Iterate over each row
+            api.column(-1, { page: 'current' }).data().each(function (value, i) {
+                // Your custom content for column e
+                var customContent = '<td class="dropdown" style="cursor: pointer;">' +
+                    '<button class="dropdown-toggle btn btn-light border" ' +
+                    'type="button" data-toggle="dropdown" ' +
+                    'aria-haspopup="true" aria-expanded="false">' +
+                    'Actions' +
+                    '</button>' +
+                    '<div class="dropdown-menu">' +
+                    '<a class="dropdown-item view-trigger"><i class="fa fa-eye text-primary"></i> Xem thông tin chi tiết</a>' +
+                    '<a class="dropdown-item edit-trigger"><i class="fa fa-edit text-primary"></i> Cập Nhật</a>' +
+                    '</div>' +
+                    '</td>';
+    
+                // Append the custom content to the last cell of the current row
+                $(rows).eq(i).find('td:last').remove();
+                $(rows).eq(i).append(customContent);
+            });
+        }
+    });
+});

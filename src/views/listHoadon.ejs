@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/listHSBN.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="./vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -49,8 +50,8 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-bordered" id="dataTable" width="100%"
-                                            cellspacing="0" hidden>
+                                        <table class="table table-hover table-bordered" id="dataTable_Hoadon" width="100%"
+                                            cellspacing="0">
                                             <colhoadon>
                                                 <col width="8%" />
                                                 <col width="9%" />
@@ -76,21 +77,21 @@
                                                 </tr>
                                             </thead>
 
-                                            <tbody style="cursor: pointer;">
-                                                <% for (let i=0; i < Hoadon.length; i++) {%>
-                                                    <tr data-toggle="modal" data-target="#hoadonModal">
-                                                        <td><%= Hoadon[i].MAHOADON %></td>
-                                                        <td><%= Hoadon[i].MAHSBN %></td>
-                                                        <td><%= new Date(Hoadon[i].NGAYTT).toLocaleDateString('en-GB') %></td>
-                                                        <td><%= Hoadon[i].NGUOITT %></td>
-                                                        <td><%= Hoadon[i].TONGTIENCANTT %></td>
-                                                        <td><%= Hoadon[i].SOTIENNHAN %></td>
-                                                        <td><%= Hoadon[i].SOTIENTHOI %></td>
-                                                        <td><%= Hoadon[i].LOAITT %></td>
-                                                        <td><%= Hoadon[i].NVTHANHTOAN %></td>
-                                                    </tr>
-                                                    <% } %>
-                                            </tbody>
+                                            <tbody style="cursor: pointer;"></tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
