@@ -82,9 +82,9 @@ $(document).ready(function() {
         $('#modalNGAYDIEUTRI').val(formattedDate);
         $('#modalMAHSBN').val(khdt.MAHSBN);
         $('#modalMOTAKH').val(khdt.MOTAKH);
-        $('#modalMADIEUTRI').val(khdt.MADIEUTRI);
+        $('#modalMADIEUTRI').val(khdt.MOTADT);
         $('#modalKHAMCHINH').val(khdt.KHAMCHINH);
-        $('#modalKHAMPHU').val(khdt.KHAMPHU);
+        $('#modalKHAMPHU').val(khdt.TROKHAM);
         $('#modalGHICHU').val(khdt.GHICHU);
         $('#modalTRANGTHAI').val(khdt.TRANGTHAI);
         $('#modalMAHDTT').val(khdt.MAHDTT);
