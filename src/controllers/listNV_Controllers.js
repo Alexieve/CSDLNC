@@ -85,7 +85,7 @@ module.exports.listNV_get_data = async (req, res) => {
 
 //update    
 module.exports.Nhansu_Nhanvien_post = async (req, res) => {
-    //console.log(req.body);
+    //console.log(req.body); 
     const MANV = parseInt(req.body.MANV);
     const HOTEN = req.body.HOTEN;
     const NGAYSINH = req.body.NGAYSINH;
@@ -130,7 +130,7 @@ module.exports.createNV_post = async (req, res) => {
     const DIACHI = req.body.DIACHI;
     const EMAIL = req.body.EMAIL;
     const LOAINV = req.body.LOAINV;
-    const MATKHAU = req.body.MAUKHAU;
+    const MATKHAU = req.body.MATKHAU;
 
     try {
         const pool = await conn;
