@@ -50,7 +50,7 @@ module.exports.addDonThuoc = async (req, res) => {
         }
         console.log("OK");
     }
-    res.status(200).json({ message: 'Success', MAKHDIEUTRI: MAKHDIEUTRI }).redirect('/khdt');   
+    res.redirect('/khdt');
 }
 module.exports.UpDateTrangThai = async(req,res) =>{
     const trangThai = req.body.TRANGTHAI;
