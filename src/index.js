@@ -16,6 +16,7 @@ const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 const listNVRoutes = require('./routes/listNV_Routes')
 const listNSRoutes = require('./routes/listNS_Routes')
 const NV_LichHen_Routes = require('./routes/NV_LichHen_Routes')
+const KHDTRoutes = require('./routes/KHDTRoutes')
 // Use and Set Module
 app.use(express.static(path.join(__dirname, './public')))
 app.set('views', path.join(__dirname, './views'))
@@ -37,6 +38,7 @@ app.use(LICHLAMVIEC_Routes)
 app.use(listNVRoutes)
 app.use(listNSRoutes)
 app.use(NV_LichHen_Routes)
+app.use(KHDTRoutes)
 // Listen
 const port = 3000
 app.listen(port, function(){

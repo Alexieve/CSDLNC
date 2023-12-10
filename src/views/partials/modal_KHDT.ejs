@@ -1,0 +1,66 @@
+<!-- Modal -->
+<div class="modal fade" id="KHDTModal" tabindex="-1" role="dialog" aria-labelledby="hsbnModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="KHDTModalLabel">Thông tin kế hoạch điều trị</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/khdt" method="POST" id="modal_KHDT">
+                        <div class="form-group">
+                            <label for="modalMAKHDT">Mã kế hoạch điều trị:</label>
+                            <input type="text" name = "MAKHDIEUTRI" class="form-control" id="modalMAKHDIEUTRI" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalMAHSBN">Mã hồ sơ bệnh nhân:</label>
+                            <input type="text" class="form-control" id="modalMAHSBN" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalMADIEUTRI">Mã điều trị:</label>
+                            <input type="text" class="form-control" id="modalMADIEUTRI" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalMOTAKH">Mô tả kế hoạch:</label>
+                            <input type="text" class="form-control" id="modalMOTAKH" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalNGAYDIEUTRI">Ngày điều trị:</label>
+                            <input type="date" class="form-control" id="modalNGAYDIEUTRI" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalKHAMCHINH">Khám chính:</label>
+                            <input type="text" class="form-control" id="modalKHAMCHINH" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalKHAMPHU">Khám phụ:</label>
+                            <input type="text" class="form-control" id="modalKHAMPHU" readonly>
+                        </div> 
+                        <div class="form-group">
+                            <label for="modalGHICHU">Ghi chú:</label>
+                            <input type="text" class="form-control" id="modalGHICHU" readonly>
+                        </div> 
+                        <div class="form-group">
+                            <label for="TRANGTHAI">Trạng thái</label>
+                            <select id="TRANGTHAI" name="TRANGTHAI" class="form-control browser-default custom-select">
+                              <option value="1">Đang điều trị</option>
+                              <option value="2">Hoàn thành</option>
+                              <option value="3">Đã hủy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalMAHDTT">Mã hóa đơn thanh toán:</label>
+                            <input type="text" class="form-control" id="modalMAHDTT" readonly>
+                        </div>      
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                            <button type="button" class="btn btn-primary" id="addDonThuoc" onclick="DonThuoc();">Thêm đơn thuốc</button>
+                        </div>                                                                                                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

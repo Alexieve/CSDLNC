@@ -1,0 +1,16 @@
+const {Router} = require('express')
+const KHDTControllers = require('../controllers/KHDTControllers')
+const { preventLoginAgain, requireAuth } = require('../middleware/authMiddleware')
+
+const router = Router()
+router.get('/khdt', requireAuth, KHDTControllers.getKHDT)
+router.post('/khdt', requireAuth, KHDTControllers.UpDateTrangThai)
+router.get('/createKHDT', requireAuth, KHDTControllers.createKHDT1_get)
+router.post('/createKHDT', requireAuth, KHDTControllers.createKHDT_post)
+router.get('/khdt/init',requireAuth, KHDTControllers.KHDT_get_data)
+router.get('/createKHDT/search/patients', requireAuth, KHDTControllers.search_hsbn_get)
+router.get('/createKHDT/search/dentists', requireAuth, KHDTControllers.search_dentists_get)
+router.get('/addDonThuoc', requireAuth, KHDTControllers.getAddDonThuoc)
+router.post('/addDonThuoc', requireAuth, KHDTControllers.addDonThuoc)
+router.get('/addDonThuoc/search/thuoc', requireAuth, KHDTControllers.search_thuoc_get)
+module.exports = router;
