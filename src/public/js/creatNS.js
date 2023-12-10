@@ -1,14 +1,14 @@
-var form = $('#form_HSBN');
+var form = $('#form_NV');
 form.submit(function (e) {
     e.preventDefault();
     var data = form.serialize();
     $.ajax({
         type: "POST",
-        url: "/createHSBN",
+        url: "/createNV",
         data: data,
         success: function (data) {
             $.toast({
-                heading: 'Tạo hồ sơ thành công.', // Optional heading to be shown on the toast
+                heading: 'Tạo nhân sự thành công.', // Optional heading to be shown on the toast
                 icon: 'success', // Type of toast icon
                 showHideTransition: 'slide', // fade, slide or plain
                 allowToastClose: true, // Boolean value true or false
@@ -24,7 +24,7 @@ form.submit(function (e) {
         },
         error: function (data) {
             $.toast({
-                heading: 'Tạo hồ sơ thất bại.', // Optional heading to be shown on the toast
+                heading: 'Tạo nhân sự thất bại.', // Optional heading to be shown on the toast
                 icon: 'error', // Type of toast icon
                 showHideTransition: 'slide', // fade, slide or plain
                 allowToastClose: true, // Boolean value true or false
@@ -39,4 +39,4 @@ form.submit(function (e) {
             });
         }
     });
-})
+});

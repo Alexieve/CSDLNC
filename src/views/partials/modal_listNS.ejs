@@ -1,0 +1,55 @@
+<!-- Modal -->
+<div class="modal fade" id="listNSModal" tabindex="-1" role="dialog" aria-labelledby="listNSModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="listNSModalLabel">Thông tin nha sĩ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/nhasi" method="POST" id="modal_listNS">
+
+                    <input type="hidden" id="modalMANS" name="MANS" value="">
+
+                    <div class="form-group">
+                        <label for="modalHOTEN">Họ Tên Nha Sĩ:</label>
+                        <input type="text" class="form-control" id="modalHOTEN" name="HOTEN">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalNGAYSINH">Ngày Sinh:</label>
+                        <input type="date" class="form-control" id="modalNGAYSINH" name="NGAYSINH">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalGIOITINH">Giới Tính:</label>
+                        <select class="form-control" id="modalGIOITINH" name="GIOITINH">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDIACHI">Địa chỉ:</label>
+                        <input type="text" class="form-control" id="modalDIACHI" name="DIACHI">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalSDT">Số Điện Thoại:</label>
+                        <input type="tel" class="form-control" id="modalSDT" name="SDT">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalEMAIL">Email:</label>
+                        <input type="email" class="form-control" id="modalEMAIL" name="EMAIL">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalMACN">Mã Chi Nhánh:</label>
+                        <input type="text" class="form-control" id="modalMACN" name="MACN">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

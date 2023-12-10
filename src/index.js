@@ -13,6 +13,8 @@ const THUOC_Routes = require('./routes/THUOC_Routes')
 const HOADON_Routes = require('./routes/HOADON_Routes')
 const LICHLAMVIEC_Routes = require('./routes/LICHLAMVIEC_Routes')
 const {requireAuth, checkUser} = require('./middleware/authMiddleware')
+const listNVRoutes = require('./routes/listNV_Routes')
+const listNSRoutes = require('./routes/listNS_Routes')
 
 // Use and Set Module
 app.use(express.static(path.join(__dirname, './public')))
@@ -32,6 +34,8 @@ app.use(LICHHEN_Routes)
 app.use(THUOC_Routes)
 app.use(HOADON_Routes)
 app.use(LICHLAMVIEC_Routes)
+app.use(listNVRoutes)
+app.use(listNSRoutes)
 // Listen
 const port = 3000
 app.listen(port, function(){
