@@ -2,16 +2,17 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: '123',
-  server: 'ATLAZ',
+  server: 'ADMIN',
   database: 'CSDLNC',
   options: {
-    instanceName: 'SQLEXPRESS',
+    //instanceName: 'SQLEXPRESS',
     encrypt: true, 
     trustServerCertificate: true,
   },
 };
 
 const conn = new sql.ConnectionPool(config).connect().then(pool => {
+  console.log('Database Connection Successful!');
   return pool;
 }).catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
