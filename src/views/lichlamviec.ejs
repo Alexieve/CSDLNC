@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Lịch làm việc nha sĩ</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
+    <link href="./css/jquery.toast.min.css" rel="stylesheet">
+    <link href="./css/TimeSheet.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/navbar") -%>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Lịch Làm Việc Nha Sĩ</h1>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 id="title" class="m-0 mb-3 font-weight-bold text-primary">Lịch làm việc định kỳ hằng tuần</h6>
+                            
+                            <div class="row">
+                                <span class="input-group-text ml-3">Nha Sĩ</span>
+                                <input type="text" id="NHASI" class="col-sm-3 form-control mr-3" name="NHASI" placeholder="Chọn nha sĩ" required>
+
+                                
+                                <span class="input-group-text">Chế Độ</span>
+                                <select id="mode" class="col-sm-3 custom-select mr-3">
+                                    <option value="change" selected>Thay đổi lịch làm việc</option>
+                                    <option value="weekly">Xem theo tuần</option>
+                                    <option value="monthly">Xem theo tháng</option>
+                                </select>
+
+                                <button id="prevBtn" type="button" class="btn btn-outline-primary float-right mr-1" onclick="nextPrevBtnClick(-1)" disabled> < </button>
+                                <button id="nextBtn" type="button" class="btn btn-outline-primary float-right mr-3" onclick="nextPrevBtnClick(1)" disabled> > </button>
+
+                                <button id="saveBtn" type="button" class="btn btn-primary float-right mr-3" disabled>Cập nhật</button>
+                                <button id="addNgayNghi" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalDate" disabled> + Thêm ngày nghỉ</button>
+                                
+                            </div>
+                        
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-auto">
+                                    <table class="table table-responsive">
+                                        <thead></thead>
+                                        <tbody id="LichLamViec">
+    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer") -%>
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scrollToTopBtn") -%>
+    <%- include("./partials/modalDate") -%>
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="./vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./js/sb-admin-2.min.js"></script>
+    <script src="./js/jquery.flexdatalist.min.js"></script>
+    <script src="./js/jquery.toast.min.js"></script>
+    <script src="./js/TimeSheet.js"></script>
+    <script src="./js/lichlamviec.js"></script>
+</body>
+
+</html>

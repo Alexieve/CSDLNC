@@ -7,9 +7,11 @@ const app = express()
 // Require Routes
 
 const authRoutes = require('./routes/authRoutes')
-const KH_HSBN_Routes = require('./routes/KH_HSBN_Routes')
+const HSBN_Routes = require('./routes/HSBN_Routes')
+const LICHHEN_Routes = require('./routes/LICHHEN_Routes')
 const THUOC_Routes = require('./routes/THUOC_Routes')
 const HOADON_Routes = require('./routes/HOADON_Routes')
+const LICHLAMVIEC_Routes = require('./routes/LICHLAMVIEC_Routes')
 const {requireAuth, checkUser} = require('./middleware/authMiddleware')
 
 // Use and Set Module
@@ -25,9 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true}))
 // Routes
 app.get('*', checkUser)
 app.use(authRoutes)
-app.use(KH_HSBN_Routes)
+app.use(HSBN_Routes)
+app.use(LICHHEN_Routes)
 app.use(THUOC_Routes)
 app.use(HOADON_Routes)
+app.use(LICHLAMVIEC_Routes)
 // Listen
 const port = 3000
 app.listen(port, function(){
