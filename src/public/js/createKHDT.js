@@ -22,7 +22,7 @@ $('#MANSKP').flexdatalist({
     minLength: 1,
     textProperty: '{MANS} - {HOTEN}',
     valueProperty: ["MANS","HOTEN"],
-    selectionRequired: true,
+    selectionRequired: false,
     visibleProperties: ["MANS","HOTEN"],
     searchIn: ["MANS","HOTEN"],
     url: '/createKHDT/search/dentists',
@@ -126,7 +126,6 @@ function education_fields() {
            data: data,
            success: function (msg) {
                // console.log(msg);
-               location.reload();
                $.toast({
                    heading: 'Tạo kế hoạch điều trị thành công', // Optional heading to be shown on the toast
                    icon: 'success', // Type of toast icon
@@ -138,6 +137,7 @@ function education_fields() {
                    textAlign: 'left',  // Text alignment i.e. left, right or center
                    loader: true,  // Whether to show loader or not. True by default
                    loaderBg: '#9EC600',  // Background color of the toast loader
+                   afterHidden: function () { window.location.href = "/khdt";},
                });
            },
            error: function (error) {
