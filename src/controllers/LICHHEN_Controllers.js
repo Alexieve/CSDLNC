@@ -87,9 +87,66 @@ module.exports.createLH_post = async (req, res) => {
         .input('HOTENNS', sql.NVarChar, HOTENNS)
         .input('NGAYHEN', sql.Date, NGAYHEN)
         .input('GIOHENSTR', sql.VarChar, GIOHEN)
+        .input('MATAIKHAM', sql.Int, null)
         .execute('SP_BOOK_APPOINMENT');
         res.status(200).json({message: 'Success'}); 
     } catch (err) {
+        console.error('SQL Server Error:', err.message);
+        res.status(400).json({error: err.message})
+    } finally {
+        sql.close();
+    }
+}
+
+module.exports.createTaiKham_get = async (req, res) => {
+    const MAHSBN = req.query.MAHSBN;
+    const MANS = req.query.MANS;
+    const MAKHDIEUTRI = req.query.MAKHDIEUTRI;
+
+    try {
+        const pool = await conn;
+        const result = (await pool.request()
+        .input('MAHSBN', sql.Int, MAHSBN)
+        .input('MANS', sql.Int, MANS)
+        .execute('SP_GET_TAIKHAM_INFO')).recordsets
+        res.render('addTaiKham', {HSBN: result[0][0], NHASI: result[1][0], MAKHDIEUTRI: MAKHDIEUTRI}); 
+    }
+    catch (err) {
+        console.error('SQL Server Error:', err.message);
+        res.render('404')
+    } finally {
+        sql.close();
+    }
+}
+
+
+module.exports.createTaiKham_post = async (req, res) => {
+    const MAHSBN = req.body.MAHSBN
+    const HOTENBN = req.body.HOTENBN
+    const SDTBN = req.body.SDTBN
+    const MANS = req.body.MANS;
+    const HOTENNS = req.body.HOTENNS;
+    const MATAIKHAM = req.body.MATAIKHAM;
+    const NGAYHEN = req.body.NGAYHEN
+    const GIOHEN = req.body.GIOHEN +":00"
+    // console.log(MAHSBN, HOTENBN, SDTBN, MANS, HOTENNS, MATAIKHAM, NGAYHEN, GIOHEN)
+
+    try {
+        const pool = await conn;
+        await pool.request()
+        .input('MACN', sql.Int, null)
+        .input('MANS', sql.Int, MANS)
+        .input('MAHSBN', sql.Int, MAHSBN)
+        .input('HOTENBN', sql.NVarChar, HOTENBN)
+        .input('SDTBN', sql.NVarChar, SDTBN)
+        .input('HOTENNS', sql.NVarChar, HOTENNS)
+        .input('NGAYHEN', sql.Date, NGAYHEN)
+        .input('GIOHENSTR', sql.VarChar, GIOHEN)
+        .input('MATAIKHAM', sql.Int, MATAIKHAM)
+        .execute('SP_BOOK_APPOINMENT');
+        res.status(200).json('success');
+    }
+    catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
     } finally {

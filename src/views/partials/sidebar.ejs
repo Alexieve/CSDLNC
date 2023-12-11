@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -27,34 +28,16 @@
         Quản lý
     </div>
 
-    <!-- Nav Item -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNhanSu"
-            aria-expanded="true" aria-controls="collapseNhanSu">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Nhân sự</span>
-        </a>
-        <div id="collapseNhanSu" class="collapse" aria-labelledby="headingNhanSu" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Nhân sự:</h6>
-                <a class="collapse-item" href="/listNS">Nha sĩ</a>
-                <a class="collapse-item" href="/listNV">Nhân viên</a>
-                <a class="collapse-item" href="/lichlamviec">Lịch làm việc nha sĩ</a>
-            </div>
-        </div>
-    </li>
-
     <!-- Nav Item  -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKeHoachDieuTri"
             aria-expanded="true" aria-controls="collapseKeHoachDieuTri">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fa-solid fa-stethoscope"></i>
             <span>Kế hoạch điều trị</span>
         </a>
         <div id="collapseKeHoachDieuTri" class="collapse" aria-labelledby="headingKeHoachDieuTri"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Quản lý phòng khám:</h6>
                 <a class="collapse-item" href="/Appointmentmanage">Lịch hẹn</a>
                 <a class="collapse-item" href="/hsbn">Hồ sơ bệnh nhân</a>
                 <a class="collapse-item" href="/khdt">Kế hoạch điều trị</a>
@@ -62,82 +45,71 @@
         </div>
     </li>
 
+    <!-- Nav Item -->
+    <% if (user.LOAITK > 1) { %>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNhanSu"
+            aria-expanded="true" aria-controls="collapseNhanSu">
+            <% if (user.LOAITK == 2) { %>
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Lịch hẹn - Lịch làm việc</span>
+            <% } else { %>
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản lý nhân sự</span>
+            <% } %>
+        </a>
+        <div id="collapseNhanSu" class="collapse" aria-labelledby="headingNhanSu" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <% if (user.LOAITK == 2) { %>
+                <a class="collapse-item" href="/Appointmentmanage">Lịch hẹn</a>
+                <a class="collapse-item" href="/lichlamviec">Lịch làm việc</a>
+                <% } else if (user.LOAITK == 3)  { %>
+                <h6 class="collapse-header">Nhân sự:</h6>
+                <a class="collapse-item" href="/listNS">Nha sĩ</a>
+                <a class="collapse-item" href="/listNV">Nhân viên</a>
+                <h6 class="collapse-header">Lịch làm việc:</h6>
+                <a class="collapse-item" href="/lichlamviec">Lịch làm việc nha sĩ</a>
+                <% } %>
+                
+            </div>
+        </div>
+    </li>
+
+    <% if (user.LOAITK > 2) { %>
     <!-- Nav Item  -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThanhToan"
             aria-expanded="true" aria-controls="collapseThanhToan">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fa-solid fa-file-invoice-dollar"></i>
             <span>Thanh toán</span>
         </a>
         <div id="collapseThanhToan" class="collapse" aria-labelledby="headingThanhToan"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Thanh toán:</h6>
-                <a class="collapse-item" href="/blank">Kế hoạch đã thanh toán</a>
-                <a class="collapse-item" href="/blank">Kế hoạch cần thanh toán</a>
+                <a class="collapse-item" href="/hoadon">Danh sách hóa đơn</a>
             </div>
         </div>
     </li>
+    <% } %>
+
 
     <!-- Nav Item  -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHeThong"
             aria-expanded="true" aria-controls="collapseHeThong">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fa-solid fa-warehouse"></i>
             <span>Hệ thống</span>
         </a>
         <div id="collapseHeThong" class="collapse" aria-labelledby="headingHeThong"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Thanh toán:</h6>
                 <a class="collapse-item" href="/thuoc">Kho thuốc</a>
                 <a class="collapse-item" href="/blank">Liệu trình điều trị</a>
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHoadon"
-            aria-expanded="true" aria-controls="collapseThanhToan">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Hóa đơn</span>
-        </a>
-        <div id="collapseHoadon" class="collapse" aria-labelledby="collapseHoadon"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Hóa đơn:</h6>
-                <a class="collapse-item" href="/hoadon">Danh sách hóa đơn</a>
             </div>
         </div>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Addons
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="/blank">Blank Page</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="/tables">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-    </li>
+    <% } %>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

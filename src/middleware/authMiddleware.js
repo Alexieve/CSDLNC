@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const Account = require('../models/KhachHang');
-const {conn, sql} = require('../middleware/database')
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
@@ -75,11 +73,11 @@ const requirePermission = (requiredPermission) => {
                     res.redirect('/login');
                 } else {
                     const user = decodedToken.user;
-                    if (user && user.LOAINV >= requiredPermission) {
+                    if (user && user.LOAITK >= requiredPermission) {
                         res.locals.user = user;
                         next();
                     } else {
-                        res.status(404).render('error404')
+                        res.status(403).render('403')
                     }
                 }
             });

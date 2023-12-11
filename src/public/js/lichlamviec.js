@@ -273,3 +273,17 @@ $('#addBtn').on('click', function() {
         });
     }
 })
+
+const LOAITK = $('#LOAITK').val();
+if (LOAITK == 2) {
+    $('#NHASI').val($('#NHASIID').val());
+    $('#saveBtn').prop('hidden', true);
+    $('#addNgayNghi').prop('hidden', true);
+    $('#NHASI').prop('disabled', true);   
+    // Hidden the change mode in option
+    $('#mode option[value="change"]').prop('hidden', true);
+    currentId = $('#NHASIID').val();
+    $('#mode').val('weekly');
+    sendGetRequest(currentMode, currentId);
+ 
+}

@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const HSBN_Controllers = require('../controllers/HSBN_Controllers')
-const { preventLoginAgain, requireAuth } = require('../middleware/authMiddleware')
+const { requireAuth } = require('../middleware/authMiddleware')
 
 
 
