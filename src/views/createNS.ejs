@@ -20,7 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="./css/form_NS.css" rel="stylesheet">
     <link href="./css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
+    <link href="./css/jquery.toast.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -44,10 +45,12 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">TẠO HỒ SƠ NHA SĨ</h1>
                     <div class="container mt-3">
-                        <form action="/createNS" method="POST" id="form_NS">
+                        <form action="/createNS" method="POST" id="form_NV">
                           <div class="row box8">
 
-                            <input type="hidden" id="LOAITK" name="LOAITK" value="<%=user.LOAITK%>">
+                            <div class="col-sm-12 form-group">
+                              <input type="hidden" id="LOAITK" name="LOAITK" value="2">
+                            </div>
 
                             <div class="col-sm-12 form-group">
                               <label for="HOTEN">Họ tên Nha Sĩ</label>
@@ -93,7 +96,7 @@
                             </div>
                       
                             <div class="col-sm-12 form-group mb-0">
-                              <button type="submit" class="btn btn-primary float-right">Tạo hồ sơ</button>
+                              <button type="submit" class="btn btn-primary float-right" onclick="return submitForm()">Tạo hồ sơ</button>
                             </div>
                       
                           </div>
@@ -126,6 +129,7 @@
     <!-- Custom scripts for all pages-->
     <script src="./js/sb-admin-2.min.js"></script>
     <script src="./js/jquery.toast.min.js"></script>
+    <script src="./js/jquery.flexdatalist.min.js"></script>
     <script src="./js/createNS.js"></script>
 
 </body>

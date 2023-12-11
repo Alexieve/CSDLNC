@@ -101,6 +101,15 @@
                     box-sizing: border-box;
                 }
                 </style>
+            <% if (user.LOAITK == '2') { %>
+                    <style>
+                    
+                        #dataTable td:nth-child(9),
+                        #dataTable th:nth-child(9) {
+                            display: none;
+                        }
+                    </style>
+                <% } %>
             <%- include("./partials/footer") -%>
 
         </div>

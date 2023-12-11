@@ -1,7 +1,7 @@
 var form = $('#form_NV');
 function submitForm() {
     var isValid = true;
-    form.find('input, select').each(function() {
+    form.find('input, select,textarea').each(function() {
         var fieldValue = $(this).val();
         if (fieldValue.trim() === '') {
 
@@ -59,4 +59,5 @@ function submitForm() {
             loaderBg: '#9EC600',
         });
     }
+    return false;
 }

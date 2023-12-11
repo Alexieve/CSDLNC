@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Đặt lịch tái khám</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="./css/form_LH.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
+    <link href="./css/jquery.toast.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/navbar") -%>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Đặt Lịch Tái Khám</h1>
+                    <div class="container mt-5">
+                      <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-md-6">
+                          <form id="bookAppointForm" class="box8" style="padding-bottom: 0;">
+                            <h3 class="text-center">Thông Tin Lịch Tái Khám</h1>                                             
+
+                              <div class="row">
+
+                                <div class="col-sm-6 form-group">
+                                  <label for="MAHSBN">Hồ Sơ Bệnh Nhân</label>
+                                  <input type="text" class="form-control" name="MAHSBN" id="MAHSBN" value="<%=HSBN.MAHSBN%>" disabled required>
+                                </div>
+
+                                <div class="col-sm-6 form-group">
+                                  <label for="SDTBN">Số Điện Thoại Bệnh Nhân</label>
+                                  <input type="text" class="form-control" name="SDTBN" id="SDTBN" value="<%=HSBN.SDTBN%>" disabled required>
+                                </div>
+  
+                                <div class="col-sm-12 form-group">
+                                  <label for="HOTENBN">Họ Tên Bệnh Nhân</label>
+                                  <input type="text" class="form-control" name="HOTENBN" id="HOTENBN" value="<%=HSBN.HOTENBN%>" disabled required>
+                                </div>                     
+                                
+                                <div class="col-sm-6 form-group">
+                                  <label for="MANS">Mã nha sĩ</label>
+                                  <input type="text" class="form-control" name="MANS" id="MANS" value="<%=NHASI.MANS%>" disabled required>
+                                </div>
+
+                                <div class="col-sm-6 form-group">
+                                  <label for="MATAIKHAM">Mã kế hoạch điều trị</label>
+                                  <input type="text" class="form-control" name="MATAIKHAM" id="MATAIKHAM" value="<%=MAKHDIEUTRI%>" disabled required>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                  <label for="HOTENNS">Họ tên nha sĩ</label>
+                                  <input type="text" class="form-control" name="HOTENNS" id="HOTENNS" value="<%=NHASI.HOTEN%>" disabled required>
+                                </div>
+
+                                
+
+                                <div class="col-sm-6 form-group">
+                                  <label for="NGAYHEN">Ngày Hẹn</label>
+                                  <input type="date" name="NGAYHEN" class="form-control" id="NGAYHEN" placeholder="" onkeydown="return false" required>
+                                </div>
+                        
+                                <div class="col-sm-6 form-group">
+                                  <label for="GIOHEN">Giờ Hẹn</label>
+                                  <input type="time" list="listGIOHEN" name="GIOHEN" class="form-control" id="GIOHEN" placeholder=""  onkeydown="return false" required>
+                                  <datalist id="listGIOHEN">
+                                    <% for( let index = 8; index < 20; index++ ) { %>
+                                      <% if (index < 10) {%>
+                                        <% let chooseTime = "0" + index + ":00" %>
+                                        <option value="<%=chooseTime%>:00"></option>
+                        
+                                      <% } else {%>
+                                      <option value="<%=index%>:00"></option>
+                                      <% } %>
+                                    <% } %>
+                                  </datalist>
+                                </div>
+
+                              </div>
+                                                            
+                              <div class="row">
+                                <div class="col-sm-12 form-group">
+                                  <button type="submit" class="btn btn-lg btn-success btn-block" id="btnSubmit">Đặt lịch</button>
+                                </div>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer") -%>
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scrollToTopBtn") -%>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="./vendor/jquery/jquery.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./js/sb-admin-2.min.js"></script>
+    <script src="./js/jquery.flexdatalist.min.js"></script>
+    <script src="./js/jquery.toast.min.js"></script>
+
+    <script src="./js/addTaiKham.js"></script>
+</body>
+
+</html>

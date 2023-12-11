@@ -77,11 +77,13 @@ function validateForm() {
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
-    if (y[i].value == "" && y[i].id != "TROKHAM") {
+    if (y[i].value == "") {
       // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false:
-      valid = false;
+      if (y[i].id != "TROKHAM"){
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
+      }
     }
   }
   // If the valid status is true, mark the step as finished and valid:
@@ -124,6 +126,7 @@ function education_fields() {
            data: data,
            success: function (msg) {
                // console.log(msg);
+               location.reload();
                $.toast({
                    heading: 'Tạo kế hoạch điều trị thành công', // Optional heading to be shown on the toast
                    icon: 'success', // Type of toast icon
@@ -136,7 +139,6 @@ function education_fields() {
                    loader: true,  // Whether to show loader or not. True by default
                    loaderBg: '#9EC600',  // Background color of the toast loader
                });
-               location.reload();
            },
            error: function (error) {
                // console.log(error);
@@ -159,4 +161,11 @@ function education_fields() {
            }
        });
    }
+
+   var minDate = new Date();
+   var maxDate = new Date();
+   minDate.setDate(minDate.getDate() + 1);
+   maxDate.setDate(maxDate.getDate() + 30);
+   document.getElementById("NGAYDIEUTRI").setAttribute("min", minDate.toISOString().split('T')[0])
+   document.getElementById("NGAYDIEUTRI").setAttribute("max", maxDate.toISOString().split('T')[0])
    
