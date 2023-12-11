@@ -73,7 +73,7 @@ $(document).ready(function() {
     });
     $('tbody').on('click','tr',function () {
         var khdt = table.row(this).data();
-
+        console.log(khdt);
         // Display the clicked row's data in a modal
         $('#modalMAKHDIEUTRI').val(khdt.MAKHDIEUTRI);
         var ngayKham = new Date(khdt.NGAYDIEUTRI).toLocaleDateString('vi-VN');
@@ -86,12 +86,17 @@ $(document).ready(function() {
         $('#modalKHAMCHINH').val(khdt.KHAMCHINH);
         $('#modalKHAMPHU').val(khdt.TROKHAM);
         $('#modalGHICHU').val(khdt.GHICHU);
-        $('#modalTRANGTHAI').val(khdt.TRANGTHAI);
-        $('#modalMAHDTT').val(khdt.MAHDTT);
+        $('#modalMAHDTT').val(khdt.TRANGTHAI_TIEN);
+        if (khdt.TRANGTHAI == "Đang điều trị") document.querySelector('#modalTRANGTHAI').value = 1;
+        else if (khdt.TRANGTHAI == "Đã hoàn thành"){
+            document.querySelector('#modalTRANGTHAI').value = 2;
+            document.getElementById("addDonThuoc").style.display = "none";
+        }
+        else document.querySelector('#modalTRANGTHAI').value = 3;
         $('#KHDTModal').modal('show');
     });
-    
 });
+
 function DonThuoc() {
     var data = $('#modalMAKHDIEUTRI').val();
   

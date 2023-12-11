@@ -46,10 +46,10 @@
               <!-- Page Heading -->
               <h1 class="h3 mb-4 text-gray-800">Thêm đơn thuốc</h1>
               <div class="container mt-3">
-                <form action="/addDonThuoc" method ="post" id="form_DonThuoc">
+                <form id="form_DonThuoc">
                   <div class="row box8">
                     <input type="hidden" name="MAKHDIEUTRI" id="MAKHDIEUTRI" value = "<%=MAKHDIEUTRI%>">
-                    <div class = "col-sm-12" id="education_fields">
+                    <div class="col-sm-12 row" id="education_fields">
                     </div>
                     
                     <div class="col-sm-12 row">
@@ -68,16 +68,16 @@
                       </div>
                     </div>
 
-                    <div class="clear"></div>
                     <div class="col-sm-12 form-group">
                       <label for="GHICHU">Ghi chú</label>
                       <input type="GHICHU" name="GHICHU" class="form-control" id="GHICHU" placeholder="Nhập ghi chú" required>
                     </div>
                     <div class="col-sm-12">
                       <div class="float-right">
-                        <button class="btn btn-primary" type="submit">Thêm đơn thuốc</button>
+                        <button class="btn btn-primary"onclick="submitForm()">Thêm đơn thuốc</button>
                       </div>
                     </div>
+                    <div class="clear"></div>
                   </div>
                 </form>
               </div>
