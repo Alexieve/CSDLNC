@@ -1,0 +1,10 @@
+/* Tùy chỉnh kiểu CSS của placeholder */
+select[multiple] option[value=""][disabled] {
+  display: none;
+}
+
+select[multiple]::before {
+  content: "Select options";
+  display: block;
+  color: #aaa;
+}

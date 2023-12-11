@@ -110,7 +110,7 @@ module.exports.createHoadon_get = async (req, res) => {
     } finally {
         sql.close();
     }
-    res.render('createHoadon', {listKH: JSON.stringify(result), NVTHANHTOAN: res.locals.user.ID});
+    res.render('createHoadon', {NVTHANHTOAN: res.locals.user.ID});
 }
 
 module.exports.createHoadon_post = async (req, res) => {
@@ -160,6 +160,21 @@ module.exports.createHoadon_post = async (req, res) => {
     }
 }
 
+module.exports.makh_get = async (req, res) => {
+    const keyword = req.query.keyword.toLowerCase();
+    try {
+        const pool = await conn;
+        result = (await pool.request()
+        .input('KEYWORD', sql.NVarChar, keyword)
+        .execute('SP_GET_LIST_KH_KEYWORD')).recordset
+        res.json(result)
+    } catch (err) {
+        console.error('SQL Server Error:', err.message);
+    } finally {
+        sql.close();
+    }
+}
+
 module.exports.khdt_get = async (req, res) => {
     let result = null;
     let MAKH = req.query.value;
@@ -169,10 +184,10 @@ module.exports.khdt_get = async (req, res) => {
             result = (await pool.request().input('MAKH', sql.Int, MAKH).execute('SP_GET_LIST_KHDIEUTRI_THEO_MAKH')).recordset
         else
             result = (await pool.request().execute('SP_GET_LIST_KHDIEUTRI')).recordset
+        res.json(result)
     } catch (err) {
         console.error('SQL Server Error:', err.message);
     } finally {
         sql.close();
     }
-    res.json(result)
 }

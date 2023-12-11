@@ -73,7 +73,6 @@ $(document).ready(function() {
     });
     $('tbody').on('click','tr',function () {
         var khdt = table.row(this).data();
-        console.log(khdt);
         // Display the clicked row's data in a modal
         $('#modalMAKHDIEUTRI').val(khdt.MAKHDIEUTRI);
         var ngayKham = new Date(khdt.NGAYDIEUTRI).toLocaleDateString('vi-VN');
@@ -90,17 +89,14 @@ $(document).ready(function() {
         if (khdt.TRANGTHAI == "Đang điều trị"){
             document.querySelector('#modalTRANGTHAI').value = 1;
             document.getElementById("addDonThuoc").style.display = "block";
-            document.getElementById("addTaiKham").style.display = "none";
         }
         else if (khdt.TRANGTHAI == "Đã hoàn thành"){
             document.querySelector('#modalTRANGTHAI').value = 2;
             document.getElementById("addDonThuoc").style.display = "none";
-            document.getElementById("addTaiKham").style.display = "block";
         }
-        else {
+        else{
             document.querySelector('#modalTRANGTHAI').value = 3;
             document.getElementById("addDonThuoc").style.display = "none";
-            document.getElementById("addTaiKham").style.display = "none";
         }
         $('#KHDTModal').modal('show');
     });

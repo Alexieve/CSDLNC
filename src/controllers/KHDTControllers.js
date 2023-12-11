@@ -10,6 +10,7 @@ module.exports.getAddDonThuoc = async (req, res) => {
     res.render('addDonThuoc',{MAKHDIEUTRI});
 }
 module.exports.addDonThuoc = async (req, res) => {
+    if (req.body.SOLUONG == '' || req.body.MATHUOC == '' || req.body.SOLUONG.length != req.body.MATHUOC.length || req.body.MATHUOC.some(item => item === '') ||req.body.SOLUONG.some(item => item === '')) return res.status(400).json({ error: `Nhập đầy đủ thông tin và số lượng thuốc` });
     const MAKHDIEUTRI = req.body.MAKHDIEUTRI;
     const table = new sql.Table();
     table.columns.add('MATHUOC', sql.Int);
@@ -53,9 +54,8 @@ module.exports.addDonThuoc = async (req, res) => {
     }  
 }
 module.exports.UpDateTrangThai = async(req,res) =>{
-    const trangThai = req.body.TRANGTHAI;
+    const trangThai = req.body.modalTRANGTHAI;
     const MAKHDIEUTRI = req.body.MAKHDIEUTRI;
-
     try {
         const pool = await conn;
         await pool.request()
@@ -200,7 +200,7 @@ module.exports.createKHDT_post = async (req, res) => {
         TENNSTROKHAM = JSON.parse(req.body.MANSKP).HOTEN;
     }
     if (req.body.GHICHU != '') GHICHU = req.body.GHICHU;
-
+    if (MANSKP == MANS) return res.status(400).json({ error: `Nha sĩ khám chính và trợ khám không thể trùng nhau` });
     const RANG = req.body.RANG;
     const BEMATRANG = req.body.BEMATRANG;
     const pairs = [];
