@@ -3,7 +3,7 @@ $(document).ready(function() {
     var table = $('#dataTable').DataTable({
         "processing": true,
         "serverSide": true,
-        
+        "stateSave": true,
         "ajax": {
             'url': '/Appointmentmanage/init',
             'type': 'GET',
