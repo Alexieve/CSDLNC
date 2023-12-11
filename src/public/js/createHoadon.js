@@ -1,63 +1,44 @@
 $(document).ready(function () {
     $("#LOAITT").change(function () {
         var selectedValue = $(this).val();
-        var input = $('#MAKH');
-        var isFlexdatalistInitialized = input.data('flexdatalist') !== undefined;
+        var inputMAKHdiv = $('#MAKHdiv');
+        var inputNGUOITTdiv = $('#NGUOITTdiv');
         // Thực hiện hành động tương ứng với giá trị được chọn
         switch (selectedValue) {
             case "Tiền mặt":
-                if (isFlexdatalistInitialized) {
-                    input.flexdatalist('destroy');
-                }
-                input.prop('disabled', true);
+                inputMAKHdiv.prop('hidden', true);
+                inputNGUOITTdiv.prop('hidden', false);
                 break;
             case "Ví điện tử":
             case "Chuyển khoản":
-                input.prop('disabled', false);
-
-                var listKH = JSON.parse(document.getElementById('listKHjson').dataset.list);
-                if (input.data('flexdatalist')) {
-                    // Destroy the existing Flexdatalist if it exists
-                    input.flexdatalist('destroy');
-                }
-
-                input.flexdatalist({
-                    minLength: 1,
-                    textProperty: '{MAKH}',
-                    valueProperty: 'MAKH',
-                    selectionRequired: true,
-                    visibleProperties: ['MAKH', 'HOTEN'],
-                    searchIn: ['MAKH', 'HOTEN'],
-                    data: listKH
-                }).on('change:flexdatalist', function(event, set, options) {
-                    var selectedValue = $(this).flexdatalist('value');
-                    var NGUOITT_input = '';
-
-                    // Tìm kiếm giá trị hiển thị tương ứng trong data
-                    var dataList = $(this).flexdatalist('data');
-                    dataList.forEach(function(item) {
-                        if (item.MAKH == selectedValue) {
-                            NGUOITT_input = item.HOTEN;
-                        }
-                    });
-
-                    // displayedText = displayedText.split('-');
-                    var NGUOITT = $('#NGUOITT');
-                    NGUOITT.val(NGUOITT_input);
-                });
+                inputMAKHdiv.prop('hidden', false);
+                inputNGUOITTdiv.prop('hidden', true);
                 break;
         }
+    });
+    $('#MAKH').flexdatalist({
+        searchContain: true,
+        minLength: 1,
+        textProperty: '{MAKH} - {HOTEN} - {SDT}',
+        valueProperty: "MAKH",
+        selectionRequired: true,
+        visibleProperties: ["MAKH","HOTEN", "SDT"],
+        searchDelay: 300,
+        cache: false,
+        searchIn: ["MAKH","HOTEN", "SDT"],
+        url: '/makh_get',
+        relatives: '#relative'
     });
     $('#SOTIENNHAN').on('input', function () {
         // Hàm xử lý sau khi giá trị thay đổi
         var SOTIENNHAN = $(this).val();
         var TONGTIEN = $('#TONGTIENCANTT').val();
         $('#SOTIENTHOI').val(SOTIENNHAN - TONGTIEN)
-      });
+    });
 });
 
 var currentTab = 0;
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     showTab(currentTab);
 });
 
@@ -116,11 +97,11 @@ function validateForm() {
         }
     }
     if (currentTab == 1) {
-        var inputNGUOITT = document.getElementById('NGUOITT')
-        var inputNGUOITT_value = inputNGUOITT.value
-        var inputMAKH = document.getElementById('MAKH') 
-        var inputMAKH_value = inputMAKH.value
-        if(inputNGUOITT_value == "") {
+        var inputNGUOITT_value = $('#NGUOITT').val()
+        var inputMAKH_value = $('#MAKH').val()
+        var inputLOAITT_value = $('#LOAITT').val()
+        console.log(inputNGUOITT_value)
+        if (((inputLOAITT_value == 'Ví điện tử' || inputLOAITT_value == 'Chuyển khoản') && inputMAKH_value == '') || (inputLOAITT_value == 'Tiền mặt' && inputNGUOITT_value == '')) {
             valid = false;
             $.toast({
                 text: "Vui lòng điền thông tin đầy đủ!", // Text that is to be shown in the toast
@@ -142,7 +123,7 @@ function validateForm() {
             var text = null;
             var visible = null;
             var search = null;
-            if (inputMAKH.disabled) {
+            if (inputLOAITT_value == 'Tiền mặt') {
                 MAKH = -1;
                 check = true;
                 text = 'KHĐT: {MAKHDIEUTRI} - HSBN: {MAHSBN} - NGÀY: {NGAYDIEUTRI}'
@@ -170,22 +151,25 @@ function validateForm() {
                             var date = new Date(item.NGAYDIEUTRI);
                             item.NGAYDIEUTRI = date.toLocaleDateString('vi-VN')
                         })
-                      // Populate data into input2
-                      $('#MAKHDIEUTRI').flexdatalist({
-                        data: data,
-                        minLength: 0,
-                        textProperty: text,
-                        valueProperty: 'MAKHDIEUTRI',
-                        selectionRequired: true,
-                        visibleProperties: visible,
-                        searchIn: search
-                        // Other options if needed
-                      });
+                        // Populate data into input2
+                        $('#MAKHDIEUTRI').flexdatalist({
+                            data: data,
+                            minLength: 0,
+                            textProperty: text,
+                            valueProperty: 'MAKHDIEUTRI',
+                            selectionRequired: true,
+                            visibleProperties: visible,
+                            searchIn: search,
+                            searchContain: true,
+                            multiple: true,
+                            searchDisabled: true 
+                            // Other options if needed
+                        });
                     },
                     error: function (error) {
-                      console.error('Error fetching data:', error);
+                        console.error('Error fetching data:', error);
                     }
-                  });
+                });
             }
         }
     }
@@ -215,11 +199,11 @@ function validateForm() {
 
             var tongtien = selectedValue.reduce(function (total, value) {
                 var item = dataList.find(function (item) {
-                  return item.MAKHDIEUTRI == value;
+                    return item.MAKHDIEUTRI == value;
                 });
                 return total + (item ? item.TONGTIEN : 0);
             }, 0);
-            
+
             $('#TONGTIENCANTT').val(tongtien)
 
         }
@@ -243,7 +227,7 @@ function validateForm() {
                 loaderBg: '#9EC600',  // Background color of the toast loader
             });
         }
-        if (parseInt(inputSOTIENNHAN,10) < parseInt(inputTONGTIENCANTT,10)) {
+        if (parseInt(inputSOTIENNHAN, 10) < parseInt(inputTONGTIENCANTT, 10)) {
             valid = false;
             $.toast({
                 text: "Vui lòng điền số tiền nhận lớn hơn hoặc bằng tổng tiền!", // Text that is to be shown in the toast
@@ -315,18 +299,17 @@ function submitForm() {
 }
 
 function setConfirmTab() {
-        var currentDate = new Date();
-        var formattedDate = currentDate.toISOString().split('T')[0];
-        $('#NVTHANHTOAN').val($('#confirmNVTHANHTOAN').text())
-        $('#NGAYTT').val(formattedDate)
+    var currentDate = new Date();
+    var formattedDate = currentDate.toISOString().split('T')[0];
+    $('#NVTHANHTOAN').val($('#confirmNVTHANHTOAN').text())
+    $('#NGAYTT').val(formattedDate)
 
-        $('#confirmMAKH').text($('#MAKH').val());
-        $('#confirmNGAYTT').text(formattedDate);
-        $('#confirmNGUOITT').text($('#NGUOITT').val());
-        $('#confirmMAKHDIEUTRI').text($('#MAKHDIEUTRI').val());
-        $('#confirmTONGTIENCANTT').text($('#TONGTIENCANTT').val());
-        $('#confirmSOTIENNHAN').text($('#SOTIENNHAN').val());
-        $('#confirmSOTIENTHOI').text($('#SOTIENTHOI').val());
-        $('#confirmLOAITT').text($('#LOAITT').val());
+    $('#confirmMAKH').text($('#MAKH').val());
+    $('#confirmNGAYTT').text(formattedDate);
+    $('#confirmNGUOITT').text($('#NGUOITT').val());
+    $('#confirmMAKHDIEUTRI').text($('#MAKHDIEUTRI').val());
+    $('#confirmTONGTIENCANTT').text($('#TONGTIENCANTT').val());
+    $('#confirmSOTIENNHAN').text($('#SOTIENNHAN').val());
+    $('#confirmSOTIENTHOI').text($('#SOTIENTHOI').val());
+    $('#confirmLOAITT').text($('#LOAITT').val());
 }
-    

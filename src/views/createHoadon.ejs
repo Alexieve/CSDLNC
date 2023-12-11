@@ -24,6 +24,12 @@
   <link href="./css/jquery.flexdatalist.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="./css/jquery.toast.min.css">
+  <style>
+    /* Đảm bảo placeholder phủ kín input khi multiple được kích hoạt */
+    .flexdatalist-alias {
+      width: 100% !important;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -66,15 +72,11 @@
                         </div>
                         <div class="tab">
                           <div class="row mb-3">
-                            <div class="col-sm-12 form-group">
-                              <label for="MAKH">Mã Khách Hàng</label>
-                              <input type="number" class="form-control" name="MAKH" id="MAKH"
-                                placeholder="Nhập mã khách hàng">
-                              <datalist id="listKH">
-                                <div id="listKHjson" data-list="<%=listKH%>"></div>
-                              </datalist>
+                            <div class="col-sm-12 form-group" id="MAKHdiv">
+                              <label for="MAKH">Mã Khách Hàng, Họ Tên hoặc SĐT</label>
+                              <input type="text" class="form-control" name="MAKH" id="MAKH" placeholder="Nhập mã khách hàng, họ tên hoặc SĐT">
                             </div>
-                            <div class="col-sm-12 form-group">
+                            <div class="col-sm-12 form-group" id="NGUOITTdiv">
                               <label for="NGUOITT">Người Thanh Toán</label>
                               <input type="text" class="form-control" name="NGUOITT" id="NGUOITT"
                                 placeholder="Nhập tên người thanh toán">
@@ -85,8 +87,7 @@
                           <div class="row mb-3">
                             <div class="col-sm-12 form-group">
                               <label for="MAKHDIEUTRI">Mã Kế Hoạch Điều Trị Cần Thanh Toán</label>
-                              <input type="text" class="form-control flexdatalist" multiple='multiple'
-                                name="MAKHDIEUTRI" id="MAKHDIEUTRI" placeholder="Nhập mã kế hoạch điều trị">
+                              <input type="text" class="form-control" name="MAKHDIEUTRI" id="MAKHDIEUTRI" placeholder="Nhập mã kế hoạch điều trị"> 
                             </div>
                           </div>
                         </div>
