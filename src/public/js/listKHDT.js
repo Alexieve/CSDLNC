@@ -87,12 +87,21 @@ $(document).ready(function() {
         $('#modalKHAMPHU').val(khdt.TROKHAM);
         $('#modalGHICHU').val(khdt.GHICHU);
         $('#modalMAHDTT').val(khdt.TRANGTHAI_TIEN);
-        if (khdt.TRANGTHAI == "Đang điều trị") document.querySelector('#modalTRANGTHAI').value = 1;
+        if (khdt.TRANGTHAI == "Đang điều trị"){
+            document.querySelector('#modalTRANGTHAI').value = 1;
+            document.getElementById("addDonThuoc").style.display = "block";
+            document.getElementById("addTaiKham").style.display = "none";
+        }
         else if (khdt.TRANGTHAI == "Đã hoàn thành"){
             document.querySelector('#modalTRANGTHAI').value = 2;
             document.getElementById("addDonThuoc").style.display = "none";
+            document.getElementById("addTaiKham").style.display = "block";
         }
-        else document.querySelector('#modalTRANGTHAI').value = 3;
+        else {
+            document.querySelector('#modalTRANGTHAI').value = 3;
+            document.getElementById("addDonThuoc").style.display = "none";
+            document.getElementById("addTaiKham").style.display = "none";
+        }
         $('#KHDTModal').modal('show');
     });
 });
