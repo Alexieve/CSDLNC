@@ -79,26 +79,18 @@ module.exports.Nhansu_Nhasi_post = async (req, res) => {
     const HOTEN = req.body.HOTEN;
     const NGAYSINH = req.body.NGAYSINH;
     const GIOITINH = req.body.GIOITINH;
-    const SDT = req.body.SDT;
     const DIACHI = req.body.DIACHI;
-    const EMAIL = req.body.EMAIL;
-    const MACN = req.body.MACN;
-    const MATKHAU =  req.body.MATKHAU;
 
     try {
         const pool = await conn;
         await pool.request()
             .input('MANS', sql.Int, MANS)
             .input('HOTEN', sql.NVarChar, HOTEN)
-            .input('NGAYSINH', sql.VarChar, NGAYSINH)
-            .input('GIOITINH', sql.VarChar, GIOITINH)
-            .input('SDT', sql.VarChar, SDT)
+            .input('NGAYSINH', sql.Date, NGAYSINH)
+            .input('GIOITINH', sql.NVarChar, GIOITINH)
             .input('DIACHI', sql.NVarChar, DIACHI)
-            .input('EMAIL', sql.NVarChar, EMAIL)
-            .input('MATKHAU', sql.NVarChar, MATKHAU)
-            .input('MACN', sql.NVarChar, MACN)
             .execute('SP_UPDATE_NHASI');
-        res.status(200).redirect('/nhasi');
+        res.status(200).redirect('/listNS');
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({ error: err.message });
