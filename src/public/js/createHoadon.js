@@ -161,8 +161,7 @@ function validateForm() {
                             visibleProperties: visible,
                             searchIn: search,
                             searchContain: true,
-                            multiple: true,
-                            searchDisabled: true 
+                            multiple: true
                             // Other options if needed
                         });
                     },
