@@ -11,52 +11,50 @@ module.exports.getAddDonThuoc = async (req, res) => {
 }
 module.exports.addDonThuoc = async (req, res) => {
     const MAKHDIEUTRI = req.body.MAKHDIEUTRI;
-    console.log(req.body);
     const table = new sql.Table();
     table.columns.add('MATHUOC', sql.Int);
+    table.columns.add('SOLUONG', sql.Int);
     const SOLUONG = req.body.SOLUONG;
     const GHICHU = req.body.GHICHU;
-    for(let i=0; i < SOLUONG.length; i++) {
-        table.rows.add(JSON.parse(req.body.MATHUOC[i]).MATHUOC);
+    const mathuocSoluongArray = [];
+    const mathuocSoluongMap = {};
+    for (let i = 0; i < SOLUONG.length; i++) {
+        const mathuoc = JSON.parse(req.body.MATHUOC[i]).MATHUOC;
+        const soluong = parseInt(SOLUONG[i]);
+    
+        // Nếu MATHUOC đã tồn tại trong đối tượng mathuocSoluongMap, thì cộng dồn số lượng
+        if (mathuocSoluongMap[mathuoc]) {
+            mathuocSoluongMap[mathuoc] += soluong;
+        } else {
+            // Nếu chưa tồn tại, thêm mới vào đối tượng mathuocSoluongMap
+            mathuocSoluongMap[mathuoc] = soluong;
+        }
     }
-    console.log(SOLUONG);
-    console.log(GHICHU);
+    
+    // Chuyển đổi đối tượng thành mảng 2 chiều nếu cần
+    for (const mathuoc in mathuocSoluongMap) {
+        mathuocSoluongArray.push([mathuoc, mathuocSoluongMap[mathuoc]]);
+        table.rows.add(parseInt(mathuoc),mathuocSoluongMap[mathuoc]);
+    }
+    
     try {
         const pool = await conn;
         await pool.request()
         .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
         .input('GHICHU', sql.NVarChar, GHICHU)
-        .execute('SP_ADD_DON_THUOC'); 
+        .input('MANGTHUOC',table)
+        .execute('SP_ADD_CHI_TIET_DON_THUOC'); 
+        res.status(200).json(table); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({error: err.message})
-    } finally {
+    } finally {        
         sql.close();
     }  
-    for (let i = 0; i < SOLUONG.length; i++){
-        const MATHUOC = JSON.parse(req.body.MATHUOC[i]).MATHUOC;
-        try {
-            const pool = await conn;
-            await pool.request()
-            .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
-            .input('MATHUOC', sql.Int, MATHUOC)
-            .input('SOLUONG', sql.Int, SOLUONG[i])
-            .execute('SP_ADD_CHI_TIET_DON_THUOC');
-        } catch (err) {
-            console.error('SQL Server Error:', err.message);
-            res.status(400).json({error: err.message})
-        } finally {
-            sql.close();
-        }
-        console.log("OK");
-    }
-    res.redirect('/khdt');
 }
 module.exports.UpDateTrangThai = async(req,res) =>{
     const trangThai = req.body.TRANGTHAI;
     const MAKHDIEUTRI = req.body.MAKHDIEUTRI;
-    console.log(trangThai);
-    console.log(MAKHDIEUTRI);
 
     try {
         const pool = await conn;
@@ -107,17 +105,35 @@ module.exports.KHDT_get_data = async(req, res) => {
         else if (column.data === 'NGAYDIEUTRI') {
             const formattedSearchValue = column.searchValue.split('/').reverse().join('-');
             return `KHDT.CONVERT(NVARCHAR, ${column.data}, 120) LIKE '%${formattedSearchValue}%'`;
-        } 
+        }
+        else if (column.data === 'TRANGTHAI'){
+            if (column.searchValue == "đang điều trị" || column.searchValue == 1 ) return `KHDT.${column.data} = 1`;
+            else if (column.searchValue == "đã hoàn thành" || column.searchValue == 2 ) return `KHDT.${column.data} = 2`;
+            else if (column.searchValue == "đã hủy" || column.searchValue == 3) return `KHDT.${column.data} = 3`;
+            return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
+        }
+        else if (column.data === 'TRANGTHAI_TIEN'){
+            if (column.searchValue == "đã trả tiền") return `KHDT.MAHDTT IS NOT NULL`;
+            else if (column.searchValue == "chưa trả tiền") return `KHDT.MAHDTT IS NULL`;
+            else return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
+        }
         else {
             return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
         }
     });
 
     let MAKH = null;
-    if (res.locals.user.LOAITK == 1) 
+    let MANS = null;
+    var filterQuery;
+    if (res.locals.user.LOAITK == 1){
         MAKH = res.locals.user.ID;
-    // Tạo điều kiện cho câu truy vấn
-    var filterQuery = MAKH ? `WHERE HSBN.MAKH = ${MAKH} ` : 'WHERE 1 = 1 ';
+    }
+    if (res.locals.user.LOAITK == 2){
+        MANS = res.locals.user.ID;
+    }
+    if (MAKH != null) filterQuery = `WHERE HSBN.MAKH = ${MAKH} `;
+    else if (MANS != null) filterQuery = `WHERE KHDT.KHAMCHINH = ${MANS} OR KHDT.TROKHAM = ${MANS} `
+    else filterQuery = 'WHERE 1 = 1 '
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
     //console.log(filterQuery);
     // Truy vấn
@@ -169,7 +185,6 @@ module.exports.createKHDT1_get = async (req, res) => {
     res.render('createKHDT-1', {DieuTri: result2});
 }
 module.exports.createKHDT_post = async (req, res) => {
-    console.log(req.body);
     let MANSKP = null;
     let GHICHU = null;
     let TENNSTROKHAM = null;
@@ -188,6 +203,24 @@ module.exports.createKHDT_post = async (req, res) => {
 
     const RANG = req.body.RANG;
     const BEMATRANG = req.body.BEMATRANG;
+    const pairs = [];
+    let hasDuplicates = false;
+    let duplicatePair = '';
+    for (let i = 0; i < RANG.length; i++) {
+        const pair = `${RANG[i]}-${BEMATRANG[i]}`; // Tạo chuỗi đại diện cho cặp
+    
+        // Kiểm tra nếu cặp này đã xuất hiện trong mảng pairs
+        if (pairs.includes(pair)) {
+            hasDuplicates = true;
+            duplicatePair = pair;
+            break; // Nếu có cặp trùng lặp, dừng vòng lặp
+        } else {
+            pairs.push(pair); // Nếu không trùng lặp, thêm cặp vào mảng pairs
+        }
+    }
+    if (hasDuplicates) {
+        return res.status(400).json({ error: `Có cặp răng bị trùng lập` });
+    }  
     let MAKHDIEUTRI = null;
     try {
         const pool = await conn;
@@ -231,7 +264,7 @@ module.exports.createKHDT_post = async (req, res) => {
             sql.close();
         }
     }
-    res.status(200).json({ message: 'Success', MAKHDIEUTRI: MAKHDIEUTRI });
+    res.status(200).json({ message: 'Tạo kế hoạch điều trị thành công', MAKHDIEUTRI: MAKHDIEUTRI });
 }
 module.exports.search_hsbn_get = async (req, res) => {
     const keyword = req.query.keyword.toLowerCase();
