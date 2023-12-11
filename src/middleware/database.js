@@ -5,14 +5,14 @@ const config = {
   server: 'NGUYENKHA',
   database: 'CSDLNC',
   options: {
-    instanceName: 'SQLEXPRESS',
+  instanceName: 'SQLEXPRESS',
     encrypt: true, 
     trustServerCertificate: true,
   },
 };
 
 const conn = new sql.ConnectionPool(config).connect().then(pool => {
-  return pool;
+    return pool;
 }).catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
 module.exports = {
