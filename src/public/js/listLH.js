@@ -1,10 +1,9 @@
-
 $(document).ready(function() {
 
     var table = $('#dataTable').DataTable({
         "processing": true,
         "serverSide": true,
-        
+        "stateSave": true,
         "ajax": {
             'url': '/Appointmentmanage/init',
             'type': 'GET',
@@ -55,6 +54,7 @@ $(document).ready(function() {
             },
             { 
                 "data": null,
+
                 "render": function(data, type, row) {
                     var xacNhanValue = row.XACNHAN;
                     var malichhen = row.MALH;
@@ -93,6 +93,7 @@ $(document).ready(function() {
             "return": true,
             "smart": true,
         },
+        
         "initComplete": function () {
             var searchTable = this.api();
             var searchValues = [];
@@ -119,7 +120,25 @@ $(document).ready(function() {
             
             searchTable.columns().every(function (index) {
                 var column = this;
-                if (column.dataSrc() !== 'XACNHAN' && column.dataSrc() != null && column.dataSrc() !== 'MATAIKHAM') {
+                if (column.dataSrc() === 'XACNHAN') {
+                    var select = $('<select><option value="">Tất cả</option><option value="1">Đã xác nhận</option><option value="0">Chờ xác nhận</option><option value="2">Đã hẹn</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var value = $(this).val();
+                            searchValues[index] = value;
+                            search();
+                        });
+                    }  
+                else if ( column.dataSrc() === 'MATAIKHAM') {
+                    var select = $('<select><option value="">Tất cả</option><option value="1">Không</option><option value="0">Có</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var value = $(this).val();
+                            searchValues[index] = value;
+                            search();
+                        });
+                }    
+                else if ( column.dataSrc() != null ) {
                 var input = $('<input type="text" placeholder="Tìm kiếm" />')
                 .appendTo($(column.footer()).empty())
                 .on('keydown', function (e) {

@@ -176,7 +176,12 @@ function setConfirmTab() {
 //POST FORM
 var form = $('#regForm');
 function submitForm() {
+    var malhValue = $("#MALH").val();
+
+    // Include MALH value in the data
     var data = form.serialize();
+    // data += "&MALH=" + encodeURIComponent(malhValue);
+    // var data = form.serialize();
     $.ajax({
         type: "POST",
         url: "/updateLH",
@@ -184,7 +189,7 @@ function submitForm() {
         success: function (msg) {
             // console.log(msg);
             showToast(
-                'Đặt lịch thành công',
+                'Sửa lịch thành công. Tự đóng sau 3s.',
                 'Success',
                 'success',
                 'toast-top-left'

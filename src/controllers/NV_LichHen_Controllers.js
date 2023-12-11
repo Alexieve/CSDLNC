@@ -38,10 +38,26 @@ module.exports.LichHen_get_data = async (req, res) => {
         if (column.data === 'MALH' ||
         column.data === 'MANS' || 
         column.data === 'MAHSBN' ||
-        column.data === 'XACNHAN' ||
-        column.data === 'TAIKHAM' ||
         column.data === 'SDTBN')
         {            
+            return `${column.data} = ${column.searchValue}`;
+        } 
+        else if (column.data === 'XACNHAN') {
+            const tmp = column.searchValue;
+            if ( tmp == '2')
+            return `${column.data} = 1 AND NGAYHEN < GETDATE()`;
+            else if (tmp == '1')
+            return `${column.data} = 1 AND NGAYHEN >= GETDATE()`;  
+            else
+            return `${column.data} = ${column.searchValue}`;
+        } 
+        else if (column.data === 'MATAIKHAM') {
+            const tmp = column.searchValue;
+            if ( tmp == '1')
+            return `${column.data} IS NULL`;
+            else if (tmp == '0')
+            return `${column.data} IS NOT NULL`;  
+            else
             return `${column.data} = ${column.searchValue}`;
         } 
         else if (column.data === 'NGAYHEN') {
@@ -57,12 +73,24 @@ module.exports.LichHen_get_data = async (req, res) => {
         }
     });
 
-     let MALH = null;
-    // if (res.locals.user.LOAITK == 1) 
-    //     MALH = res.locals.user.ID;
-
+    let MAKH = null;
+    var filterQuery = null;
+    if (res.locals.user.LOAITK == 1) 
+        {
+            MAKH = res.locals.user.ID;
+            filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
+        }
+    else if (res.locals.user.LOAITK == 2) 
+        {
+            MAKH = res.locals.user.ID;
+            filterQuery = MAKH ? `WHERE MANS = ${MAKH} ` : 'WHERE 1 = 1 ';
+        }
+    else 
+        {
+            filterQuery = 'WHERE 1 = 1 ';
+        }    
     // Tạo điều kiện cho câu truy vấn
-    var filterQuery = MALH ? `WHERE MAKH = ${MALH} ` : 'WHERE 1 = 1 ';
+    // var filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
 
     //console.log(filterQuery);
@@ -76,7 +104,7 @@ module.exports.LichHen_get_data = async (req, res) => {
         .input('OFFSET_START', sql.NVarChar, start)
         .input('LENGTH', sql.NVarChar, length)
         .execute('SP_GET_DATATABLE_LICHHEN')
-
+        //console.log(filterQuery);
         var recordsTotal = result.recordsets[0][0].recordsTotal;
         var recordsFiltered = result.recordsets[1][0].recordsTotal;
         var data = result.recordsets[2];
@@ -211,14 +239,16 @@ module.exports.search_nhasi_get = async (req, res) => {
 }
 
 module.exports.updateLH_post = async (req, res) => {
-    // console.log(req.body);
+    //  console.log(req.body);
+    //  console.log(req.body.MALH);
+   
     let MANS = null
     let HOTENNS = null
     if (req.body.MANS != '') {
         MANS = JSON.parse(req.body.MANS).MANS
         HOTENNS = req.body.HOTENNS
     }
-
+    const MALH = req.body.MALH;
     const MACN = JSON.parse(req.body.MACN).MACN
     const MAHSBN = JSON.parse(req.body.MAHSBN).MAHSBN
     const HOTENBN = req.body.HOTENBN
@@ -230,6 +260,7 @@ module.exports.updateLH_post = async (req, res) => {
     try {
         const pool = await conn;
         await pool.request()
+        .input('MALH', sql.Int, MALH)
         .input('MACN', sql.Int, MACN)
         .input('MANS', sql.Int, MANS)
         .input('MAHSBN', sql.Int, MAHSBN)
@@ -238,7 +269,7 @@ module.exports.updateLH_post = async (req, res) => {
         .input('HOTENNS', sql.NVarChar, HOTENNS)
         .input('NGAYHEN', sql.Date, NGAYHEN)
         .input('GIOHENSTR', sql.VarChar, GIOHEN)
-        .execute('SP_BOOK_APPOINMENT');
+        .execute('SP_UPDATE_APPOINMENT');
         res.status(200).json({message: 'Success'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);
