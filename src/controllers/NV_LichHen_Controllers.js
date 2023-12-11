@@ -38,10 +38,26 @@ module.exports.LichHen_get_data = async (req, res) => {
         if (column.data === 'MALH' ||
         column.data === 'MANS' || 
         column.data === 'MAHSBN' ||
-        column.data === 'XACNHAN' ||
-        column.data === 'TAIKHAM' ||
         column.data === 'SDTBN')
         {            
+            return `${column.data} = ${column.searchValue}`;
+        } 
+        else if (column.data === 'XACNHAN') {
+            const tmp = column.searchValue;
+            if ( tmp == '2')
+            return `${column.data} = 1 AND NGAYHEN < GETDATE()`;
+            else if (tmp == '1')
+            return `${column.data} = 1 AND NGAYHEN >= GETDATE()`;  
+            else
+            return `${column.data} = ${column.searchValue}`;
+        } 
+        else if (column.data === 'MATAIKHAM') {
+            const tmp = column.searchValue;
+            if ( tmp == '1')
+            return `${column.data} IS NULL`;
+            else if (tmp == '0')
+            return `${column.data} IS NOT NULL`;  
+            else
             return `${column.data} = ${column.searchValue}`;
         } 
         else if (column.data === 'NGAYHEN') {
@@ -57,12 +73,24 @@ module.exports.LichHen_get_data = async (req, res) => {
         }
     });
 
-     let MALH = null;
-    // if (res.locals.user.LOAITK == 1) 
-    //     MALH = res.locals.user.ID;
-
+    let MAKH = null;
+    var filterQuery = null;
+    if (res.locals.user.LOAITK == 1) 
+        {
+            MAKH = res.locals.user.ID;
+            filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
+        }
+    else if (res.locals.user.LOAITK == 2) 
+        {
+            MAKH = res.locals.user.ID;
+            filterQuery = MAKH ? `WHERE MANS = ${MAKH} ` : 'WHERE 1 = 1 ';
+        }
+    else 
+        {
+            filterQuery = 'WHERE 1 = 1 ';
+        }    
     // Tạo điều kiện cho câu truy vấn
-    var filterQuery = MALH ? `WHERE MAKH = ${MALH} ` : 'WHERE 1 = 1 ';
+    // var filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
 
     //console.log(filterQuery);
@@ -76,7 +104,7 @@ module.exports.LichHen_get_data = async (req, res) => {
         .input('OFFSET_START', sql.NVarChar, start)
         .input('LENGTH', sql.NVarChar, length)
         .execute('SP_GET_DATATABLE_LICHHEN')
-
+        //console.log(filterQuery);
         var recordsTotal = result.recordsets[0][0].recordsTotal;
         var recordsFiltered = result.recordsets[1][0].recordsTotal;
         var data = result.recordsets[2];

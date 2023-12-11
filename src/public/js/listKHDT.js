@@ -89,14 +89,20 @@ $(document).ready(function() {
         if (khdt.TRANGTHAI == "Đang điều trị"){
             document.querySelector('#modalTRANGTHAI').value = 1;
             document.getElementById("addDonThuoc").style.display = "block";
+            document.getElementById("xemRangDieuTri").style.display = "block";
+            document.getElementById("xemDonThuoc").style.display = "none";
         }
         else if (khdt.TRANGTHAI == "Đã hoàn thành"){
             document.querySelector('#modalTRANGTHAI').value = 2;
             document.getElementById("addDonThuoc").style.display = "none";
+            document.getElementById("xemRangDieuTri").style.display = "block";
+            document.getElementById("xemDonThuoc").style.display = "block";
         }
         else{
             document.querySelector('#modalTRANGTHAI').value = 3;
             document.getElementById("addDonThuoc").style.display = "none";
+            document.getElementById("xemRangDieuTri").style.display = "none";
+            document.getElementById("xemDonThuoc").style.display = "none";
         }
         $('#KHDTModal').modal('show');
     });
@@ -107,6 +113,24 @@ function DonThuoc() {
   
     // Mã hóa giá trị MAKHDIEUTRI và tạo URL mới
     var newURL = '/addDonThuoc?MAKHDIEUTRI=' + encodeURIComponent(data);
+    // Thực hiện chuyển hướng bằng phương thức GET
+    window.location.href = newURL;
+}
+
+function XemDonThuoc() {
+    var data = $('#modalMAKHDIEUTRI').val();
+  
+    // Mã hóa giá trị MAKHDIEUTRI và tạo URL mới
+    var newURL = '/xemDonThuoc?MAKHDIEUTRI=' + encodeURIComponent(data);
+    // Thực hiện chuyển hướng bằng phương thức GET
+    window.location.href = newURL;
+}
+
+function XemRangDieuTri() {
+    var data = $('#modalMAKHDIEUTRI').val();
+  
+    // Mã hóa giá trị MAKHDIEUTRI và tạo URL mới
+    var newURL = '/xemRangDieuTri?MAKHDIEUTRI=' + encodeURIComponent(data);
     // Thực hiện chuyển hướng bằng phương thức GET
     window.location.href = newURL;
 }
