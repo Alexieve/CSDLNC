@@ -7,6 +7,7 @@ $(document).ready(function () {
             'url': '/listNV/init',
             'type': 'GET',
         },
+        "stateSave": true,
         "columns": [
             { "data": "MANV" },
             { "data": "HOTEN" },
@@ -83,54 +84,9 @@ $(document).ready(function () {
         //$('#modalSDT').val(nhanvien.SDT);
         $('#modalSDT').val(nhanvien.SDT).prop('readonly', true);
         $('#modalEMAIL').val(nhanvien.EMAIL);
-        var loaiNVText = nhanvien.LOAINV ? "Quản Trị Viên" : "Nhân Viên";
-        $('#displayLOAINV').text(loaiNVText)
+        var loaiNVText = nhanvien.LOAINV == true ? 1 : 0;
+        console.log(loaiNVText);
+        $('#modalLOAINV').val(loaiNVText);
         $('#listNVModal').modal('show');
     });
 });
-
-var formUpdateNV = $('#form_update_NV');
-
-formUpdateNV.submit(function (e) {
-    e.preventDefault();
-
-    var dataUpdateNV = formUpdateNV.serialize();
-
-    $.ajax({
-        type: "POST",
-        url: "/updateNV",
-        data: dataUpdateNV,
-        success: function (data) {
-            $.toast({
-                heading: 'Cập nhật Nhân Viên thành công',
-                icon: 'success',
-                showHideTransition: 'slide',
-                allowToastClose: true,
-                hideAfter: 3000,
-                stack: false,
-                position: 'top-left',
-                textAlign: 'left',
-                loader: true,
-                loaderBg: '#9EC600',
-                afterHidden: function () { location.reload(); },
-            });
-        },
-        error: function (data) {
-            $.toast({
-                heading: 'Cập nhật Nhân Viên thất bại',
-                icon: 'error',
-                showHideTransition: 'slide',
-                allowToastClose: true,
-                hideAfter: 3000,
-                stack: false,
-                position: 'top-left',
-                textAlign: 'left',
-                loader: true,
-                loaderBg: '#9EC600',
-                afterHidden: function () { location.reload(); },
-            });
-        }
-    });
-});
-
-
