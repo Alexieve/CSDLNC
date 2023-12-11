@@ -53,7 +53,7 @@
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <!-- data-searching="false" data-ordering="false" -->
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+                                <table class="table table-bordered" id="dataTable" data-user="<%= user.LOAITK %>" width="100%" cellspacing="0" >
                                     <thead>
                                         <tr>
                                             <th>Mã LH</th>
@@ -65,6 +65,7 @@
                                             <th>Tên nha sĩ</th>
                                             <th>Tái khám</th>
                                             <th>Hành Động</th>
+                                            
                                         </tr>
                                     </thead>
                                     
@@ -82,6 +83,7 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -100,8 +102,12 @@
                     padding: 3px;
                     box-sizing: border-box;
                 }
+                tfoot select {
+                    height: 32px; /* Adjust the height as needed */
+                    font-size: 16px; /* Adjust the font size as needed */
+                }
                 </style>
-            <% if (user.LOAITK == '2') { %>
+                <% if (user.LOAITK == '2' || user.LOAITK == '1') { %>
                     <style>
                     
                         #dataTable td:nth-child(9),
@@ -110,6 +116,7 @@
                         }
                     </style>
                 <% } %>
+                
             <%- include("./partials/footer") -%>
 
         </div>
