@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken')
 module.exports.Nhansu_Nhanvien_get = async (req, res) => {
     res.render('listNhanvien');
 }
-
 module.exports.listNV_get_data = async (req, res) => {
     // Các dữ liệu output cho datatable
     const draw = req.query.draw || 1;
     const start = req.query.start || 0;
     const length = req.query.length || 10;
-
     // Lấy thông tin cột cần sort khi click
     if (typeof req.query.order === 'undefined') {
         var colName = 'MANV';
@@ -20,14 +18,12 @@ module.exports.listNV_get_data = async (req, res) => {
         var colName = req.query.columns[colIndex].data;
         var colSortOrder = req.query.order[0].dir;
     }
-
     // Lấy các dữ liệu cho mỗi mục search theo cột
     const columns = req.query.columns.map(column => ({
         data: column.data,
         searchable: column.searchable,
         searchValue: column.search.value.toLowerCase(),
     }));
-
     // Lọc ra các dữ liệu search
     const filterConditions = columns
         .filter(column => column.searchable && column.searchValue !== '')
@@ -47,7 +43,6 @@ module.exports.listNV_get_data = async (req, res) => {
     
     var filterQuery = 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
-
     // Truy vấn
     try {
         const pool = await conn;
@@ -61,14 +56,12 @@ module.exports.listNV_get_data = async (req, res) => {
         var recordsTotal = result.recordsets[0][0].recordsTotal;
         var recordsFiltered = result.recordsets[1][0].recordsTotal;
         var data = result.recordsets[2];
-
         res.json({
             draw: draw,
             recordsTotal: recordsTotal,
             recordsFiltered: recordsFiltered,
             data: data,
         });
-
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.json({
@@ -82,7 +75,6 @@ module.exports.listNV_get_data = async (req, res) => {
     }
 }
 
-
 //update    
 module.exports.Nhansu_Nhanvien_post = async (req, res) => {
     //console.log(req.body); 
@@ -90,33 +82,49 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
     const HOTEN = req.body.HOTEN;
     const NGAYSINH = req.body.NGAYSINH;
     const GIOITINH = req.body.GIOITINH;
-    const DIACHI = req.body.DIACHI;
     const SDT = req.body.SDT;
+    const DIACHI = req.body.DIACHI;
     const EMAIL = req.body.EMAIL;
     const LOAINV = req.body.LOAINV;
-    const MATKHAU =  req.body.MATKHAU;
+    const MATKHAU = req.body.MATKHAU;
 
     try {
+        // In giá trị của các biến trước khi thực hiện stored procedure
+        console.log('MANV:', MANV);
+        console.log('HOTEN:', HOTEN);
+        console.log('NGAYSINH:', NGAYSINH);
+        console.log('GIOITINH:', GIOITINH);
+        console.log('SDT:', SDT);
+        console.log('DIACHI:', DIACHI);
+        console.log('EMAIL:', EMAIL);
+        console.log('LOAINV:', LOAINV);
+        console.log('MATKHAU:', MATKHAU);
+
         const pool = await conn;
         await pool.request()
             .input('MANV', sql.Int, MANV)
             .input('HOTEN', sql.NVarChar, HOTEN)
             .input('NGAYSINH', sql.VarChar, NGAYSINH)
             .input('GIOITINH', sql.VarChar, GIOITINH)
-            .input('DIACHI', sql.NVarChar, DIACHI)
             .input('SDT', sql.VarChar, SDT)
+            .input('DIACHI', sql.NVarChar, DIACHI)
             .input('EMAIL', sql.NVarChar, EMAIL)
             .input('LOAINV', sql.NVarChar, LOAINV)
             .input('MATKHAU', sql.NVarChar, MATKHAU)
             .execute('SP_UPDATE_NHANVIEN');
-            res.status(200).json({ message: 'Cập nhật nhân viên thành công' });
+
+        // In thông báo sau khi thực hiện stored procedure
+        console.log('Cập nhật nhân viên thành công');
+        res.status(200).json({ message: 'Cập nhật nhân viên thành công' });
     } catch (err) {
+        // In lỗi nếu có lỗi xảy ra
         console.error('SQL Server Error:', err.message);
         res.status(400).json({ error: err.message });
     } finally {
         sql.close();
     }
 }
+
 
 module.exports.createNV_get = (req, res) => {
     res.render('createNV');
