@@ -13,4 +13,6 @@ router.get('/createKHDT/search/dentists', requireAuth, KHDTControllers.search_de
 router.get('/addDonThuoc', requirePermission(2), KHDTControllers.getAddDonThuoc)
 router.post('/addDonThuoc', requirePermission(2), KHDTControllers.addDonThuoc)
 router.get('/addDonThuoc/search/thuoc', requirePermission(2), KHDTControllers.search_thuoc_get)
+router.get('/xemDonThuoc', requireAuth, KHDTControllers.xemDonThuoc)
+router.get('/xemRangDieuTri', requireAuth, KHDTControllers.xemRangDieuTri)
 module.exports = router;

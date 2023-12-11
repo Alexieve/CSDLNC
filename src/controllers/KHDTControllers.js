@@ -9,6 +9,43 @@ module.exports.getAddDonThuoc = async (req, res) => {
     //console.log(MAKHDIEUTRI);
     res.render('addDonThuoc',{MAKHDIEUTRI});
 }
+
+module.exports.xemDonThuoc = async (req, res) => {
+    const MAKHDIEUTRI = req.query.MAKHDIEUTRI;
+    let result = null;
+    try {
+        const pool = await conn;
+        result = await pool.request()
+        .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
+        .execute('SP_XEM_DON_THUOC')
+    } catch (err) {
+        console.error('SQL Server Error:', err.message);
+        res.status(400).json({error: err.message})
+    } finally {
+        sql.close();
+    }
+    console.log(result);
+    res.render('xemDonThuoc',{ListDonThuoc: result});
+}
+
+module.exports.xemRangDieuTri = async (req, res) => {
+    const MAKHDIEUTRI = req.query.MAKHDIEUTRI;
+    let result = null;
+    try {
+        const pool = await conn;
+        result = await pool.request()
+        .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
+        .execute('SP_XEM_RANG_DIEU_TRI')
+    } catch (err) {
+        console.error('SQL Server Error:', err.message);
+        res.status(400).json({error: err.message})
+    } finally {
+        sql.close();
+    }
+    console.log(result);
+    res.render('xemRangDieuTri',{ListRangDieuTri: result});
+}
+
 module.exports.addDonThuoc = async (req, res) => {
     if (req.body.SOLUONG == '' || req.body.MATHUOC == '' || req.body.SOLUONG.length != req.body.MATHUOC.length || req.body.MATHUOC.some(item => item === '') ||req.body.SOLUONG.some(item => item === '')) return res.status(400).json({ error: `Nhập đầy đủ thông tin và số lượng thuốc` });
     const MAKHDIEUTRI = req.body.MAKHDIEUTRI;
