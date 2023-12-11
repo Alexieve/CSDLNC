@@ -23,7 +23,18 @@ $(document).ready(function() {
             { "data": "TENNSKHAMCHINH" },
             { "data": "TROKHAM" },
             { "data": "TENNSTROKHAM" },
-            { "data": "TRANGTHAI" },
+            { "data": "TRANGTHAI",
+                "render": function(data, type, row) {
+                    console.log(data);
+                    if (data == "Đang điều trị") {
+                        return '<span class="text-primary font-weight-bold">Đang điều trị</span>';
+                    } else if (data == "Đã hoàn thành") {
+                        return '<span class="text-success font-weight-bold">Đã hoàn thành</span>';
+                    } else {
+                        return '<span class="text-warning font-weight-bold">Đã hủy</span>';
+                    }
+                }
+            },
             { "data": "TRANGTHAI_TIEN" },
             { "data": "MOTAKH", "visible": false },
             { "data": "GHICHU","visible": false },
