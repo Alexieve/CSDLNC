@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/nhanvien" method="POST" id="modal_listNV">
+                <form action="/listNV" method="POST" id="form_UpdateNV">
 
                     <input type="hidden" id="modalMANV" name="MANV" value="">
 
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="modalSDT">Số Điện Thoại:</label>
-                        <input type="tel" class="form-control" id="modalSDT" name="SDT">
+                        <input type="tel" class="form-control" id="modalSDT" name="SDT" readonly>
                     </div>
                     <div class="form-group">
                         <label for="modalEMAIL">Email:</label>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="modalLOAINV">Loại Nhân Viên:</label>
-                        <select class="form-control" id="modalLOAINV" name="LOAINV">
+                        <select class="form-control" id="modalLOAINV" name="LOAINV" disabled>
                             <option value="1">Quản Trị Viên</option>
                             <option value="0">Nhân Viên</option>
                         </select>
@@ -56,3 +56,4 @@
         </div>
     </div>
 </div>
+<script src="./js/thuoc.js"></script>

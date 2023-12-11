@@ -1,5 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="listNSModal" tabindex="-1" role="dialog" aria-labelledby="listNSModalLabel" aria-hidden="true">
+<div class="modal fade" id="listNSModal" tabindex="-1" role="dialog" aria-labelledby="listNSModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/nhasi" method="POST" id="modal_listNS">
+                <form action="/listNS" method="POST" id="modal_listNS">
 
                     <input type="hidden" id="modalMANS" name="MANS" value="">
 
@@ -32,9 +33,10 @@
                         <label for="modalDIACHI">Địa chỉ:</label>
                         <input type="text" class="form-control" id="modalDIACHI" name="DIACHI">
                     </div>
+
                     <div class="form-group">
                         <label for="modalSDT">Số Điện Thoại:</label>
-                        <input type="tel" class="form-control" id="modalSDT" name="SDT">
+                        <input type="tel" class="form-control" id="modalSDT" name="SDT" readonly>
                     </div>
                     <div class="form-group">
                         <label for="modalEMAIL">Email:</label>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="modalMACN">Mã Chi Nhánh:</label>
-                        <input type="text" class="form-control" id="modalMACN" name="MACN">
+                        <input type="text" class="form-control" id="modalMACN" name="MACN" readonly>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>

@@ -17,8 +17,8 @@ $(document).ready(function() {
                 }
             },
             { "data": "GIOITINH" },
-            { "data": "DIACHI" },
             { "data": "SDT" },
+            { "data": "DIACHI" },
             { "data": "EMAIL" },
             { "data": "MACN" },
             // Add more columns as needed
@@ -71,13 +71,62 @@ $(document).ready(function() {
         // Adjust the following code based on your modal structure
         $('#modalMANS').val(nhasi.MANS);
         $('#modalHOTEN').val(nhasi.HOTEN);
-        $('#modalNGAYSINH').val(nhasi.NGAYSINH);
+        var ngaySinh = new Date(nhasi.NGAYSINH).toLocaleDateString('vi-VN');
+        var ngaySinhDate = new Date(nhasi.NGAYSINH);
+        var formattedDate = ngaySinhDate.toISOString().split('T')[0];
+        $('#modalNGAYSINH').val(formattedDate);
         $('#modal.GIOITINH').val(nhasi.GIOITINH);
-        $('#modalDIACHI').val(nhasi.DIACHI);
         $('#modalSDT').val(nhasi.SDT);
+        $('#modalDIACHI').val(nhasi.DIACHI);
         $('#modalEMAIL').val(nhasi.EMAIL);
         $('#modalMACN').val(nhasi.CN);
         // Add more lines to set other modal fields
         $('#listNSModal').modal('show');
     });
 });
+
+var formUpdateNV = $('#form_update_NS');
+
+formUpdateNV.submit(function (e) {
+    e.preventDefault();
+
+    var dataUpdateNV = formUpdateNV.serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "/updateNV",
+        data: dataUpdateNV,
+        success: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nha Sĩ thành công',
+                icon: 'success',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        },
+        error: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nha Sĩ thất bại',
+                icon: 'error',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        }
+    });
+});
+
+

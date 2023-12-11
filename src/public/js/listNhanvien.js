@@ -74,13 +74,63 @@ $(document).ready(function () {
         console.log('Dòng được click:', nhanvien);
         $('#modalMANV').val(nhanvien.MANV);
         $('#modalHOTEN').val(nhanvien.HOTEN);
-        $('#modalNGAYSINH').val(nhanvien.NGAYSINH);
+        var ngaySinh = new Date(nhanvien.NGAYSINH).toLocaleDateString('vi-VN');
+        var ngaySinhDate = new Date(nhanvien.NGAYSINH);
+        var formattedDate = ngaySinhDate.toISOString().split('T')[0];
+        $('#modalNGAYSINH').val(formattedDate);
         $('#modalGIOITINH').val(nhanvien.GIOITINH);
         $('#modalDIACHI').val(nhanvien.DIACHI);
-        $('#modalSDT').val(nhanvien.SDT);
+        //$('#modalSDT').val(nhanvien.SDT);
+        $('#modalSDT').val(nhanvien.SDT).prop('readonly', true);
         $('#modalEMAIL').val(nhanvien.EMAIL);
-        $('#modalLOAINV').val(nhanvien.LOAINV);
-        // Add more lines to set other modal fields
+        var loaiNVText = nhanvien.LOAINV ? "Quản Trị Viên" : "Nhân Viên";
+        $('#displayLOAINV').text(loaiNVText)
         $('#listNVModal').modal('show');
     });
 });
+
+var formUpdateNV = $('#form_update_NV');
+
+formUpdateNV.submit(function (e) {
+    e.preventDefault();
+
+    var dataUpdateNV = formUpdateNV.serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "/updateNV",
+        data: dataUpdateNV,
+        success: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nhân Viên thành công',
+                icon: 'success',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        },
+        error: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nhân Viên thất bại',
+                icon: 'error',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        }
+    });
+});
+
+
