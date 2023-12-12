@@ -55,17 +55,21 @@
                             <input type="text" class="form-control" id="modalMAHDTT" readonly>
                         </div>      
                         <% if (user.LOAITK > 1) { %>
-                        <div class="modal-footer">
+                        <div class="modal-footer" style="margin:0px">
                         <% } %>
                         <% if (user.LOAITK == 1) { %>
                         <div class="modal-footer d-none">
                         <% } %>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Lưu</button>
-                            <button type="button" class="btn btn-warning" id="addDonThuoc" onclick="DonThuoc();">+ Đơn thuốc</button>
-                            <button type="button" class="btn btn-info" id="addDonThuoc" onclick="TaiKham();">+ Lịch tái khám</button>
-                            <button type="button" class="btn btn-info" id="xemDonThuoc" onclick="XemDonThuoc();">Xem đơn thuốc</button>
-                            <button type="button" class="btn btn-info" id="xemRangDieuTri" onclick="XemRangDieuTri();">Xem răng điều trị</button>
+                            <div class="row">
+                                <button type="button" class="btn btn-secondary" style="margin:4px; padding:6px 12px" data-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary" style="margin:4px; padding:6px 12px">Lưu</button>
+                                <button type="button" class="btn btn-warning" style="margin:4px; padding:6px 12px" id="addDonThuoc" onclick="DonThuoc();">+ Đơn thuốc</button>
+                            </div>
+                            <div class="row" style="margin:0px">
+                                <button type="button" class="btn btn-danger" style="margin:4px; padding:6px 12px" id="addDonThuoc" onclick="TaiKham();">+ Lịch tái khám</button>
+                                <button type="button" class="btn btn-success" style="margin:4px; padding:6px 12px" id="xemDonThuoc" onclick="XemDonThuoc();">Xem đơn thuốc</button>
+                                <button type="button" class="btn btn-info" style="margin:4px; padding:6px 12px" id="xemRangDieuTri" onclick="XemRangDieuTri();">Xem răng điều trị</button>
+                            </div>
                         </div>                                                                                                       
                     </form>
                 </div>

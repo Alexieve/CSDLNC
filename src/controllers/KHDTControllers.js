@@ -141,21 +141,21 @@ module.exports.KHDT_get_data = async(req, res) => {
         } 
         else if (column.data === 'NGAYDIEUTRI') {
             const formattedSearchValue = column.searchValue.split('/').reverse().join('-');
-            return `KHDT.CONVERT(NVARCHAR, ${column.data}, 120) LIKE '%${formattedSearchValue}%'`;
+            return `KHDT.NGAYDIEUTRI = '${formattedSearchValue}'`;
         }
         else if (column.data === 'TRANGTHAI'){
             if (column.searchValue == "đang điều trị" || column.searchValue == 1 ) return `KHDT.${column.data} = 1`;
             else if (column.searchValue == "đã hoàn thành" || column.searchValue == 2 ) return `KHDT.${column.data} = 2`;
             else if (column.searchValue == "đã hủy" || column.searchValue == 3) return `KHDT.${column.data} = 3`;
-            return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
+            return `KHDT.${column.data} LIKE N'${column.searchValue}%'`;
         }
         else if (column.data === 'TRANGTHAI_TIEN'){
             if (column.searchValue == "đã trả tiền") return `KHDT.MAHDTT IS NOT NULL`;
             else if (column.searchValue == "chưa trả tiền") return `KHDT.MAHDTT IS NULL`;
-            else return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
+            else return `KHDT.${column.data} LIKE N'${column.searchValue}%'`;
         }
         else {
-            return `KHDT.${column.data} LIKE N'%${column.searchValue}%'`;
+            return `KHDT.${column.data} LIKE N'${column.searchValue}%'`;
         }
     });
 
@@ -172,7 +172,7 @@ module.exports.KHDT_get_data = async(req, res) => {
     else if (MANS != null) filterQuery = `WHERE KHDT.KHAMCHINH = ${MANS} OR KHDT.TROKHAM = ${MANS} `
     else filterQuery = 'WHERE 1 = 1 '
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
-    //console.log(filterQuery);
+    console.log(filterQuery);
     // Truy vấn
     try {
         const pool = await conn;
@@ -256,7 +256,7 @@ module.exports.createKHDT_post = async (req, res) => {
         }
     }
     if (hasDuplicates) {
-        return res.status(400).json({ error: `Có cặp răng bị trùng lập` });
+        return res.status(400).json({ error: `Có cặp răng bị trùng lặp` });
     }  
     let MAKHDIEUTRI = null;
     try {

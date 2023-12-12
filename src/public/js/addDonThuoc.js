@@ -38,7 +38,7 @@ function education_fields() {
 
    var form = $('#form_DonThuoc');
    function submitForm(event) {
-       event.preventDefault()
+       event.preventDefault();
        var data = form.serialize();
        $.ajax({
            type: "POST",
