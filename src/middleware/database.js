@@ -1,8 +1,8 @@
 const sql = require('mssql')
 const config = {
   user: 'sa',
-  password: '123',
-  server: 'ATLAZ',
+  password: 'noitoi471',
+  server: 'DESKTOP-C7QTEP4',
   database: 'CSDLNC',
   options: {
     encrypt: true, 
@@ -11,7 +11,8 @@ const config = {
 };
 
 const conn = new sql.ConnectionPool(config).connect().then(pool => {
-    return pool;
+  console.log('Database Connected!');
+  return pool;
 }).catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
 module.exports = {

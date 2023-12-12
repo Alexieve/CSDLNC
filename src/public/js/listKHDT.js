@@ -25,7 +25,6 @@ $(document).ready(function() {
             { "data": "TENNSTROKHAM" },
             { "data": "TRANGTHAI",
                 "render": function(data, type, row) {
-                    console.log(data);
                     if (data == "Đang điều trị") {
                         return '<span class="text-primary font-weight-bold">Đang điều trị</span>';
                     } else if (data == "Đã hoàn thành") {
@@ -39,6 +38,9 @@ $(document).ready(function() {
             { "data": "MOTAKH", "visible": false },
             { "data": "GHICHU","visible": false },
             // Add more columns as needed
+        ],
+        "order": [
+            [4, "desc"] // Assuming NGAYDIEUTRI is at index 4
         ],
         "deferRender": true,
         "search": {
