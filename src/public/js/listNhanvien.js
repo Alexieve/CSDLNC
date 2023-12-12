@@ -90,3 +90,49 @@ $(document).ready(function () {
         $('#listNVModal').modal('show');
     });
 });
+
+var formUpdateNV = $('#form_update_NV');
+
+formUpdateNV.submit(function (e) {
+    e.preventDefault();
+
+    var dataUpdateNV = formUpdateNV.serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "/updateNV",
+        data: dataUpdateNV,
+        success: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nhân Viên thành công',
+                icon: 'success',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        },
+        error: function (data) {
+            $.toast({
+                heading: 'Cập nhật Nhân Viên thất bại',
+                icon: 'error',
+                showHideTransition: 'slide',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: false,
+                position: 'top-left',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+                afterHidden: function () { location.reload(); },
+            });
+        }
+    });
+});
+
+
