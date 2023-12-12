@@ -70,18 +70,19 @@ module.exports.weeklyMode_lichlamviec_get = async (req, res) => {
     const dimensions = [7,24];
     const sheetData = Array.from({ length: 7 }, () => Array(24).fill(0));
 
-
-    var januaryFirst = new Date(year, 0, 1);
-    var firstDay = new Date(januaryFirst.getTime() + ((week - 1) * 7 - januaryFirst.getDay() + 1) * 24 * 60 * 60 * 1000);
+    // console.log(new Date());
+    var firstDay = new Date(year, 0, (1 + (week - 1) * 7));
+    firstDay.setDate(firstDay.getDate() + (1 - firstDay.getDay()));
+    // console.log(firstDay);
     var dayList = [];
     for (var i = 0; i < 7; i++) {
         var currentDate = new Date(firstDay.getTime() + i * 24 * 60 * 60 * 1000);
         dayList.push({name: currentDate.toLocaleDateString()});
     }
 
-
-    var startDate = new Date(dayList[0].name)  
-    var endDate = new Date(dayList[6].name)
+    var startDate = new Date(firstDay.getTime() + 24 * 60 * 60 * 1000);
+    var endDate = new Date(firstDay.getTime() + 7 * 24 * 60 * 60 * 1000);
+    // console.log(startDate, endDate);
 
     // format daylist to dd/mm/yyyy
     dayList = dayList.map((day) => {
@@ -113,6 +114,7 @@ module.exports.weeklyMode_lichlamviec_get = async (req, res) => {
                 }
             }
         });
+
         res.status(200).json({
             dimensions: dimensions,
             dayList: dayList,
