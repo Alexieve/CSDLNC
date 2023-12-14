@@ -117,14 +117,14 @@ module.exports.createNS_post = async (req, res) => {
         await pool.request()
             .input('HOTEN', sql.NVarChar, HOTEN)
             .input('NGAYSINH', sql.VarChar, NGAYSINH)
-            .input('GIOITINH', sql.VarChar, GIOITINH)
+            .input('GIOITINH', sql.NVarChar, GIOITINH)
             .input('SDT', sql.VarChar, SDT)
             .input('DIACHI', sql.NVarChar, DIACHI)
-            .input('EMAIL', sql.NVarChar, EMAIL)
+            .input('EMAIL', sql.VarChar, EMAIL)
             .input('MACN', sql.Int, MACN)
-            .input('MATKHAU', sql.NVarChar, MATKHAU)
+            .input('MATKHAU', sql.VarChar, MATKHAU)
             .execute('SP_CREATE_NS');
-        res.status(200).json({ message: 'Thêm nha sĩ thành công' });
+        res.status(200).json({ message: 'Thêm nha sĩ thành công' })
     } catch (err) {
         console.error('SQL Server Error:', err.message);
         res.status(400).json({ error: err.message });

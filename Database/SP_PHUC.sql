@@ -2,7 +2,7 @@
 --(
 --	MATHUOC INT,
 --	SOLUONG INT
-)
+--)
 --go
 
 CREATE OR ALTER PROC SP_GETKHDT
