@@ -101,19 +101,6 @@ function validateForm() {
                 const tmp = JSON.parse(inputValue)
                 if (selectedCHINHANH == null || selectedCHINHANH.MACN != tmp.MACN) {
                     selectedCHINHANH = JSON.parse(inputValue)
-                    $('#MANS').flexdatalist({
-                        searchContain: true,
-                        minLength: 1,
-                        textProperty: '{MANS} - {HOTEN}',
-                        valueProperty:  ["MANS","HOTEN"],
-                        selectionRequired: true,
-                        visibleProperties: ["MANS","HOTEN"],
-                        searchDelay: 300,
-                        cache: false,
-                        searchIn: ["MANS","HOTEN"],
-                        url: `/createLH/search/nhasi/${selectedCHINHANH.MACN}`,
-                        relatives: '#relative'
-                    });
                 }
                 continue;
             }
@@ -135,9 +122,11 @@ function validateForm() {
         if (y[i].id == "MANS") {
             if (inputValue == "") {
                 selectedNHASI = {MANS: 'Hệ thống tự chọn', HOTEN: 'Hệ thống tự chọn'}
+                $('#MANSselected').val('')
                 continue;
             }
             selectedNHASI = JSON.parse(inputValue)
+            $('#MANSselected').val(selectedNHASI.MANS)
         }
         if (y[i].id == "NGAYHEN" || y[i].id == "GIOHEN") {
             if (inputValue == "") {
@@ -199,8 +188,10 @@ function submitForm() {
                 textAlign: 'left',  // Text alignment i.e. left, right or center
                 loader: true,  // Whether to show loader or not. True by default
                 loaderBg: '#9EC600',  // Background color of the toast loader
+                afterHidden: function () {
+                    location.reload();
+                }
             });
-            location.reload();
         },
         error: function (error) {
             // console.log(error);
@@ -233,4 +224,30 @@ document.getElementById("NGAYHEN").setAttribute("min", minDate.toISOString().spl
 document.getElementById("NGAYHEN").setAttribute("max", maxDate.toISOString().split('T')[0])
 
 
+function checkDateTime() {
+    var dateValue = $("#NGAYHEN").val();
+    var timeValue = $("#GIOHEN").val();
 
+    if (dateValue !== "" && timeValue !== "") {
+        $('#MANS').flexdatalist({
+            searchContain: true,
+            minLength: 1,
+            textProperty: '{MANS} - {HOTEN}',
+            valueProperty:  ["MANS","HOTEN"],
+            selectionRequired: true,
+            visibleProperties: ["MANS","HOTEN"],
+            searchDelay: 300,
+            cache: false,
+            searchIn: ["MANS","HOTEN"],
+            url: `/createLH/search/nhasi/${selectedCHINHANH.MACN}?date=${dateValue}&time=${timeValue}`,
+            relatives: '#relative'
+        });
+        $("#MANS-flexdatalist").prop("disabled", false);
+    } else {
+        $("#MANS-flexdatalist").prop("disabled", true);
+    }
+}
+
+$("#NGAYHEN, #GIOHEN").on("change", function() {
+    checkDateTime();
+});

@@ -43,11 +43,14 @@ module.exports.search_chinhanh_get = async (req, res) => {
 module.exports.search_nhasi_get = async (req, res) => {
     const MACN = req.params.MACN;
     const keyword = req.query.keyword.toLowerCase();
-    // console.log(MACN, keyword)
+    const NGAYHEN = req.query.date;
+    const GIOHEN = req.query.time + ":00";
     try {
         const pool = await conn;
         const result = (await pool.request()
         .input('MACN', sql.Int, MACN)
+        .input('NGAYHEN', sql.Date, NGAYHEN)
+        .input('GIOHENSTR', sql.VarChar, GIOHEN)
         .input('KEYWORD', sql.NVarChar, keyword)
         .execute('SP_SEARCH_NHASI_KEYWORD')).recordset
         res.status(200).json(result); 
@@ -60,11 +63,11 @@ module.exports.search_nhasi_get = async (req, res) => {
 }
 
 module.exports.createLH_post = async (req, res) => {
-    // console.log(req.body);
+    // console.log(req.body)
     let MANS = null
     let HOTENNS = null
-    if (req.body.MANS != '') {
-        MANS = JSON.parse(req.body.MANS).MANS
+    if (req.body.MANSselected !== '') {
+        MANS = parseInt(req.body.MANSselected)
         HOTENNS = req.body.HOTENNS
     }
 
