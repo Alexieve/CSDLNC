@@ -2,16 +2,7 @@ const {conn, sql} = require('../middleware/database')
 const jwt = require('jsonwebtoken')
 
 module.exports.Hoadon_get = async (req, res) => {
-    let result = null;
-    try {
-        const pool = await conn;
-        result = (await pool.request().execute('SP_GET_LIST_HOADON')).recordset
-    } catch (err) {
-        console.error('SQL Server Error:', err.message);
-    } finally {
-        sql.close();
-    }
-    res.render('listHoadon', {Hoadon: result});
+    res.render('listHoadon');
 }
 
 module.exports.list_Hoadon_dataTable = async (req, res) => {
@@ -61,7 +52,7 @@ module.exports.list_Hoadon_dataTable = async (req, res) => {
     var filterQuery = 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
 
-    console.log('SELECT * FROM THUOC ' + filterQuery +
+    console.log('SELECT * FROM HOADON ' + filterQuery +
     ' ORDER BY ' + column_name + ' ' + column_sort_order +
     ' OFFSET ' + start + ' ROWS FETCH NEXT ' + length + ' ROWS ONLY;')
 
@@ -128,7 +119,6 @@ module.exports.createHoadon_post = async (req, res) => {
     // console.log(MAKH, NGAYTT, NGUOITT, TONGTIENCANTT, SOTIENNHAN, SOTIENTHOI, LOAITT, NVTHANHTOAN, MAKHDIEUTRI)
     try {
         const pool = await conn;
-        let MAHDTT = null;
         const table = new sql.Table();
         table.columns.add('MAKHDT', sql.Int);
         for(var i=0; i < MAKHDIEUTRI.length; i++) {
@@ -142,15 +132,8 @@ module.exports.createHoadon_post = async (req, res) => {
         .input('LOAITT', sql.NVarChar, LOAITT)
         .input('NVTHANHTOAN', sql.Int, NVTHANHTOAN)
         .input('LIST_MAKHDT', table)
-        .output('MAHDTT', sql.Int, MAHDTT)
         .execute('SP_POST_CREATE_HOADON');
-        MAHDTT = result.output.MAHDTT
-        for(var i=0; i < MAKHDIEUTRI.length; i++) {
-            await pool.request()
-            .input('MAKHDIEUTRI', sql.Int, parseInt(MAKHDIEUTRI[i]))
-            .input('MAHDTT', sql.Int, MAHDTT)
-            .execute('SP_UPDATE_KHDT');
-        }
+
         res.status(200).json({success: 'Tạo hóa đơn thành công'}); 
     } catch (err) {
         console.error('SQL Server Error:', err.message);

@@ -88,6 +88,9 @@ $(document).ready(function() {
             { "width": "9%", "targets": 7 },
             { "width": "12%", "targets": 8 },
         ],
+        "order": [
+            [2, "desc"] 
+        ],
         "deferRender": true,
         "search": {
             "return": true,

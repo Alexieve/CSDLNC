@@ -236,6 +236,8 @@ $(document).ready(function () {
                 $(rows).eq(i).find('td:last').remove();
                 $(rows).eq(i).append(customContent);
             });
+            if($('#LOAINV').val() != 'true')
+                $('.dropdown-item.edit-trigger').prop('hidden', true);
         }
     });
 });

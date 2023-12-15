@@ -85,17 +85,6 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
     const LOAINV = parseInt(req.body.LOAINV);
 
     try {
-        // In giá trị của các biến trước khi thực hiện stored procedure
-        console.log('MANV:', MANV);
-        console.log('HOTEN:', HOTEN);
-        console.log('NGAYSINH:', NGAYSINH);
-        console.log('GIOITINH:', GIOITINH);
-        console.log('SDT:', SDT);
-        console.log('DIACHI:', DIACHI);
-        console.log('EMAIL:', EMAIL);
-        console.log('LOAINV:', LOAINV);
-        console.log('MATKHAU:', MATKHAU);
-
         const pool = await conn;
         await pool.request()
             .input('MANV', sql.Int, MANV)
@@ -136,12 +125,12 @@ module.exports.createNV_post = async (req, res) => {
         await pool.request()
             .input('HOTEN', sql.NVarChar, HOTEN)
             .input('NGAYSINH', sql.VarChar, NGAYSINH)
-            .input('GIOITINH', sql.VarChar, GIOITINH)
+            .input('GIOITINH', sql.NVarChar, GIOITINH)
             .input('SDT', sql.VarChar, SDT)
             .input('DIACHI', sql.NVarChar, DIACHI)
-            .input('EMAIL', sql.NVarChar, EMAIL)
+            .input('EMAIL', sql.VarChar, EMAIL)
             .input('LOAINV', sql.Bit, LOAINV)
-            .input('MATKHAU', sql.NVarChar, MATKHAU)
+            .input('MATKHAU', sql.VarChar, MATKHAU)
             .execute('SP_CREATE_NV');
         res.status(200).json({ message: 'Thêm nhân viên thành công' });
     } catch (err) {
