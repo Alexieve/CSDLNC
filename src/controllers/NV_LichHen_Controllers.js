@@ -63,7 +63,9 @@ module.exports.LichHen_get_data = async (req, res) => {
         else if (column.data === 'NGAYHEN') {
             // const formattedSearchValue = column.searchValue.split('/').reverse().join('-');
             // return `CONVERT(NVARCHAR, ${column.data}, 120) LIKE '%${formattedSearchValue}%'`;
-                return `${column.data} = ${column.searchValue}`
+            const parts = column.searchValue.split('/');
+            const formattedSearchValue = `'${parts[2]}-${parts[1]}-${parts[0]}'`;
+            return `${column.data} = ${formattedSearchValue}`
         } 
         else if (column.data === 'GIOHEN') {
             const formattedSearchValue2 = column.searchValue;
