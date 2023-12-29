@@ -94,8 +94,8 @@ module.exports.UpDateTrangThai = async(req,res) =>{
     try {
         const pool = await conn;
         await pool.request()
-        .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
         .input('TRANGTHAI', sql.Int, trangThai)
+        .input('MAKHDIEUTRI', sql.Int, MAKHDIEUTRI)
         .execute('SP_UPDATETRANGTHAI');
         res.status(200).redirect('/khdt');  
     } catch (err) {
