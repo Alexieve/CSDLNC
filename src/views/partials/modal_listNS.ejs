@@ -46,10 +46,12 @@
                         <label for="modalMACN">Mã Chi Nhánh:</label>
                         <input type="text" class="form-control" id="modalMACN" name="MACN" readonly>
                     </div>
+                    <% if (user.LOAINV == 1) { %>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
+                    <% } %>
                 </form>
             </div>
         </div>
