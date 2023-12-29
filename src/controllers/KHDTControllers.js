@@ -24,7 +24,6 @@ module.exports.xemDonThuoc = async (req, res) => {
     } finally {
         sql.close();
     }
-    console.log(result);
     res.render('xemDonThuoc',{ListDonThuoc: result});
 }
 
@@ -42,7 +41,6 @@ module.exports.xemRangDieuTri = async (req, res) => {
     } finally {
         sql.close();
     }
-    console.log(result);
     res.render('xemRangDieuTri',{ListRangDieuTri: result});
 }
 
@@ -172,7 +170,7 @@ module.exports.KHDT_get_data = async(req, res) => {
     else if (MANS != null) filterQuery = `WHERE KHDT.KHAMCHINH = ${MANS} OR KHDT.TROKHAM = ${MANS} `
     else filterQuery = 'WHERE 1 = 1 '
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
-    console.log(filterQuery);
+    //console.log(filterQuery);
     // Truy vấn
     try {
         const pool = await conn;

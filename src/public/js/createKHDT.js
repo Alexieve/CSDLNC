@@ -4,7 +4,7 @@ $('#MAHSBN').flexdatalist({
     valueProperty: ["MAHSBN","HOTENBN", "SDTBN"],
     selectionRequired: true,
     visibleProperties: ["MAHSBN","HOTENBN", "SDTBN"],
-    searchIn: 'MAHSBN',
+    searchIn: ["MAHSBN","HOTENBN", "SDTBN"],
     url: '/createKHDT/search/patients',
     relatives: '#relative'
 });
@@ -78,7 +78,6 @@ function validateForm() {
   for (i = 0; i < y.length; i++) {
     console.log(y[i].id);
     if (y[i].id =="MANSKP" || y[i].id == "MANSKP-flexdatalist"){
-      valid = true;
     }
     else if (y[i].value == "") {
       // add an "invalid" class to the field:
