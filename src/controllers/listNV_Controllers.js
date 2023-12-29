@@ -85,6 +85,17 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
     const LOAINV = parseInt(req.body.LOAINV);
 
     try {
+        // In giá trị của các biến trước khi thực hiện stored procedure
+        console.log('MANV:', MANV);
+        console.log('HOTEN:', HOTEN);
+        console.log('NGAYSINH:', NGAYSINH);
+        console.log('GIOITINH:', GIOITINH);
+        console.log('SDT:', SDT);
+        console.log('DIACHI:', DIACHI);
+        console.log('EMAIL:', EMAIL);
+        console.log('LOAINV:', LOAINV);
+        console.log('MATKHAU:', MATKHAU);
+
         const pool = await conn;
         await pool.request()
             .input('MANV', sql.Int, MANV)
