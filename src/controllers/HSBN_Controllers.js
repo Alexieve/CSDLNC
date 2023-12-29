@@ -25,7 +25,7 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
     const columns = req.query.columns.map(column => ({
         data: column.data,
         searchable: column.searchable,
-        searchValue: column.search.value.toLowerCase(),
+        searchValue: column.search.value.toLowerCase()
     }));
 
     // Lọc ra các dữ liệu search
@@ -35,7 +35,14 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
         if (column.data === 'MAHSBN' ||
             column.data === 'TONGTIENDIEUTRI' || 
             column.data === 'DATHANHTOAN' ||
-            column.data === 'SDTBN') {            
+            column.data === 'SDTBN' ||
+            column.data === 'GIOITINH') {     
+            if (column.data === 'SDTBN') {
+                return `${column.data} = '${column.searchValue}'`;
+            } 
+            if (column.data === 'GIOITINH') {
+                return `${column.data} = N'${column.searchValue}'`;
+            }      
             return `${column.data} = ${column.searchValue}`;
         } 
         else if (column.data === 'NGAYSINH') {
@@ -57,6 +64,7 @@ module.exports.HoSoBenhNhan_get_data = async (req, res) => {
 
     // Truy vấn
     try {
+        console.log(filterQuery);
         const pool = await conn;
         const result = await pool.request()
         .input('FILTERQUERY', sql.NVarChar, filterQuery)

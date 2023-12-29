@@ -1,10 +1,11 @@
 $('#MATHUOC').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MATHUOC} - {TENTHUOC}',
     valueProperty: ["MATHUOC","TENTHUOC"],
     selectionRequired: true,
     visibleProperties: ["MATHUOC","TENTHUOC"],
-    searchIn: 'MATHUOC',
+    searchIn: ["MATHUOC","TENTHUOC"],
     url: '/addDonThuoc/search/thuoc',
     relatives: '#relative'
 });
@@ -22,17 +23,19 @@ function education_fields() {
 
     objTo.appendChild(divtest);
     $('#MATHUOC' + room).flexdatalist({
+        searchContain: true,
         minLength: 1,
         textProperty: '{MATHUOC} - {TENTHUOC}',
         valueProperty: ['MATHUOC', 'TENTHUOC'],
         selectionRequired: true,
         visibleProperties: ['MATHUOC', 'TENTHUOC'],
-        searchIn: 'MATHUOC',
+        searchIn: ["MATHUOC","TENTHUOC"],
         url: '/addDonThuoc/search/thuoc',
         relatives: '#relative',
     });
 }
    function remove_education_fields(rid) {
+       $('#MATHUOC' + room).flexdatalist('destroy');
 	   $('.removeclass'+rid).remove();
    } 
 

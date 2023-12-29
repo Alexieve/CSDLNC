@@ -1,29 +1,38 @@
 $('#MAHSBN').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MAHSBN} - {HOTENBN} - {SDTBN}',
     valueProperty: ["MAHSBN","HOTENBN", "SDTBN"],
     selectionRequired: true,
     visibleProperties: ["MAHSBN","HOTENBN", "SDTBN"],
-    searchIn: 'MAHSBN',
+    searchDelay: 300,
+    cache: false,
+    searchIn: ["MAHSBN","HOTENBN", "SDTBN"],
     url: '/createKHDT/search/patients',
     relatives: '#relative'
 });
 $('#MANS').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MANS} - {HOTEN}',
     valueProperty: ["MANS","HOTEN"],
     selectionRequired: true,
     visibleProperties: ["MANS","HOTEN"],
+    searchDelay: 300,
+    cache: false,
     searchIn: ["MANS","HOTEN"],
     url: '/createKHDT/search/dentists',
     relatives: '#relative'
 });
 $('#MANSKP').flexdatalist({
+    searchContain: true,
     minLength: 1,
     textProperty: '{MANS} - {HOTEN}',
     valueProperty: ["MANS","HOTEN"],
     selectionRequired: false,
     visibleProperties: ["MANS","HOTEN"],
+    searchDelay: 300,
+    cache: false,
     searchIn: ["MANS","HOTEN"],
     url: '/createKHDT/search/dentists',
     relatives: '#relative'
@@ -78,7 +87,6 @@ function validateForm() {
   for (i = 0; i < y.length; i++) {
     console.log(y[i].id);
     if (y[i].id =="MANSKP" || y[i].id == "MANSKP-flexdatalist"){
-      valid = true;
     }
     else if (y[i].value == "") {
       // add an "invalid" class to the field:
