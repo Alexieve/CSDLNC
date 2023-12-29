@@ -28,6 +28,13 @@ $(document).ready(function () {
         searchIn: ["MAKH","HOTEN", "SDT"],
         url: '/makh_get',
         relatives: '#relative'
+    }).on("change:flexdatalist", function(event, set, options) {
+        if (set && set.value) {
+            const textParts = set.text.split(' - ');
+            $('#NGUOITT').val(textParts[1]);
+        } else {
+            $('#NGUOITT').val('');
+        }
     });
     $('#SOTIENNHAN').on('input', function () {
         // Hàm xử lý sau khi giá trị thay đổi
@@ -100,7 +107,6 @@ function validateForm() {
         var inputNGUOITT_value = $('#NGUOITT').val()
         var inputMAKH_value = $('#MAKH').val()
         var inputLOAITT_value = $('#LOAITT').val()
-        console.log(inputNGUOITT_value)
         if (((inputLOAITT_value == 'Ví điện tử' || inputLOAITT_value == 'Chuyển khoản') && inputMAKH_value == '') || (inputLOAITT_value == 'Tiền mặt' && inputNGUOITT_value == '')) {
             valid = false;
             $.toast({
@@ -154,14 +160,15 @@ function validateForm() {
                         // Populate data into input2
                         $('#MAKHDIEUTRI').flexdatalist({
                             data: data,
-                            minLength: 0,
+                            minLength: 1,
                             textProperty: text,
                             valueProperty: 'MAKHDIEUTRI',
                             selectionRequired: true,
                             visibleProperties: visible,
                             searchIn: search,
                             searchContain: true,
-                            multiple: true
+                            multiple: true,
+                            hideSelected: true
                             // Other options if needed
                         });
                     },
