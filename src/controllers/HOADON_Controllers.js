@@ -92,15 +92,6 @@ module.exports.list_Hoadon_dataTable = async (req, res) => {
 }
 
 module.exports.createHoadon_get = async (req, res) => {
-    let result = null;
-    try {
-        const pool = await conn;
-        result = (await pool.request().execute('SP_GET_LIST_KH')).recordset
-    } catch (err) {
-        console.error('SQL Server Error:', err.message);
-    } finally {
-        sql.close();
-    }
     res.render('createHoadon', {NVTHANHTOAN: res.locals.user.ID});
 }
 
