@@ -47,10 +47,12 @@
                             <option value="1">Quản Trị Viên</option>
                         </select>
                     </div>
+                    <% if (user.LOAINV == 1) { %>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
+                    <% } %>
                 </form>
             </div>
         </div>
