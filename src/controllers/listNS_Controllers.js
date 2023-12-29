@@ -110,8 +110,9 @@ module.exports.createNS_post = async (req, res) => {
     const SDT = req.body.SDT;
     const DIACHI = req.body.DIACHI;
     const EMAIL = req.body.EMAIL;
-    const MACN = req.body.MACN;
+    const MACN = JSON.parse(req.body.MACN).MACN;
     const MATKHAU =  req.body.MATKHAU;
+    // console.log(HOTEN, NGAYSINH, GIOITINH, SDT, DIACHI, EMAIL, MACN, MATKHAU);
     try {
         const pool = await conn;
         await pool.request()

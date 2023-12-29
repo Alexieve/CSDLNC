@@ -1,3 +1,17 @@
+$('#MACN').flexdatalist({
+    searchContain: true,
+    minLength: 1,
+    textProperty: '{MACN} - {TENCN}',
+    valueProperty: ["MACN","TENCN", "DIACHICN", "SDTCN"],
+    selectionRequired: true,
+    visibleProperties: ["MACN","TENCN", "DIACHICN", "SDTCN"],
+    searchDelay: 300,
+    cache: false,
+    searchIn: ["MACN","TENCN", "DIACHICN", "SDTCN"],
+    url: '/createLH/search/chinhanh',
+    relatives: '#relative'
+});
+
 var form = $('#form_NV');
 function submitForm() {
     var isValid = true;
