@@ -65,7 +65,7 @@ function nextPrev(n) {
     x[currentTab].style.display = "none";
     currentTab = currentTab + n;
     if (currentTab >= x.length) {
-        // document.getElementById("nextprevious").style.display = "none";
+        document.getElementById("nextprevious").style.display = "none";
         submitForm();
         return false;
     }
@@ -273,6 +273,7 @@ function submitForm() {
                 textAlign: 'left',  // Text alignment i.e. left, right or center
                 loader: true,  // Whether to show loader or not. True by default
                 loaderBg: '#9EC600',  // Background color of the toast loader
+                afterHidden: function () { window.location.href = "/createHoadon";},
             });
         },
         error: function (error) {
