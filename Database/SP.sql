@@ -761,13 +761,29 @@ BEGIN TRAN
 	FROM LICHNGHI
 	WHERE MANS = @MANS AND NGAYNGHI = @NGAYNGHI
 
-	IF (@CHECK = 0)
+	IF (@CHECK = 1)
+	BEGIN 
+		RAISERROR('Nha sĩ đã được cho phép nghỉ ngày này rồi.', 16, 1)
+		ROLLBACK TRAN
+		RETURN
+	END
+
+	SELECT @CHECK = 1
+	FROM LICHHEN
+	WHERE MANS = @MANS AND NGAYHEN = @NGAYNGHI
+
+	IF (@CHECK = 1)
+	BEGIN 
+		RAISERROR('Nha sĩ có lịch hẹn vào ngày này, không được phép nghỉ!', 16, 1)
+		ROLLBACK TRAN
+		RETURN
+	END
+
 	BEGIN TRY
 		INSERT INTO LICHNGHI VALUES (@MANS, @NGAYNGHI)
 	END TRY
 	BEGIN CATCH
-		RAISERROR('Nha sĩ đã được cho phép nghỉ ngày này rồi.', 16, 1)
-		ROLLBACK TRAN
+		RAISERROR('Không thực hiện được.', 16, 1)
 	END CATCH
 COMMIT TRAN
 GO

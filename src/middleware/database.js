@@ -5,7 +5,6 @@ const config = {
   server: 'NGUYENKHA',
   database: 'CSDLNC',
   options: {
-    instanceName: 'SQLEXPRESS',
     encrypt: true, 
     trustServerCertificate: true,
   },
