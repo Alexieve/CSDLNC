@@ -5,6 +5,7 @@ const config = {
   server: 'DESKTOP-C7QTEP4',
   database: 'CSDLNC',
   options: {
+    instanceName: 'SQLEXPRESS',
     encrypt: true, 
     trustServerCertificate: true,
   },
