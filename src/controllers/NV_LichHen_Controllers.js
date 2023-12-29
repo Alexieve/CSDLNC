@@ -78,25 +78,32 @@ module.exports.LichHen_get_data = async (req, res) => {
 
     let MAKH = null;
     var filterQuery = null;
+    let khachhangcheck = null;
     if (res.locals.user.LOAITK == 1) 
         {
             MAKH = res.locals.user.ID;
-            filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
+            khachhangcheck = res.locals.user.ID;
+            filterQuery = '';
+            
         }
     else if (res.locals.user.LOAITK == 2) 
         {
             MAKH = res.locals.user.ID;
             filterQuery = MAKH ? `WHERE MANS = ${MAKH} ` : 'WHERE 1 = 1 ';
+            khachhangcheck = 0;
         }
     else 
         {
             filterQuery = 'WHERE 1 = 1 ';
+            khachhangcheck = 0;
         }    
     // Tạo điều kiện cho câu truy vấn
     // var filterQuery = MAKH ? `WHERE MAHSBN = ${MAKH} ` : 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
-
-    //console.log(filterQuery);
+    console.log(filterQuery);
+    
+    // var filterQuery2 = 'WHERE 1 =1';
+    // filterQuery2 += filterConditions.length > 0 ? `AND LH.${filterConditions.join(' AND LH.')}` : '';
     // Truy vấn
     try {
         const pool = await conn;
@@ -106,8 +113,9 @@ module.exports.LichHen_get_data = async (req, res) => {
         .input('COLSORTORDER', sql.NVarChar, colSortOrder)
         .input('OFFSET_START', sql.NVarChar, start)
         .input('LENGTH', sql.NVarChar, length)
+        .input('KHACHHANGCHECK', sql.Int, khachhangcheck)
         .execute('SP_GET_DATATABLE_LICHHEN')
-        //console.log(filterQuery);
+        
         var recordsTotal = result.recordsets[0][0].recordsTotal;
         var recordsFiltered = result.recordsets[1][0].recordsTotal;
         var data = result.recordsets[2];
