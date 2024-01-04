@@ -83,6 +83,7 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
     const GIOITINH = req.body.GIOITINH;
     const DIACHI = req.body.DIACHI;
     const LOAINV = parseInt(req.body.LOAINV);
+    const MATKHAU = req.body.MATKHAU;
 
     try {
         // In giá trị của các biến trước khi thực hiện stored procedure
@@ -90,9 +91,7 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
         console.log('HOTEN:', HOTEN);
         console.log('NGAYSINH:', NGAYSINH);
         console.log('GIOITINH:', GIOITINH);
-        console.log('SDT:', SDT);
         console.log('DIACHI:', DIACHI);
-        console.log('EMAIL:', EMAIL);
         console.log('LOAINV:', LOAINV);
         console.log('MATKHAU:', MATKHAU);
 
@@ -104,6 +103,7 @@ module.exports.Nhansu_Nhanvien_post = async (req, res) => {
             .input('GIOITINH', sql.NVarChar, GIOITINH)
             .input('DIACHI', sql.NVarChar, DIACHI)
             .input('LOAINV', sql.Bit, LOAINV)
+            .input('MATKHAU', sql.VarChar, MATKHAU)
             .execute('SP_UPDATE_NHANVIEN');
 
         res.status(200).redirect('/listNV');

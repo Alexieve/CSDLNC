@@ -46,6 +46,10 @@
                         <label for="modalMACN">Mã Chi Nhánh:</label>
                         <input type="text" class="form-control" id="modalMACN" name="MACN" readonly>
                     </div>
+                    <div class="form-group">
+                        <label for="modalMATKHAU">Mật khẩu:</label>
+                        <input type="password" class="form-control" id="modalMATKHAU" name="MATKHAU" minlength="8", maxlength="50" required>
+                    </div>
                     <% if (user.LOAINV == 1) { %>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
