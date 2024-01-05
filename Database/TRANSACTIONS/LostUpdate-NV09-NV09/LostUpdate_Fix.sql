@@ -15,12 +15,7 @@ BEGIN TRAN
         SET
             XACNHAN = 1
         WHERE MALH = @MALH AND XACNHAN = 0;
-	IF @@ROWCOUNT = 0
-        BEGIN
-            RAISERROR('No rows were affected .', 16, 1);
-            ROLLBACK TRAN;
-            RETURN;
-        END
+	
 	END TRY
 	BEGIN CATCH
         DECLARE @ErrorMessage NVARCHAR(4000);
