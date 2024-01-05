@@ -17,7 +17,9 @@ BEGIN TRAN
         WHERE MALH = @MALH;
 	END TRY
 	BEGIN CATCH
-        RAISERROR('System error or foreign key violation!', 16, 1);
+        DECLARE @ErrorMessage NVARCHAR(4000);
+		SET @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, 16, 1);
 		ROLLBACK TRAN
 		RETURN
     END CATCH
@@ -39,7 +41,9 @@ BEGIN TRAN
 		WHERE MALH = @MALH
 	END TRY
 	BEGIN CATCH
-        RAISERROR('System error or foreign key violation!', 16, 1);
+        DECLARE @ErrorMessage NVARCHAR(4000);
+		SET @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, 16, 1);
 		ROLLBACK TRAN
 		RETURN
     END CATCH
