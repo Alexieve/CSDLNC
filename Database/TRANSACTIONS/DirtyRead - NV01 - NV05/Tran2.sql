@@ -1,0 +1,1 @@
+exec SP_GET_DATATABLE_KHDIEUTRI 'where 1=1', 'MAKHDIEUTRI', 'desc', '0', '10', NULL
