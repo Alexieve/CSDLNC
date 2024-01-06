@@ -2,7 +2,7 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: '123',
-  server: 'ALEX',
+  server: 'NGUYENKHA',
   database: 'CSDLNC',
   options: {
     instanceName: 'SQLEXPRESS',
