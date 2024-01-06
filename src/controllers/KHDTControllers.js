@@ -170,7 +170,12 @@ module.exports.KHDT_get_data = async(req, res) => {
     else if (MANS != null) filterQuery = `WHERE KHDT.KHAMCHINH = ${MANS} OR KHDT.TROKHAM = ${MANS} `
     else filterQuery = 'WHERE 1 = 1 '
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
-    //console.log(filterQuery);
+    // console.log(filterQuery);
+    // console.log(colName);
+    // console.log(colSortOrder);
+    // console.log(start);
+    // console.log(length);
+    // console.log(MAKH);
     // Truy vấn
     try {
         const pool = await conn;
