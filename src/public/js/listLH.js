@@ -67,7 +67,7 @@ $(document).ready(function() {
                             <div class="dropdown-menu">
                                 ${(xacNhanValue == '0' )? '<a class="dropdown-item accept-trigger"><i class="fa fa-eye text-primary"></i> Xác Nhận</a>': ''  }
                                 ${(xacNhanValue == '0' )? '<a class="dropdown-item deny-trigger"><i class="fa fa-edit text-primary"></i> Từ Chối/Xóa</a>': '' }
-                                ${(xacNhanValue == '1' && new Date(row.NGAYHEN) < new Date() )? '' : '<a class="dropdown-item edit-trigger"><i class="fa fa-edit text-primary"></i> Điều Chỉnh</a>'}
+                                
                             </div>
                         </td>
                     `;
