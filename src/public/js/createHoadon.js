@@ -306,13 +306,10 @@ function submitForm() {
 }
 
 function setConfirmTab() {
-    var currentDate = new Date();
-    var formattedDate = currentDate.toISOString().split('T')[0];
     $('#NVTHANHTOAN').val($('#confirmNVTHANHTOAN').text())
-    $('#NGAYTT').val(formattedDate)
 
     $('#confirmMAKH').text($('#MAKH').val());
-    $('#confirmNGAYTT').text(formattedDate);
+    $('#confirmNGAYTT').text($('#NGAYTT').val());
     $('#confirmNGUOITT').text($('#NGUOITT').val());
     $('#confirmMAKHDIEUTRI').text($('#MAKHDIEUTRI').val());
     $('#confirmTONGTIENCANTT').text($('#TONGTIENCANTT').val());

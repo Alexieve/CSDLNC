@@ -1,0 +1,3 @@
+﻿EXEC SP_UPDATE_NHASI 1, N'Lô Hoàng Tiên', '2015-08-21', N'Nam', N'Quận 10', '23012003'
+
+EXEC SP_UPDATE_NHASI 1, N'Lô Hoàng Tiên', '2015-08-21', N'Nam', N'Quận 10', '12345678'

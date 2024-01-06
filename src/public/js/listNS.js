@@ -66,6 +66,7 @@ $(document).ready(function() {
 
     $('tbody').on('click', 'tr', function () {
         var nhasi = table.row(this).data();
+        nhasi.MATKHAU = nhasi.MATKHAU.replace(/\s+/g, '');
         console.log('Dòng được click:', nhasi);
 
         // Display the clicked row's data in a modal
@@ -81,6 +82,7 @@ $(document).ready(function() {
         $('#modalDIACHI').val(nhasi.DIACHI);
         $('#modalEMAIL').val(nhasi.EMAIL);
         $('#modalMACN').val(nhasi.MACN);
+        $('#modalMATKHAU').val(nhasi.MATKHAU);
         // Add more lines to set other modal fields
         $('#listNSModal').modal('show');
     });

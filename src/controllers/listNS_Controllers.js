@@ -74,12 +74,13 @@ module.exports.listNS_get_data = async (req, res) => {
 
 //update
 module.exports.Nhansu_Nhasi_post = async (req, res) => {
-    //console.log(req.body);
+    console.log(req.body);
     const MANS = parseInt(req.body.MANS);
     const HOTEN = req.body.HOTEN;
     const NGAYSINH = req.body.NGAYSINH;
     const GIOITINH = req.body.GIOITINH;
     const DIACHI = req.body.DIACHI;
+    const MATKHAU = req.body.MATKHAU;
 
     try {
         const pool = await conn;
@@ -89,6 +90,7 @@ module.exports.Nhansu_Nhasi_post = async (req, res) => {
             .input('NGAYSINH', sql.Date, NGAYSINH)
             .input('GIOITINH', sql.NVarChar, GIOITINH)
             .input('DIACHI', sql.NVarChar, DIACHI)
+            .input('MATKHAU', sql.VarChar, MATKHAU)
             .execute('SP_UPDATE_NHASI');
         res.status(200).redirect('/listNS');
     } catch (err) {

@@ -52,9 +52,9 @@ module.exports.list_Hoadon_dataTable = async (req, res) => {
     var filterQuery = 'WHERE 1 = 1 ';
     filterQuery += filterConditions.length > 0 ? `AND ${filterConditions.join(' AND ')}` : '';
 
-    // console.log('SELECT * FROM HOADON ' + filterQuery +
-    // ' ORDER BY ' + column_name + ' ' + column_sort_order +
-    // ' OFFSET ' + start + ' ROWS FETCH NEXT ' + length + ' ROWS ONLY;')
+    console.log('SELECT * FROM HOADON ' + filterQuery +
+    ' ORDER BY ' + column_name + ' ' + column_sort_order +
+    ' OFFSET ' + start + ' ROWS FETCH NEXT ' + length + ' ROWS ONLY;')
 
     try {
         const pool = await conn;

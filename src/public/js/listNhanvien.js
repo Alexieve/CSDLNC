@@ -72,7 +72,10 @@ $(document).ready(function () {
 
     $('tbody').on('click', 'tr', function () {
         var nhanvien = table.row(this).data();
+        nhanvien.MATKHAU = nhanvien.MATKHAU.replace(/\s+/g, '');
         console.log('Dòng được click:', nhanvien);
+
+        
         $('#modalMANV').val(nhanvien.MANV);
         $('#modalHOTEN').val(nhanvien.HOTEN);
         var ngaySinh = new Date(nhanvien.NGAYSINH).toLocaleDateString('vi-VN');
@@ -87,6 +90,7 @@ $(document).ready(function () {
         var loaiNVText = nhanvien.LOAINV == true ? 1 : 0;
         console.log(loaiNVText);
         $('#modalLOAINV').val(loaiNVText);
+        $('#modalMATKHAU').val(nhanvien.MATKHAU);
         $('#listNVModal').modal('show');
     });
 });
